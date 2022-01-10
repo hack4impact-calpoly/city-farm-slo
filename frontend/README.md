@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Frontend
+
+To initialize the frontend, all you need to do is run `npm i` while you're in the frontend directory. Then use `npm start` to get React up and running!
+
+I'd also highly reccomend getting the ESLint and Prettier extentions for your IDE. If you combine this with the "format on save" feature in the settings, the linter will be much easier to work with!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
