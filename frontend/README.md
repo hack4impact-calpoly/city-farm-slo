@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Frontend
+
+To initialize the frontend, all you need to do is run `npm i` while you're in the frontend directory. Then use `npm start` to get React up and running!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
