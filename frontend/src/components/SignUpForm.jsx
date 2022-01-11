@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import TextField from '@material-ui/core/TextField';
-import { useForm, Controller } from "react-hook-form";
-
-// Users will need need to fill out a couple text fields to sign up for an event. For this task, you will set up the form that should be necessary to sign up. This task was inspired by the existing sign up page here, but please don't worry about any styling yet!
+import { TextField, Button, Typography } from "@material-ui/core";
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 
 // Requirements
 //  Using the text fields from the MUI library, set up a form that accepts a name, email, phone number, and any notes. Please note you may have to install the mui library using npm if it hasn't already been installed.
@@ -12,40 +12,117 @@ import { useForm, Controller } from "react-hook-form";
 //  Using an NPM package like react-hook-form or formik, add validation and small error messages if the user doesn't fill out a required field or formats their email or phone number wrong
 
 const SignUpForm = () => {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [number, setNumber] = useState('')
-    const [notes, setNotes] = useState('')
     const variant = "outlined"
-    const handleSubmit = () => console.log({name, email, number, notes})
+    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+    const validationSchema = Yup.object().shape({
+        name: Yup.string().required("Required field"),
+        email: Yup.string()
+            .required("Required field")
+            .email('Invalid format'),
+        number: Yup.string()
+            .required("Required field")
+            .matches(phoneRegExp, 'Invalid format')
+            .min(10, "Too short")
+            .max(10, "Too long")
+    });
+    const {register, control, handleSubmit, formState: { errors }} = useForm({
+        resolver: yupResolver(validationSchema)
+    });
+    const onSubmit = data => {
+        console.log(JSON.stringify(data, null, 2));
+        errors.name?.message
+    };
 
     return (
         <div>
-            <form onSubmit={handleSubmit} noValidate autoComplete="off">
-                <TextField label="Name" variant={variant} required 
-                    value = {name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-                <TextField label="Email" variant={variant} required
-                    value = {email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <TextField label="Phone Number" variant={variant} required
-                    value = {number}
-                    onChange={(e) => setNumber(e.target.value)}
-                />
-                <TextField label="Notes" variant={variant}
-                    value = {notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                />
-                {/* More standard for notes? */}
-                {/* <textarea
-                    value = {notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                /> */}
-                <button type="submit">Submit</button>
-            </form>
+            {/* ---------- Name ---------- */}
+            <TextField name="name" label="Name" required 
+                variant={variant}
+                {...register('name')}
+                error={errors.name ? true : false}
+            />
+            {/* <Typography variant="inherit" color="textSecondary">
+                {errors.name?.message}
+            </Typography> */}
+            {/* ---------- Email ---------- */}
+            <TextField name="email" label="Email" required
+                variant={variant}
+                {...register('email')}
+                error={errors.email ? true : false}
+            />
+            <Typography variant="inherit" color="textSecondary">
+                {errors.email?.message}
+            </Typography>
+            {/* ---------- Phone Number ---------- */}
+            <TextField name="number" label="Phone Number" required
+                variant={variant}
+                {...register('number')}
+                error={errors.number ? true : false}
+            />
+            <Typography variant="inherit" color="textSecondary">
+                {errors.number?.message}
+            </Typography>
+            {/* ---------- Notes ---------- */}
+            <TextField name="notes" label="Notes" 
+                variant={variant}
+                {...register('notes')}
+            />
+            {/* ---------- Submit Data ---------- */}
+            <Button variant={"contained"} color="primary" onClick={handleSubmit(onSubmit)}> Submit </Button>
         </div>
+        // <form onSubmit={handleSubmit(data => console.log(data))} noValidate autoComplete="off">
+        //     <Controller name="name" defaultValue=""
+        //         control={control} 
+        //         render={({field: {onChange, value}, fieldState: {error}}) => (
+        //             <TextField label="Name" variant={variant} required
+        //                 value={value}
+        //                 onChange={onChange}
+        //                 error={!!error}
+        //                 helperText={error ? error.message : null}
+        //             />
+        //         )}
+        //         rules={{required: 'Name required'}}
+        //     />
+        //     <Controller name="email" defaultValue=""
+        //         control={control} 
+        //         render={({field: {onChange, value}, fieldState: {error}}) => (
+        //             <TextField label="Email" variant={variant} required
+        //                 value={value}
+        //                 onChange={onChange}
+        //                 error={!!error}
+        //                 helperText={error ? error.message : null}
+        //             />
+        //         )}
+        //         rules={{required: 'Email required'}}
+        //     />
+        //     <Controller name="phone-number" defaultValue=""
+        //         control={control} 
+        //         render={({field: {onChange, value}, fieldState: {error}}) => (
+        //             <TextField label="Phone Number" variant={variant} required
+        //                 value={value}
+        //                 onChange={onChange}
+        //                 error={!!error}
+        //                 helperText={error ? error.message : null}
+        //             />
+        //         )}
+        //         rules={{required: 'Phone number required'}}
+        //     />
+        //     <Controller name="notes" defaultValue=""
+        //         control={control} 
+        //         render={({field: {onChange, value}, fieldState: {error}}) => (
+        //             <TextField label="Notes" variant={variant} 
+        //                 value={value}
+        //                 onChange={onChange}
+        //                 error={!!error}
+        //                 helperText={error ? error.message : null}
+        //             />
+        //         )}
+        //     />
+        //     <Button type="submit" variant="contained" color="primary">
+        //         Submit
+        //     </Button>
+        // </form>
     )
 }
 

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Fragment } from 'react';
 import SignUpForm from "./components/SignUpForm";
 
 function App() {
   return (
     <div>
       <p>Welcome to City Farm SLO!</p>
-      <SignUpForm/>
+      <SignUpForm/> 
     </div>
   );
 }
