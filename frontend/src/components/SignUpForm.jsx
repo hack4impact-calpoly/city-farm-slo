@@ -18,7 +18,7 @@ const SignUpForm = () => {
     // validation 
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
     const validationSchema = Yup.object().shape({
-        name: Yup.string().required("Requiredasdfasd field"),
+        name: Yup.string().required("Required field"),
         email: Yup.string()
             .required("Required field")
             .email("Invalid format"),
