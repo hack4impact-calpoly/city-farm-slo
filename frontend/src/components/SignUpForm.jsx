@@ -38,41 +38,28 @@ const SignUpForm = () => {
         reset();
     };
 
+    // info for required entries
+    const rEntries = [
+        {name: "name", label: "Name"}, 
+        {name: "email", label: "Email"}, 
+        {name: "number", label: "Phone Number"}
+    ];
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            {/* ------- Name -------  */}
-            <Controller name="name" defaultValue="" control={control} 
-                render={({field: {onChange, value}, fieldState: {error}}) => (
-                    <TextField label="Name" variant={variant} required
-                        value={value}
-                        onChange={onChange}
-                        error={!!error}
-                        helperText={error ? error.message : null}
-                    />
-                )}
-            />
-            {/* ------- Email -------  */}
-            <Controller name="email" defaultValue="" control={control} 
-                render={({field: {onChange, value}, fieldState: {error}}) => (
-                    <TextField label="Email" variant={variant} required
-                        value={value}
-                        onChange={onChange}
-                        error={errors.email ? true : false}
-                        helperText={error ? error.message : null}
-                    />
-                )}
-            />
-            {/* ------- Phone Number -------  */}
-            <Controller name="number" defaultValue="" control={control} 
-                render={({field: {onChange, value}, fieldState: {error}}) => (
-                    <TextField label="Phone Number" variant={variant} required
-                        value={value}
-                        onChange={onChange}
-                        error={errors.number ? true : false}
-                        helperText={error ? error.message : null}
-                    />
-                )}
-            />
+            {/* ------- Name, Email, Phone Number -------  */}
+            {rEntries.map((entry) => (
+                <Controller key={entry.name} name={entry.name} defaultValue="" control={control} 
+                    render={({field: {onChange, value}, fieldState: {error}}) => (
+                        <TextField required label={entry.label} 
+                            variant={variant}value={value}
+                            onChange={onChange}
+                            error={!!error}
+                            helperText={error ? error.message : null}
+                        />
+                    )} 
+                />
+            ))}
             {/* ------- Notes -------  */}
             <Controller name="notes" defaultValue="" control={control} 
                 render={({field: {onChange, value}}) => (
