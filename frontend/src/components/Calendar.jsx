@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { isMobile } from "react-device-detect";
 
 // Requirements
 // - Look through NPM and see the available calendar components for React. Pay close attention to how popular they are, how useful the documentation is, and if it will be able to service the needs described in our PRD
@@ -21,15 +22,17 @@ export default function Calendar() {
   return (
     <div>
       <p>Select Date:</p>
-
-      {/* pop up calendar */}
-      <DatePicker
-        selected={date}
-        onChange={(d) => setDate(d)}
-        fixedHeight
-        withPortal
-      />
-
+      {/* pop up calendar - uses portal version on mobile devices to fit screen size */}
+      {isMobile ? (
+        <DatePicker
+          selected={date}
+          onChange={(d) => setDate(d)}
+          fixedHeight
+          withPortal
+        />
+      ) : (
+        <DatePicker selected={date} onChange={(d) => setDate(d)} fixedHeight />
+      )}
       {/* placeholder for available spaces */}
       <p>Available Spaces for {date.toLocaleDateString()}: 0</p>
     </div>
