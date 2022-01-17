@@ -11,5 +11,7 @@ module.exports = {
   plugins: ["prettier"],
   rules: {
     "prettier/prettier": "error",
+    // allow console statements
+    "no-console": 0,
   },
 };
