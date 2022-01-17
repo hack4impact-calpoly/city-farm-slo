@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-          cache: 'npm --prefix ./frontend'
-      - run: npm install
-      - run: npm test
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm install 
+      - run: npm test --prefix ./frontend
