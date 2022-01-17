@@ -15,7 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "prettier": "npx prettier --write .",
+    "prettier": "npx prettier --check .",
     "lint": "eslint .",
     "eject": "react-scripts eject"
   },
