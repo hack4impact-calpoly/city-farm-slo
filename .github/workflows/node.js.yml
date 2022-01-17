@@ -25,4 +25,4 @@ jobs:
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
       - run: npm install --prefix ./frontend
-      - run: npm test --prefix ./frontend
+      - run: npm prettier
