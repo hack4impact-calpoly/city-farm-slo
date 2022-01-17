@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ hannah-hayashi-ci-setup ]
+    branches: [ hannah-hayashi-ci-setup-1 ]
   pull_request:
-    branches: [ hannah-hayashi-ci-setup ]
+    branches: [ hannah-hayashi-ci-setup-1 ]
 
 jobs:
   build:
