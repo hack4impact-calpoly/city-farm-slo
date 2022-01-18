@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { TextField, Button, Typography } from "@material-ui/core";
+import React from "react";
+import { TextField, Button } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -11,7 +11,7 @@ import * as Yup from "yup";
 // Extra Credit
 //  Using an NPM package like react-hook-form or formik, add validation and small error messages if the user doesn't fill out a required field or formats their email or phone number wrong
 
-const SignUpForm = () => {
+function SignUpForm() {
   // style
   const variant = "outlined";
 
@@ -27,12 +27,7 @@ const SignUpForm = () => {
       .max(10, "Too long")
       .matches(phoneRegExp, "Invalid format"),
   });
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
@@ -91,6 +86,6 @@ const SignUpForm = () => {
       </Button>
     </form>
   );
-};
+}
 
 export default SignUpForm;
