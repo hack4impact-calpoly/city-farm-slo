@@ -24,8 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "prettier": "npx prettier --check .",
-    "lint": "eslint . && prettier . --check",
-    "lint-fix": "eslint . --fix && prettier . --write",
+    "lint": "eslint \"{,!(node_modules)/**/}*.{js,jsx}\" && prettier . --check",
+    "lint-fix": "eslint \"{,!(node_modules)/**/}*.{js,jsx}\" --fix && prettier . --write",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
