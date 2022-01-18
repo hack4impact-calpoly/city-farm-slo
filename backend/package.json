@@ -6,8 +6,8 @@
   },
   "scripts": {
     "dev": "nodemon index.js",
-    "lint": "eslint . && prettier . --check",
-    "lint-fix": "eslint . --fix && prettier . --write"
+    "lint": "eslint **/*.js && prettier . --check",
+    "lint-fix": "eslint **/*.js --fix && prettier . --write"
   },
   "devDependencies": {
     "eslint": "^8.6.0",
