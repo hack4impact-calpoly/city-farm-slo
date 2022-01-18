@@ -17,7 +17,6 @@
     "react-hook-form": "^7.22.5",
     "react-router-dom": "^5.3.0",
     "react-scripts": "5.0.0",
-    "styled-components": "^5.3.3",
     "web-vitals": "^2.1.2",
     "yup": "^0.32.11"
   },
@@ -25,8 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "prettier": "npx prettier --check .",
-    "lint": "eslint \"**/*.{jsx,js}\" && prettier . --check",
-    "lint-fix": "eslint \"**/*.{jsx,js}\" --fix && prettier . --write",
+    "lint": "eslint \"{,!(node_modules)/**/}*.{js,jsx}\" && prettier . --check",
+    "lint-fix": "eslint \"{,!(node_modules)/**/}*.{js,jsx}\" --fix && prettier . --write",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
