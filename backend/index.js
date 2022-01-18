@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+const x = 5;
+
 // Start Express Server
 const app = express();
 app.use(express.json());
