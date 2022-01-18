@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [hannah-hayashi-ci-setup-1]
-  pull_request:
-    branches: [hannah-hayashi-ci-setup-1]
+    branches: [main]
+  pull_request_target:
+    branches: [main]
 
 jobs:
   build:
@@ -20,5 +20,8 @@ jobs:
           node-version: "16"
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
-      - run: npm install
-      - run: npm run lint
+      - name: Lint Frontend
+        working-directory: ./frontend
+      - run: |
+        npm ci
+        npm run lint
