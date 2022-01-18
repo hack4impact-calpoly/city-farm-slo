@@ -17,8 +17,13 @@ jobs:
           node-version: "16"
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
-      - name: Lint Frontend
+      - name: Lint frontend
         working-directory: ./frontend
+        run: |
+          npm ci
+          npm run lint
+      - name: Lint backend
+        working-directory: ./backend
         run: |
           npm ci
           npm run lint
