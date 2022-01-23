@@ -19,6 +19,9 @@ export default function Calendar({ events }) {
   `;
 
   const handleEventClick = (clickInfo) => {
+    // sign up function here
+
+    // alerts for demonstration
     if (clickInfo.event.extendedProps.slots > 0) {
       if (
         window.confirm(
