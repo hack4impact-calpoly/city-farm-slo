@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { StylesProvider } from "@material-ui/core/styles";
 import Home from "./components/home";
 import SignUpForm from "./components/UserSignUp/SignUpForm";
+import RegistrationComplete from "./components/RegistrationComplete/RegistrationComplete";
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
             </Route>
             <Route exact path="/registration">
               <SignUpForm />
+            </Route>
+            <Route path="/registration-complete">
+              <RegistrationComplete />
             </Route>
           </Switch>
         </div>
