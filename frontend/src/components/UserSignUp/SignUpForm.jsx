@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 
+// override MUI styles for TextField component
 const useStyles = makeStyles(() => ({
   root: {
     "& .MuiFilledInput-root": {
