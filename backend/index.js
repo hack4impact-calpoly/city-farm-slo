@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-
 // Start Express Server
 const app = express();
 app.use(express.json());
@@ -18,5 +17,3 @@ mongoose
 app.get("/", (req, res) => {
   res.send("Hello world!");
 });
-
-app.listen(3001);
