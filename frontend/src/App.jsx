@@ -1,10 +1,23 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import Home from "./components/home";
+import RegistrationComplete from "./components/RegistrationComplete/RegistrationComplete";
 
 function App() {
   return (
-    <div>
-      <p>Welcome to City Farm SLO!</p>
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/registration-complete">
+            <RegistrationComplete />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
