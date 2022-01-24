@@ -2,12 +2,16 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Home from "./components/home";
+import RegistrationComplete from "./components/RegistrationComplete/RegistrationComplete";
 
 function App() {
   return (
     <Router>
       <div>
         <Switch>
+          <Route path="/registration-complete">
+            <RegistrationComplete />
+          </Route>
           <Route exact path="/">
             <Home />
           </Route>
