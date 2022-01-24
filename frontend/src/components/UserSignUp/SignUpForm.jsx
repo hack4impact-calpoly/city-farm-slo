@@ -4,18 +4,17 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import styled from "styled-components";
-import Box from '@material-ui/core/Box';
+import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
-import { nominalTypeHack } from "prop-types";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     "& .MuiFilledInput-root": {
       background: "rgb(232, 241, 250)",
       borderRadius: "50px",
-      borderStyle: "none"
-    }
-  }
+      borderStyle: "none",
+    },
+  },
 }));
 
 const PopupTitle = styled.h1`
@@ -30,24 +29,24 @@ const PopupTitle = styled.h1`
 const PopupWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  background: #80C0A4;
+  background: #80c0a4;
   border-radius: 80px;
   padding: 20px;
   min-width: 800px;
 `;
 
 const FirstSection = styled.div`
-  position: relative; 
-  display: flex;  
-  border-radius:5px;
+  position: relative;
+  display: flex;
+  border-radius: 5px;
   padding: 20px;
-  min-width: 250px;;
+  min-width: 250px;
   width: fit-content;
 `;
 
 const LeftEventCard = styled.div`
   height: 50%;
-  background: #0BA360;
+  background: #0ba360;
   border-radius: 20px;
   margin: 0;
   position: absolute;
@@ -68,7 +67,7 @@ const DividerLine = styled.div`
 `;
 
 const FormSection = styled.div`
-  position: relative; 
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 8px;
@@ -86,14 +85,14 @@ const Center = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  background-color: #0BA360;
+  background-color: #0ba360;
   border-radius: 20px;
   padding: 20px;
   font-size: 20px;
   font-weight: 400;
   text-transform: capitalize;
   &:hover {
-    background-color: #0BA360;
+    background-color: #0ba360;
   }
   &:focus {
     background-color: green;
@@ -139,10 +138,10 @@ function SignUpForm() {
       {/* Left event card */}
       <FirstSection>
         <PopupTitle> Sign Up </PopupTitle>
-        <LeftEventCard/> 
+        <LeftEventCard />
       </FirstSection>
       {/* Divider line */}
-      <DividerLine/>
+      <DividerLine />
       {/* Sign up form */}
       <FormSection>
         <Center>
@@ -150,14 +149,20 @@ function SignUpForm() {
             {/* ------- Name, Email, Phone Number -------  */}
             {rEntries.map((entry) => (
               <div>
-                <Controller className={classes.box}
+                <Controller
+                  className={classes.box}
                   key={entry.name}
                   name={entry.name}
                   defaultValue=""
                   control={control}
-                  render={({ field: { onChange, value }, fieldState: { error } }) => (
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error },
+                  }) => (
                     <Box m={2}>
-                      <TextField required fullWidth
+                      <TextField
+                        required
+                        fullWidth
                         InputProps={{ disableUnderline: true }}
                         label={entry.label}
                         variant={variant}
@@ -180,7 +185,8 @@ function SignUpForm() {
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <Box m={2}>
-                    <TextField fullWidth
+                    <TextField
+                      fullWidth
                       label="Notes"
                       InputProps={{ disableUnderline: true }}
                       variant={variant}
@@ -195,7 +201,12 @@ function SignUpForm() {
             {/* ------- Submit Button -------  */}
             <div>
               <Box m={2}>
-                <StyledButton type="submit" variant="contained" color="primary" fullWidth>
+                <StyledButton
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                >
                   Sign Waiver and Register
                 </StyledButton>
               </Box>
