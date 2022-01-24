@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(() => ({
   root: {
     "& .MuiFilledInput-root": {
-      background: "rgb(232, 241, 250)",
+      backgroundColor: "white",
       borderRadius: "50px",
       borderStyle: "none",
     },

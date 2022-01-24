@@ -12,6 +12,8 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route exact path="/registration">
               <SignUpForm />
             </Route>
           </Switch>
