@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const Event = require("./models/event");
 
 // Start Express Server
 const app = express();
