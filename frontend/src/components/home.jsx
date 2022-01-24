@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Calendar from "./Calendar";
+import Calendar from "./UserSignUp/Calendar";
 
 export default function Home() {
   const Container = styled.div`
