@@ -1,40 +1,70 @@
-import React, { useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { isMobile } from "react-device-detect";
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
 
 // Requirements
-// - Look through NPM and see the available calendar components for React. Pay close attention to how popular they are, how useful the documentation is, and if it will be able to service the needs described in our PRD
-// - Be prepared to justify your decision! We will be working with this Calendar all quarter, so it better be good!
+// - Edit the Home component to look like this Figma Mockup: https://www.figma.com/file/AU4DBu8GtFmivr0q971PpY/cityfarmslo-high-fidel?node-id=4%3A18
+// - Please use styled-components. If you have time, find a calendar component to use on this page (I'd reccomend looking at FullCalendar, react-calendar, or react-datepicker).
 
-// Choose One or Both
-// - Implement the Calendar component in React. Don't worry about styling, just make sure it works just to test it out
-// - Make a write up in a notion page documenting the options you looked at and the why you chose the one you did
+export default function Calendar({ events }) {
+  const CalendarWrapper = styled.div`
+    padding: 36px;
+    width: 900px;
+    border: 1px solid #090a0c;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 32px rgba(170, 170, 170, 0.03);
+    border-radius: 12px;
+  `;
 
-// Possible additions for DatePicker:
-// - month and year dropdowns
-// - changing the style for specific dates (such as graying out those outside of the selected month or those with no available sapces)
+  const handleEventClick = (clickInfo) => {
+    // sign up function here
 
-export default function Calendar() {
-  // selected date
-  const [date, setDate] = useState(new Date());
+    // alerts for demonstration
+    if (clickInfo.event.extendedProps.slots > 0) {
+      if (
+        window.confirm(
+          `${clickInfo.event.title}: ${
+            clickInfo.event.extendedProps.slots
+          } slots available\nSign up for ${
+            clickInfo.event.title
+          }: ${clickInfo.event.start.toLocaleString()} - ${clickInfo.event.end.toLocaleString()}?`
+        )
+      ) {
+        console.log(
+          `Signed up for ${
+            clickInfo.event.title
+          }: ${clickInfo.event.start.toLocaleString()} - ${clickInfo.event.end.toLocaleString()}`
+        );
+      }
+    } else {
+      window.alert(
+        `No slots available for ${
+          clickInfo.event.title
+        }: ${clickInfo.event.start.toLocaleString()} - ${clickInfo.event.end.toLocaleString()}`
+      );
+    }
+  };
 
   return (
-    <div>
-      <p>Select Date:</p>
-      {/* pop up calendar - uses portal version on mobile devices to fit screen size */}
-      {isMobile ? (
-        <DatePicker
-          selected={date}
-          onChange={(d) => setDate(d)}
-          fixedHeight
-          withPortal
-        />
-      ) : (
-        <DatePicker selected={date} onChange={(d) => setDate(d)} fixedHeight />
-      )}
-      {/* placeholder for available spaces */}
-      <p>Available Spaces for {date.toLocaleDateString()}: 0</p>
-    </div>
+    <CalendarWrapper>
+      <FullCalendar
+        plugins={[dayGridPlugin]}
+        initialView="dayGridMonth"
+        events={events.map((event) => ({
+          title: event.name,
+          start: event.startTime,
+          end: event.endTime,
+          slots: event.slots,
+          backgroundColor: event.slots > 0 ? "green" : "red",
+        }))}
+        eventClick={handleEventClick}
+      />
+    </CalendarWrapper>
   );
 }
+
+Calendar.propTypes = {
+  events: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
