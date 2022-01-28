@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import Button from "@mui/material/Button";
 import Calendar from "./UserSignUp/Calendar";
+import HomeModal from "./HomeModal";
 
 export default function Home() {
   const Container = styled.div`
@@ -56,12 +58,28 @@ export default function Home() {
     },
   ];
 
+  // modal states
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const [calendarOpen, setCalendarOpen] = React.useState(false);
+  const handleCalendarOpen = () => setCalendarOpen(true);
+  const handleCalendarClose = () => setCalendarOpen(false);
+
   return (
     <div>
       <p>Welcome to City Farm SLO!</p>
       <Container>
         <Header>Select an event to register</Header>
-        <Calendar events={events} />
+        <Button onClick={handleOpen}>Open sample modal</Button>
+        <HomeModal open={open} handleClose={handleClose}>
+          <h1>Hello</h1>
+        </HomeModal>
+        <Button onClick={handleCalendarOpen}>Open calendar</Button>
+        <HomeModal open={calendarOpen} handleClose={handleCalendarClose}>
+          <Calendar events={events} />
+        </HomeModal>
       </Container>
     </div>
   );
