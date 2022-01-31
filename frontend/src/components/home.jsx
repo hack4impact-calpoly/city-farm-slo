@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Calendar from "./UserSignUp/Calendar";
+import EventCard from "./UserSignUp/EventCard";
 
 export default function Home() {
   const Container = styled.div`
@@ -56,12 +57,24 @@ export default function Home() {
     },
   ];
 
+  // temporary event
+  const e1 = {
+    title: "Event 0",
+    location: "SLO",
+    start: new Date("1/25/2022 9:00:00"),
+    end: new Date("1/25/2022 12:00:00"),
+    slots: 5,
+    notes: "Notes",
+    volunteers: null,
+  };
+
   return (
     <div>
       <p>Welcome to City Farm SLO!</p>
       <Container>
         <Header>Select an event to register</Header>
         <Calendar events={events} />
+        <EventCard event={e1} />
       </Container>
     </div>
   );
