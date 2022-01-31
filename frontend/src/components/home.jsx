@@ -71,14 +71,16 @@ export default function Home() {
     <div>
       <p>Welcome to City Farm SLO!</p>
       <Container>
-        <Header>Select an event to register</Header>
         <Button onClick={handleOpen}>Open sample modal</Button>
         <HomeModal open={open} handleClose={handleClose}>
           <h1>Hello</h1>
         </HomeModal>
         <Button onClick={handleCalendarOpen}>Open calendar</Button>
         <HomeModal open={calendarOpen} handleClose={handleCalendarClose}>
-          <Calendar events={events} />
+          <Container>
+            <Header>Select an event to register</Header>
+            <Calendar events={events} />
+          </Container>
         </HomeModal>
       </Container>
     </div>
