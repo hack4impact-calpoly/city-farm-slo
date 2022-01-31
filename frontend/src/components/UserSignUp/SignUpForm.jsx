@@ -138,7 +138,7 @@ function SignUpForm() {
     <PopupWrapper>
       {/* Left event card */}
       <FirstSection>
-        <PopupTitle className="fonts"> Sign Up </PopupTitle>
+        <PopupTitle> Sign Up </PopupTitle>
         <LeftEventCard />
       </FirstSection>
       {/* Divider line */}
