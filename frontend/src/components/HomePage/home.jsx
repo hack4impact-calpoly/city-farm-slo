@@ -3,6 +3,7 @@ import styled from "styled-components";
 // import Calendar from "./UserSignUp/Calendar";
 import plant from "./unsplash_hX_hf2lPpUU.png";
 import backArrow from "./previous button.png";
+import Calendar from "../UserSignUp/Calendar";
 
 export default function Home() {
   const FullPage = styled.div`
@@ -32,10 +33,10 @@ export default function Home() {
   `;
 
   const PlantContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    display: block;
+    text-align: center;
     height: 100%;
+    overflow: hidden;
   `;
 
   const RightContainer = styled.div`
@@ -67,27 +68,16 @@ export default function Home() {
     font-size: 65px;
   `;
 
+  const CalendarWrapper = styled.div`
+    background-color: #003c45;
+    height: 60vh;
+  `;
+
   const linkStyle = {
     textDecoration: "none",
     color: "inherit",
   };
 
-  /* Calendar Styled Components and array
-
-  const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  `;
-
-  const Header = styled.h1`
-    font-style: normal;
-    font-weight: normal;
-    font-size: 48px;
-    line-height: 58px;
-  `;
-
-  temporary events list
   const events = [
     {
       name: "Event 1",
@@ -125,15 +115,10 @@ export default function Home() {
       notes: "Notes",
       volunteers: null,
     },
-  ]; 
-  */
+  ];
 
   return (
     <div>
-      {/* <Container>
-        <Header>Select an event to register</Header>
-        <Calendar events={events} />
-      </Container> */}
       <FullPage>
         <LeftContainer>
           <MottoContainer>
@@ -154,7 +139,9 @@ export default function Home() {
           </a>
           <RegisterText>Register to Volunteer</RegisterText>
           <Text>Select a date to register</Text>
-          {/* Calendar and Event container here */}
+          <CalendarWrapper>
+            <Calendar events={events} />
+          </CalendarWrapper>
         </RightContainer>
       </FullPage>
     </div>
