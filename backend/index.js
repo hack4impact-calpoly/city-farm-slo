@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 });
 
 // #1 - get all events
-app.get("/api/events", async (req, res) => {
+app.get("/events", async (req, res) => {
   try {
     const events = await Event.find({});
     res.send(events);
@@ -32,17 +32,17 @@ app.get("/api/events", async (req, res) => {
 });
 
 // #2 - add an event
-app.post("/api/recipe", async (req, res) => {
+app.post("/event/add", async (req, res) => {
   try {
-    const { title, Location, start, end, slots, notes, Volunteers } = req.body;
+    const { title, location, start, end, slots, notes, volunteers } = req.body;
     let event = new Event({
       title,
-      Location,
+      location,
       start,
       end,
       slots,
       notes,
-      Volunteers,
+      volunteers,
     });
     event = await event.save();
     res.json(event);
