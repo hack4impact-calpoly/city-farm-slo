@@ -80,7 +80,7 @@ export default function Home() {
 
   // events state
   const [events, setEvents] = useState([]);
-  
+
   useEffect(() => {
     fetch("/events")
       .then((res) => res.json())
