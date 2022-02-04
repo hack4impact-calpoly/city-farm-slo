@@ -81,7 +81,7 @@ export default function Home() {
   // events state
   const [events, setEvents] = useState([]);
   useEffect(() => {
-    fetch("/api/events")
+    fetch("/events")
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.log(err));
