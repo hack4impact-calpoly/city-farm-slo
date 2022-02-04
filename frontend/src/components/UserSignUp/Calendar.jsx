@@ -55,10 +55,7 @@ export default function Calendar({ events }) {
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         events={events.map((event) => ({
-          title: event.name,
-          start: event.startTime,
-          end: event.endTime,
-          slots: event.slots,
+          ...event,
           backgroundColor: event.slots > 0 ? "green" : "red",
         }))}
         eventClick={handleEventClick}

@@ -85,7 +85,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.log(err));
-  }, [events]);
+  }, []);
 
   return (
     <div>
