@@ -27,6 +27,9 @@ export default function Calendar({ events }) {
       if (
         window.confirm(
           `${clickInfo.event.title}: ${
+            clickInfo.event.extendedProps.slots -
+            clickInfo.event.extendedProps.volunteers.length
+          }/${
             clickInfo.event.extendedProps.slots
           } slots available\nSign up for ${
             clickInfo.event.title
@@ -56,7 +59,8 @@ export default function Calendar({ events }) {
         initialView="dayGridMonth"
         events={events.map((event) => ({
           ...event,
-          backgroundColor: event.slots > 0 ? "green" : "red",
+          backgroundColor:
+            event.volunteers.length < event.slots ? "green" : "red",
         }))}
         eventClick={handleEventClick}
       />
