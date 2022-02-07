@@ -13,7 +13,7 @@ export default function ReturnButton({ link }) {
     background-position: center;
   `;
 
-  const ReturnButton = styled.a`
+  const ReturnButtonWrapper = styled.a`
     background-color: blue;
     border: none;
     display: flex;
@@ -32,10 +32,10 @@ export default function ReturnButton({ link }) {
   `;
 
   return (
-    <ReturnButton href={link}>
+    <ReturnButtonWrapper href={link}>
       <BackArrow />
       <ReturnText>Return</ReturnText>
-    </ReturnButton>
+    </ReturnButtonWrapper>
   );
 }
 
