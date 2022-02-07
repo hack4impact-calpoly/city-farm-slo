@@ -1,14 +1,13 @@
 const mongoose = require("mongoose");
 
-const VolunteerSchema = new mongoose.schema(
-  {
-      firstName: String,
-      lastName: String, 
-      email: String,
-      phone: Number, 
-      notes: String,
-    },
-);
+const VolunteerSchema = new mongoose.Schema({
+  firstName: String,
+  lastName: String,
+  email: String,
+  phone: String,
+  notes: String,
+});
+
 const Volunteer = mongoose.model("Volunteer", VolunteerSchema);
 
 module.exports = Volunteer;
