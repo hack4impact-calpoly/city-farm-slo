@@ -20,33 +20,27 @@ export default function Calendar({ events }) {
   `;
 
   const handleEventClick = (clickInfo) => {
+    const { title, start, end } = clickInfo.event;
+    const { slots, volunteers } = clickInfo.event.extendedProps;
+
     // sign up function here
 
     // alerts for demonstration
-    if (clickInfo.event.extendedProps.slots > 0) {
+    if (slots > 0) {
       if (
         window.confirm(
-          `${clickInfo.event.title}: ${
-            clickInfo.event.extendedProps.slots -
-            clickInfo.event.extendedProps.volunteers.length
-          }/${
-            clickInfo.event.extendedProps.slots
-          } slots available\nSign up for ${
-            clickInfo.event.title
-          }: ${clickInfo.event.start.toLocaleString()} - ${clickInfo.event.end.toLocaleString()}?`
+          `${title}: ${
+            slots - volunteers.length
+          }/${slots} slots available\nSign up for ${title}: ${start.toLocaleString()} - ${end.toLocaleString()}?`
         )
       ) {
         console.log(
-          `Signed up for ${
-            clickInfo.event.title
-          }: ${clickInfo.event.start.toLocaleString()} - ${clickInfo.event.end.toLocaleString()}`
+          `Signed up for ${title}: ${start.toLocaleString()} - ${end.toLocaleString()}`
         );
       }
     } else {
       window.alert(
-        `No slots available for ${
-          clickInfo.event.title
-        }: ${clickInfo.event.start.toLocaleString()} - ${clickInfo.event.end.toLocaleString()}`
+        `No slots available for ${title}: ${start.toLocaleString()} - ${end.toLocaleString()}`
       );
     }
   };
