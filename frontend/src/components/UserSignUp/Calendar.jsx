@@ -16,6 +16,7 @@ export default function Calendar({ events }) {
     box-sizing: border-box;
     box-shadow: 0px 4px 32px rgba(170, 170, 170, 0.03);
     border-radius: 12px;
+    height: 100%;
   `;
 
   const handleEventClick = (clickInfo) => {
@@ -50,6 +51,7 @@ export default function Calendar({ events }) {
   return (
     <CalendarWrapper>
       <FullCalendar
+        height="100%"
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         events={events.map((event) => ({
