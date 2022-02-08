@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { TextField, Button } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -100,7 +101,9 @@ const StyledButton = styled(Button)`
   }
 `;
 
-function SignUpForm() {
+function SignUpForm({ selectedEvent }) {
+  console.log(selectedEvent);
+
   // style
   const variant = "filled";
   const classes = useStyles();
@@ -218,5 +221,9 @@ function SignUpForm() {
     </PopupWrapper>
   );
 }
+
+SignUpForm.propTypes = {
+  selectedEvent: PropTypes.instanceOf({}).isRequired,
+};
 
 export default SignUpForm;

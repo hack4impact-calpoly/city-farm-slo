@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import plant from "./unsplash_hX_hf2lPpUU.png";
 import backArrow from "./previous button.png";
@@ -77,7 +78,7 @@ const linkStyle = {
   color: "inherit",
 };
 
-export default function Home() {
+export default function Home({ selectedEvent, setEvent }) {
   // events state
   const [events, setEvents] = useState([]);
 
@@ -118,10 +119,19 @@ export default function Home() {
           <RegisterText>Register to Volunteer</RegisterText>
           <Text>Select a date to register</Text>
           <CalendarWrapper>
-            <Calendar events={events} />
+            <Calendar
+              events={events}
+              selectedEvent={selectedEvent}
+              setEvent={setEvent}
+            />
           </CalendarWrapper>
         </RightContainer>
       </FullPage>
     </div>
   );
 }
+
+Home.propTypes = {
+  selectedEvent: PropTypes.instanceOf({}).isRequired,
+  setEvent: PropTypes.func.isRequired,
+};

@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import FullCalendar from "@fullcalendar/react";
@@ -18,31 +19,12 @@ const CalendarWrapper = styled.div`
   height: 100%;
 `;
 
-export default function Calendar({ events }) {
+export default function Calendar({ events, setEvent }) {
+  const history = useHistory();
+
   const handleEventClick = (clickInfo) => {
-    const { title, start, end } = clickInfo.event;
-    const { slots, volunteers } = clickInfo.event.extendedProps;
-
-    // sign up function here
-
-    // alerts for demonstration
-    if (slots > 0) {
-      if (
-        window.confirm(
-          `${title}: ${
-            slots - volunteers.length
-          }/${slots} slots available\nSign up for ${title}: ${start.toLocaleString()} - ${end.toLocaleString()}?`
-        )
-      ) {
-        console.log(
-          `Signed up for ${title}: ${start.toLocaleString()} - ${end.toLocaleString()}`
-        );
-      }
-    } else {
-      window.alert(
-        `No slots available for ${title}: ${start.toLocaleString()} - ${end.toLocaleString()}`
-      );
-    }
+    setEvent(events.find((e) => e._id === clickInfo.event.extendedProps._id));
+    history.push("/registration");
   };
 
   return (
@@ -64,4 +46,6 @@ export default function Calendar({ events }) {
 
 Calendar.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // selectedEvent: PropTypes.instanceOf({}).isRequired,
+  setEvent: PropTypes.func.isRequired,
 };
