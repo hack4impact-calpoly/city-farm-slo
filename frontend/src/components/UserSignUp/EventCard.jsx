@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 export default function EventCard({ event }) {
   const EventCardWrapper = styled.div`
-    position: absolute;
     width: 35%;
     height: 30%;
     left: 0%;
@@ -47,7 +46,7 @@ export default function EventCard({ event }) {
     margin: 0%;
     border: 0%;
     padding-left: 30%;
-    font-size: 36px;
+    font-size: 25px;
   `;
 
   const Subheader = styled.h2`
@@ -68,7 +67,7 @@ export default function EventCard({ event }) {
     <EventCardWrapper>
       <Header>
         <Name>{event.title}</Name>
-        <Slots>{`${event.slots} slots / 20`}</Slots>
+        <Slots>{`${event.volunteers.length} slots / ${event.slots}`}</Slots>
       </Header>
       <Subheader>{event.start.toLocaleDateString("en-US")}</Subheader>
       <Subheader>{event.start.toLocaleTimeString("en-US")}</Subheader>
@@ -78,5 +77,13 @@ export default function EventCard({ event }) {
 }
 
 EventCard.propTypes = {
-  event: PropTypes.arrayOf(PropTypes.object).isRequired,
+  event: PropTypes.shape({
+    title: PropTypes.string,
+    location: PropTypes.string,
+    start: PropTypes.instanceOf(Date),
+    end: PropTypes.instanceOf(Date),
+    slots: PropTypes.number,
+    notes: PropTypes.string,
+    volunteers: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
 };
