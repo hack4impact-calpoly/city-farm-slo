@@ -23,7 +23,7 @@ export default function Calendar({ events, setEvent }) {
   const history = useHistory();
   const handleEventClick = (clickInfo) => {
     // sign up function here
-    setEvent(clickInfo.event);
+    setEvent(events.find((e) => e.id === clickInfo.event.id));
     history.push("/registration");
 
     // alerts for demonstration
@@ -59,6 +59,7 @@ export default function Calendar({ events, setEvent }) {
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         events={events.map((event) => ({
+          id: event.id,
           title: event.name,
           start: event.startTime,
           end: event.endTime,
