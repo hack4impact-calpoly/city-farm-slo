@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const EventSchema = new mongoose.Schema(
   {
     title: String,
-    Location: String,
+    location: String,
     start: Date,
     end: Date,
     slots: Number,
     notes: String,
-    Volunteers: [mongoose.Schema.Types.ObjectID],
+    volunteers: [mongoose.Schema.Types.ObjectID],
   },
   { collection: "Events" }
 );
