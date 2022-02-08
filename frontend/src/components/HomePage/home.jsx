@@ -84,6 +84,13 @@ export default function Home() {
   useEffect(() => {
     fetch("/events")
       .then((res) => res.json())
+      .then((dataNoDates) =>
+        dataNoDates.map((anEvent) => ({
+          ...anEvent,
+          start: new Date(anEvent.start),
+          end: new Date(anEvent.end),
+        }))
+      )
       .then((data) => setEvents(data))
       .catch((err) => console.log(err));
   }, []);
