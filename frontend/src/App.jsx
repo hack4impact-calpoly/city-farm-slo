@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { StylesProvider } from "@material-ui/core/styles";
-import Home from "./components/home";
+import Home from "./components/HomePage/home";
 import SignUpForm from "./components/UserSignUp/SignUpForm";
 import RegistrationComplete from "./components/RegistrationComplete/RegistrationComplete";
 
