@@ -16,33 +16,31 @@ export default function Calendar({ events }) {
     box-sizing: border-box;
     box-shadow: 0px 4px 32px rgba(170, 170, 170, 0.03);
     border-radius: 12px;
+    height: 100%;
   `;
 
   const handleEventClick = (clickInfo) => {
+    const { title, start, end } = clickInfo.event;
+    const { slots, volunteers } = clickInfo.event.extendedProps;
+
     // sign up function here
 
     // alerts for demonstration
-    if (clickInfo.event.extendedProps.slots > 0) {
+    if (slots > 0) {
       if (
         window.confirm(
-          `${clickInfo.event.title}: ${
-            clickInfo.event.extendedProps.slots
-          } slots available\nSign up for ${
-            clickInfo.event.title
-          }: ${clickInfo.event.start.toLocaleString()} - ${clickInfo.event.end.toLocaleString()}?`
+          `${title}: ${
+            slots - volunteers.length
+          }/${slots} slots available\nSign up for ${title}: ${start.toLocaleString()} - ${end.toLocaleString()}?`
         )
       ) {
         console.log(
-          `Signed up for ${
-            clickInfo.event.title
-          }: ${clickInfo.event.start.toLocaleString()} - ${clickInfo.event.end.toLocaleString()}`
+          `Signed up for ${title}: ${start.toLocaleString()} - ${end.toLocaleString()}`
         );
       }
     } else {
       window.alert(
-        `No slots available for ${
-          clickInfo.event.title
-        }: ${clickInfo.event.start.toLocaleString()} - ${clickInfo.event.end.toLocaleString()}`
+        `No slots available for ${title}: ${start.toLocaleString()} - ${end.toLocaleString()}`
       );
     }
   };
@@ -50,14 +48,13 @@ export default function Calendar({ events }) {
   return (
     <CalendarWrapper>
       <FullCalendar
+        height="100%"
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         events={events.map((event) => ({
-          title: event.name,
-          start: event.startTime,
-          end: event.endTime,
-          slots: event.slots,
-          backgroundColor: event.slots > 0 ? "green" : "red",
+          ...event,
+          backgroundColor:
+            event.volunteers.length < event.slots ? "green" : "red",
         }))}
         eventClick={handleEventClick}
       />
