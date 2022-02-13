@@ -8,8 +8,9 @@ import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
+  color: #ffffff;
   justify-content: center;
-  background: #80c0a4;
+  background: #003c45;
 `;
 
 const ButtonContainer = styled.div`
@@ -18,7 +19,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-  background: #0ba360;
+  background: #c1d741;
   border: #0ba360;
   border-radius: 30px;
   color: white;
@@ -27,6 +28,7 @@ const Button = styled.button`
   height: 81px;
   margin-bottom: 10px;
   padding: 8px 0px;
+  font: Urbanist;
 `;
 
 export default function RegistrationComplete() {

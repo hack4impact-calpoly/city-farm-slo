@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { TextField, Button } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -23,14 +24,14 @@ const PopupTitle = styled.h1`
   font-weight: normal;
   font-size: 30px;
   line-height: 58px;
-  color: #000000;
+  color: #ffffff;
   margin-top: -10px;
 `;
 
 const PopupWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  background: #80c0a4;
+  background: #003c45;
   border-radius: 80px;
   padding: 20px;
   min-width: 800px;
@@ -47,7 +48,7 @@ const FirstSection = styled.div`
 
 const LeftEventCard = styled.div`
   height: 50%;
-  background: #0ba360;
+  background: #c1d741;
   border-radius: 20px;
   margin: 0;
   position: absolute;
@@ -86,7 +87,7 @@ const Center = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  background-color: #0ba360;
+  background-color: #c1d741;
   border-radius: 20px;
   padding: 20px;
   font-size: 20px;
@@ -100,7 +101,9 @@ const StyledButton = styled(Button)`
   }
 `;
 
-function SignUpForm() {
+function SignUpForm({ selectedEvent }) {
+  console.log(selectedEvent);
+
   // style
   const variant = "filled";
   const classes = useStyles();
@@ -218,5 +221,9 @@ function SignUpForm() {
     </PopupWrapper>
   );
 }
+
+SignUpForm.propTypes = {
+  selectedEvent: PropTypes.instanceOf({}).isRequired,
+};
 
 export default SignUpForm;
