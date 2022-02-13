@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import styled from "styled-components";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
+import EventCard from "./EventCard";
 
 // override MUI styles for TextField component
 const useStyles = makeStyles(() => ({
@@ -46,17 +47,17 @@ const FirstSection = styled.div`
   width: fit-content;
 `;
 
-const LeftEventCard = styled.div`
-  height: 50%;
-  background: #c1d741;
-  border-radius: 20px;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  width: 250px;
-`;
+// const LeftEventCard = styled.div`
+//   height: 50%;
+//   background: #c1d741;
+//   border-radius: 20px;
+//   margin: 0;
+//   position: absolute;
+//   top: 50%;
+//   -ms-transform: translateY(-50%);
+//   transform: translateY(-50%);
+//   width: 250px;
+// `;
 
 const DividerLine = styled.div`
   margin: 0px 20px;
@@ -142,7 +143,8 @@ function SignUpForm({ selectedEvent }) {
       {/* Left event card */}
       <FirstSection>
         <PopupTitle> Sign Up </PopupTitle>
-        <LeftEventCard />
+        <EventCard event={selectedEvent} />
+        {/* <LeftEventCard /> */}
       </FirstSection>
       {/* Divider line */}
       <DividerLine />

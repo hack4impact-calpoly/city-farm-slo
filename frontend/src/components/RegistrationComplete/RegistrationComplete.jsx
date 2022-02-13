@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+// import EventCard from "../UserSignUp/EventCard";
 
 // Requirements
 // Please use styled-components, and don't worry about the background around the modal,
@@ -37,7 +38,7 @@ export default function RegistrationComplete() {
       <Container>
         <h1>Registered For</h1>
       </Container>
-      <div>{/* EventCard placeholder here */}</div>
+      <div>{/* <EventCard /> */}</div>
       <Container>
         <p>A confirmation email / text will be sent soon</p>
       </Container>
