@@ -1,76 +1,112 @@
 import { React, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import plant from "./unsplash_hX_hf2lPpUU.png";
-import backArrow from "./previous button.png";
+import flower from "./flower-bg.png";
 import Calendar from "../UserSignUp/Calendar";
+import EventCard from "../UserSignUp/EventCard";
 
 // styled components
+const Title1 = styled.div`
+  color: #003c45;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 15px 15px;
+  font-weight: 900;
+  font-size: 36px;
+`;
+
+const Title2 = styled.div`
+  color: #003c45;
+  font-weight: 900;
+  font-size: 42px;
+  padding-bottom: 30px;
+`;
+
+const Header = styled.div`
+  width: 900px;
+  display: flex;
+  justify-content: flex-start;
+`;
+
 const FullPage = styled.div`
+  background: #c9e8eb;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
+
+const FullPage2 = styled.div`
   background: #c9e8eb;
   display: flex;
   flex-direction: row;
   height: 100vh;
 `;
 
-const LeftContainer = styled.div`
-  width: 50%;
-  padding-top: 60px;
+const CalendarWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  background-color: #ffffff;
+  height: 75vh;
+  width: 900px;
+  border-radius: 12px;
+`;
+
+const CenterWrap = styled.div`
   display: flex;
   flex-direction: column;
-  align-content: space-between;
-`;
-
-const MottoContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const Motto = styled.div`
-  font-size: 65px;
-  color: #003c45;
-  width: 80%;
+  align-items: center;
+  z-index: 1;
 `;
 
 const PlantContainer = styled.div`
-  display: block;
-  text-align: center;
-  height: 100%;
-  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  z-index: 0;
+`;
+
+const LeftContainer = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7%;
 `;
 
 const RightContainer = styled.div`
-  background-color: #c1d741;
-  border-radius: 50px 0px 0px 50px;
   width: 100%;
-  padding: 45px 30px;
-`;
-
-const BackArrow = styled.div`
-  width: 5%;
-  height: 10%;
-`;
-
-const Return = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+`;
+
+const DividerContainer = styled.div`
+  display: flex;
   align-items: center;
-  font-size: 18px;
-  padding-bottom: 15px;
 `;
 
-const Text = styled.div`
-  font-size: 18px;
-  padding-top: 15px;
+const Divider = styled.div`
+  background: #003c45;
+  height: 90vh;
+  width: 17px;
+  border-radius: 30px;
 `;
 
-const RegisterText = styled.div`
-  font-size: 65px;
-`;
-
-const CalendarWrapper = styled.div`
-  background-color: #003c45;
-  height: 60vh;
+const Register = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  max-height: 173px;
+  color: #ffffff;
+  background: #003c45;
+  border-radius: 30px;
+  font-size: 42px;
+  font-weight: 900;
+  padding: 10px;
+  margin-top: 6%;
 `;
 
 const linkStyle = {
@@ -81,7 +117,7 @@ const linkStyle = {
 export default function Home({ selectedEvent, setEvent }) {
   // events state
   const [events, setEvents] = useState([]);
-
+  const [eventClicked, setClicked] = useState(false);
   useEffect(() => {
     fetch("/events")
       .then((res) => res.json())
@@ -96,37 +132,65 @@ export default function Home({ selectedEvent, setEvent }) {
       .catch((err) => console.log(err));
   }, []);
 
+  console.log(selectedEvent);
+  console.log(eventClicked);
+  if (eventClicked === false) {
+    return (
+      <div>
+        <FullPage>
+          <Title1>City Farm SLO</Title1>
+          <CenterWrap>
+            <Title2>Select an Event to Register</Title2>
+            <CalendarWrapper>
+              <Calendar
+                events={events}
+                selectedEvent={selectedEvent}
+                setEvent={setEvent}
+                eventClicked={eventClicked}
+                setClicked={setClicked}
+              />
+            </CalendarWrapper>
+          </CenterWrap>
+          <PlantContainer>
+            <img src={flower} alt="Flower" />
+          </PlantContainer>
+        </FullPage>
+      </div>
+    );
+  }
   return (
     <div>
-      <FullPage>
+      <FullPage2>
         <LeftContainer>
-          <MottoContainer>
-            <Motto>Become a Friend of the Farm</Motto>
-          </MottoContainer>
+          <EventCard event={selectedEvent} />
+          <Link to="/registration" style={linkStyle}>
+            <Register>Register</Register>
+          </Link>
           <PlantContainer>
-            <img src={plant} alt="Plant" />
+            <img src={flower} alt="Flower" />
           </PlantContainer>
         </LeftContainer>
+        <DividerContainer>
+          <Divider />
+        </DividerContainer>
         <RightContainer>
-          <a href="https://www.cityfarmslo.org/volunteer" style={linkStyle}>
-            <Return>
-              <BackArrow>
-                <img src={backArrow} alt="Back Arrow" />
-              </BackArrow>
-              Return to City Farm SLO
-            </Return>
-          </a>
-          <RegisterText>Register to Volunteer</RegisterText>
-          <Text>Select a date to register</Text>
-          <CalendarWrapper>
-            <Calendar
-              events={events}
-              selectedEvent={selectedEvent}
-              setEvent={setEvent}
-            />
-          </CalendarWrapper>
+          <Title1>City Farm SLO</Title1>
+          <CenterWrap>
+            <Header>
+              <Title2>Select an Event to Register</Title2>
+            </Header>
+            <CalendarWrapper>
+              <Calendar
+                events={events}
+                selectedEvent={selectedEvent}
+                setEvent={setEvent}
+                eventClicked={eventClicked}
+                setClicked={setClicked}
+              />
+            </CalendarWrapper>
+          </CenterWrap>
         </RightContainer>
-      </FullPage>
+      </FullPage2>
     </div>
   );
 }
