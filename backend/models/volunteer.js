@@ -1,20 +1,9 @@
 const mongoose = require("mongoose");
 
 const VolunteerSchema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    match: /.+@.+\..+/,
-    unique: true,
-  },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  email: { type: String, required: true, match: /.+@.+\..+/, unique: true },
   phone: {
     type: String,
     validate: {
@@ -25,7 +14,7 @@ const VolunteerSchema = new mongoose.Schema({
     },
     required: [true, `Phone number required.`],
   },
-  notes: String,
+  notes: { type: String, required: false },
 });
 
 const Volunteer = mongoose.model("Volunteer", VolunteerSchema);
