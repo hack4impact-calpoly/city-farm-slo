@@ -30,7 +30,6 @@ router.post(
     .if(body("notes").notEmpty())
     .isString()
     .withMessage("Not a string"),
-  check("volunteers").isArray().withMessage("Not an array"),
   // eslint-disable-next-line consistent-return
   async (req, res) => {
     try {
