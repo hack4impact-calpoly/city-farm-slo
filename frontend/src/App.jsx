@@ -21,7 +21,7 @@ function App() {
               <SignUpForm selectedEvent={selectedEvent} />
             </Route>
             <Route path="/registration-complete">
-              <RegistrationComplete />
+              <RegistrationComplete selectedEvent={selectedEvent} />
             </Route>
           </Switch>
         </div>
