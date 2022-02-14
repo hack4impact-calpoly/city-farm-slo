@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import FullCalendar from "@fullcalendar/react";
@@ -19,12 +18,10 @@ const CalendarWrapper = styled.div`
   height: 100%;
 `;
 
-export default function Calendar({ events, setEvent }) {
-  const history = useHistory();
-
+export default function Calendar({ events, setEvent, setClicked }) {
   const handleEventClick = (clickInfo) => {
     setEvent(events.find((e) => e._id === clickInfo.event.extendedProps._id));
-    history.push("/registration");
+    setClicked(true);
   };
 
   return (
@@ -46,6 +43,6 @@ export default function Calendar({ events, setEvent }) {
 
 Calendar.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // selectedEvent: PropTypes.instanceOf({}).isRequired,
   setEvent: PropTypes.func.isRequired,
+  setClicked: PropTypes.func.isRequired,
 };

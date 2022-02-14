@@ -7,25 +7,25 @@ const dayjs = require("dayjs");
 // Displays volunteer event information.
 
 const EventCardWrapper = styled.div`
-  // width: 350px;
-  // background: #c1d741;
-  // border-radius: 30px;
-  padding: 5%;
-  height: 50%;
+  width: 350px;
   background: #c1d741;
-  border-radius: 20px;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 0%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  width: 90%;
+  border-radius: 30px;
+  padding: 3%;
 `;
+
+// border-radius: 20px;
+// margin: 0;
+// position: absolute;
+// top: 50%;
+// left: 0%;
+// -ms-transform: translateY(-50%);
+// transform: translateY(-50%);
+// width: 90%;
 
 const Header = styled.h1`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   position: static;
   left: 0%;
   top: 0%;
@@ -38,6 +38,7 @@ const Header = styled.h1`
   padding: 0%;
   margin: 0%;
   border: 0%;
+  padding-bottom: 5px;
 `;
 
 const Name = styled.h1`
@@ -52,10 +53,10 @@ const Slots = styled.h2`
   margin: 0%;
   border: 0%;
   padding-left: 30%;
-  font-size: 100%;
+  font-size: 25px;
 `;
 
-const Subheader = styled.h2`
+const Subheader = styled.div`
   position: static;
   left: 0%;
   right: -110.06%;
@@ -67,6 +68,7 @@ const Subheader = styled.h2`
   font-size: 24px;
   line-height: 29px;
   color: #003c45;
+  padding-bottom: 5px;
 `;
 
 export default function EventCard({ event }) {

@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 
 const EventSchema = new mongoose.Schema(
   {
-    title: String,
-    location: String,
-    start: Date,
-    end: Date,
-    slots: Number,
-    notes: String,
+    title: { type: String, required: true },
+    location: { type: String, required: true },
+    start: { type: Date, required: true },
+    end: { type: Date, required: true },
+    slots: { type: Number, required: true },
+    notes: { type: String, required: false },
     volunteers: [mongoose.Schema.Types.ObjectID],
   },
   { collection: "Events" }
