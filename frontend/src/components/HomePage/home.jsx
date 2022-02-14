@@ -74,6 +74,7 @@ const LeftContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: 7%;
+  z-index: 1;
 `;
 
 const RightContainer = styled.div`
