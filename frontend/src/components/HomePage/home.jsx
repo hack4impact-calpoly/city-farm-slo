@@ -132,8 +132,6 @@ export default function Home({ selectedEvent, setEvent }) {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(selectedEvent);
-  console.log(eventClicked);
   if (eventClicked === false) {
     return (
       <div>
