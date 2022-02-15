@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import styled from "styled-components";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 import EventCard from "./EventCard";
 
 // override MUI styles for TextField component
@@ -103,7 +104,7 @@ const StyledButton = styled(Button)`
 `;
 
 function SignUpForm({ selectedEvent }) {
-  console.log(selectedEvent);
+  const history = useHistory();
 
   // style
   const variant = "filled";
@@ -129,6 +130,7 @@ function SignUpForm({ selectedEvent }) {
   const onSubmit = (values) => {
     console.log(values);
     reset();
+    history.push("/registration-complete");
   };
 
   // info for required entries

@@ -40,7 +40,7 @@ export default function RegistrationComplete({ selectedEvent }) {
         <h1>Registered For</h1>
       </Container>
       <div>
-        <EventCard selectedEvent={selectedEvent} />
+        <EventCard event={selectedEvent} />
       </div>
       <Container>
         <p>A confirmation email / text will be sent soon</p>
