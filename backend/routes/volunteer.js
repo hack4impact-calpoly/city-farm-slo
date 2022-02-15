@@ -4,10 +4,9 @@ const Volunteer = require("../models/volunteer");
 const router = express.Router();
 
 // #1 - get all volunteers
-router.get("/", async (req, res) => {
+router.get("/volunteer/:id", async (req, res) => {
   try {
-    const volunteers = await Volunteer.find({});
-    res.send(volunteers);
+    res.send({req})
   } catch (error) {
     res.status(500).send(error.message);
     console.log(`error is ${error.message}`);
@@ -15,16 +14,18 @@ router.get("/", async (req, res) => {
 });
 
 // #2 - add a volunteer
-router.post("/add", async (req, res) => {
+router.post("/volunteer/register", async (req, res) => {
   try {
-    const { firstName, lastName, email, phone, notes } = req.body;
+    const { firstName, lastName, email, phone, notes, eventID } = req.body;
     let volunteer = new Volunteer({
         firstName,
         lastName,
         email,
         phone,
         notes,
+        eventID
     });
+
     volunteer = await volunteer.save();
     res.json(volunteer);
   } catch (error) {
