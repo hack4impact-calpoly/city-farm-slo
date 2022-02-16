@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const eventRoutes = require("./routes/event");
+const volunteerRoutes = require("./routes/volunteer");
+
 require("dotenv").config();
 
 // Start Express Server
@@ -21,5 +23,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/events", eventRoutes);
+app.use("/volunteer", volunteerRoutes);
 
 app.listen(3001);
