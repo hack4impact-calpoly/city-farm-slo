@@ -13,5 +13,6 @@ module.exports = {
     "prettier/prettier": "error",
     // allow console statements
     "no-console": 0,
+    "no-underscore-dangle": 0,
   },
 };
