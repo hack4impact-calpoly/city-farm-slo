@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { TextField, Button } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
@@ -101,7 +102,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
-function SignUpForm({ selectedEvent }) {
+function SignUpForm({ selectedEvent, handleModalClose }) {
   console.log(selectedEvent);
 
   // style
@@ -143,6 +144,9 @@ function SignUpForm({ selectedEvent }) {
       <FirstSection>
         <PopupTitle> Sign Up </PopupTitle>
         <LeftEventCard />
+        <Link to="/" onClick={handleModalClose}>
+          Return
+        </Link>
       </FirstSection>
       {/* Divider line */}
       <DividerLine />
@@ -224,6 +228,7 @@ function SignUpForm({ selectedEvent }) {
 
 SignUpForm.propTypes = {
   selectedEvent: PropTypes.instanceOf({}).isRequired,
+  handleModalClose: PropTypes.func.isRequired,
 };
 
 export default SignUpForm;

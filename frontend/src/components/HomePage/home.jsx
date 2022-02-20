@@ -1,10 +1,13 @@
 import { React, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Switch, Route, Link, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import flower from "./flower-bg.png";
 import Calendar from "../UserSignUp/Calendar";
 import EventCard from "../UserSignUp/EventCard";
+import HomeModal from "../HomeModal";
+import SignUpForm from "../UserSignUp/SignUpForm";
+import RegistrationComplete from "../RegistrationComplete/RegistrationComplete";
 
 // styled components
 const Title1 = styled.div`
@@ -116,6 +119,17 @@ const linkStyle = {
 };
 
 export default function Home({ selectedEvent, setEvent }) {
+  // routing
+  const history = useHistory();
+
+  // modal state
+  const [open, setOpen] = useState(false);
+  const handleModalOpen = () => setOpen(true);
+  const handleModalClose = () => {
+    setOpen(false);
+    history.push("/");
+  };
+
   // events state
   const [events, setEvents] = useState([]);
   const [eventClicked, setClicked] = useState(false);
@@ -162,7 +176,7 @@ export default function Home({ selectedEvent, setEvent }) {
       <FullPage2>
         <LeftContainer>
           <EventCard event={selectedEvent} />
-          <Link to="/registration" style={linkStyle}>
+          <Link to="/registration" style={linkStyle} onClick={handleModalOpen}>
             <Register>Register</Register>
           </Link>
           <PlantContainer>
@@ -190,6 +204,19 @@ export default function Home({ selectedEvent, setEvent }) {
           </CenterWrap>
         </RightContainer>
       </FullPage2>
+      <HomeModal open={open} handleClose={handleModalClose}>
+        <Switch>
+          <Route path="/registration">
+            <SignUpForm
+              selectedEvent={selectedEvent}
+              handleModalClose={handleModalClose}
+            />
+          </Route>
+          <Route path="/registration-complete">
+            <RegistrationComplete />
+          </Route>
+        </Switch>
+      </HomeModal>
     </div>
   );
 }
