@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { TextField, Button } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
@@ -26,7 +26,7 @@ const PopupTitle = styled.h1`
   font-size: 30px;
   line-height: 58px;
   color: #ffffff;
-  margin-top: -10px;
+  margin: -10px 0px 20px 20px;
 `;
 
 const PopupWrapper = styled.div`
@@ -34,37 +34,61 @@ const PopupWrapper = styled.div`
   flex-direction: row;
   background: #003c45;
   border-radius: 80px;
-  padding: 20px;
+  padding: 30px;
   min-width: 800px;
+  min-height: 400px;
 `;
 
 const FirstSection = styled.div`
   position: relative;
   display: flex;
-  border-radius: 5px;
   padding: 20px;
   min-width: 250px;
-  width: fit-content;
+  width: 50%;
 `;
 
 const LeftEventCard = styled.div`
-  height: 50%;
+  height: 40%;
   background: #c1d741;
   border-radius: 20px;
-  margin: 0;
   position: absolute;
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  width: 250px;
+  min-width: 250px;
+  width: 90%;
+`;
+
+const LinkWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+`;
+
+const ReturnLink = styled(Link)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  font-size: 24px;
+  line-height: 58px;
+  color: white;
+`;
+
+const BackArrow = styled.i`
+  border: solid white;
+  border-width: 0px 2px 2px 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
 `;
 
 const DividerLine = styled.div`
   margin: 0px 20px;
   min-width: 18px;
-  height: 500px;
-  left: 655px;
-  top: 247px;
+  min-height: 100%;
   background: white;
   border-radius: 30px;
 `;
@@ -76,15 +100,6 @@ const FormSection = styled.div`
   padding: 8px;
   min-width: 500px;
   width: 90%;
-`;
-
-const Center = styled.div`
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  width: 85%;
 `;
 
 const StyledButton = styled(Button)`
@@ -125,10 +140,14 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
     resolver: yupResolver(validationSchema),
   });
 
+  // routing
+  const history = useHistory();
+
   // log values when data is submitted
   const onSubmit = (values) => {
     console.log(values);
     reset();
+    history.push("/registration-complete");
   };
 
   // info for required entries
@@ -142,85 +161,86 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
     <PopupWrapper>
       {/* Left event card */}
       <FirstSection>
-        <PopupTitle> Sign Up </PopupTitle>
         <LeftEventCard />
-        <Link to="/" onClick={handleModalClose}>
-          Return
-        </Link>
+        <LinkWrapper>
+          <ReturnLink to="/" onClick={handleModalClose}>
+            <BackArrow />
+            Return
+          </ReturnLink>
+        </LinkWrapper>
       </FirstSection>
       {/* Divider line */}
       <DividerLine />
       {/* Sign up form */}
       <FormSection>
-        <Center>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {/* ------- Name, Email, Phone Number -------  */}
-            {rEntries.map((entry) => (
-              <div>
-                <Controller
-                  className={classes.box}
-                  key={entry.name}
-                  name={entry.name}
-                  defaultValue=""
-                  control={control}
-                  render={({
-                    field: { onChange, value },
-                    fieldState: { error },
-                  }) => (
-                    <Box m={2}>
-                      <TextField
-                        required
-                        fullWidth
-                        InputProps={{ disableUnderline: true }}
-                        label={entry.label}
-                        variant={variant}
-                        value={value}
-                        onChange={onChange}
-                        error={!!error}
-                        helperText={error ? error.message : null}
-                        className={classes.root}
-                      />
-                    </Box>
-                  )}
-                />
-              </div>
-            ))}
-            {/* ------- Notes -------  */}
+        <PopupTitle>Sign Up</PopupTitle>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {/* ------- Name, Email, Phone Number -------  */}
+          {rEntries.map((entry) => (
             <div>
               <Controller
-                name="notes"
+                className={classes.box}
+                key={entry.name}
+                name={entry.name}
                 defaultValue=""
                 control={control}
-                render={({ field: { onChange, value } }) => (
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
                   <Box m={2}>
                     <TextField
+                      required
                       fullWidth
-                      label="Notes"
                       InputProps={{ disableUnderline: true }}
+                      label={entry.label}
                       variant={variant}
                       value={value}
                       onChange={onChange}
+                      error={!!error}
+                      helperText={error ? error.message : null}
                       className={classes.root}
                     />
                   </Box>
                 )}
               />
             </div>
-            {/* ------- Submit Button -------  */}
-            <div>
-              <Box m={2}>
-                <StyledButton
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                >
-                  Sign Waiver and Register
-                </StyledButton>
-              </Box>
-            </div>
-          </form>
-        </Center>
+          ))}
+          {/* ------- Notes -------  */}
+          <div>
+            <Controller
+              name="notes"
+              defaultValue=""
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Box m={2}>
+                  <TextField
+                    fullWidth
+                    label="Notes"
+                    InputProps={{ disableUnderline: true }}
+                    variant={variant}
+                    value={value}
+                    onChange={onChange}
+                    className={classes.root}
+                  />
+                </Box>
+              )}
+            />
+          </div>
+          {/* ------- Submit Button -------  */}
+          <div>
+            <Box m={2}>
+              <StyledButton
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
+                Register
+              </StyledButton>
+            </Box>
+          </div>
+        </form>
       </FormSection>
     </PopupWrapper>
   );

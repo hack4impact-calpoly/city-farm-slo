@@ -10,10 +10,7 @@ export default function HomeModal({ children, open, handleClose }) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    min-width: 80%;
-    min-height: 70%;
-    display: flex;
-    justify-content: center;
+    min-width: 50%;
   `;
 
   return (
