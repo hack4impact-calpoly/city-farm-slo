@@ -56,7 +56,7 @@ const LeftEventCard = styled.div`
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   min-width: 250px;
-  width: 90%;
+  width: 80%;
 `;
 
 const LinkWrapper = styled.div`
@@ -100,6 +100,21 @@ const FormSection = styled.div`
   padding: 8px;
   min-width: 500px;
   width: 90%;
+`;
+
+const RowWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const FieldWrapper = styled.div`
+  width: 50%;
 `;
 
 const StyledButton = styled(Button)`
@@ -154,7 +169,6 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
   const rEntries = [
     { name: "name", label: "Name" },
     { name: "email", label: "Email" },
-    { name: "number", label: "Phone Number" },
   ];
 
   return (
@@ -175,58 +189,93 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
       <FormSection>
         <PopupTitle>Sign Up</PopupTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* ------- Name, Email, Phone Number -------  */}
-          {rEntries.map((entry) => (
-            <div>
-              <Controller
-                className={classes.box}
-                key={entry.name}
-                name={entry.name}
-                defaultValue=""
-                control={control}
-                render={({
-                  field: { onChange, value },
-                  fieldState: { error },
-                }) => (
-                  <Box m={2}>
-                    <TextField
-                      required
-                      fullWidth
-                      InputProps={{ disableUnderline: true }}
-                      label={entry.label}
-                      variant={variant}
-                      value={value}
-                      onChange={onChange}
-                      error={!!error}
-                      helperText={error ? error.message : null}
-                      className={classes.root}
-                    />
-                  </Box>
-                )}
-              />
-            </div>
-          ))}
-          {/* ------- Notes -------  */}
-          <div>
-            <Controller
-              name="notes"
-              defaultValue=""
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <Box m={2}>
-                  <TextField
-                    fullWidth
-                    label="Notes"
-                    InputProps={{ disableUnderline: true }}
-                    variant={variant}
-                    value={value}
-                    onChange={onChange}
-                    className={classes.root}
+          <RowWrapper>
+            <Row>
+              {/* ------- Name, Email -------  */}
+              {rEntries.map((entry) => (
+                <FieldWrapper>
+                  <Controller
+                    className={classes.box}
+                    key={entry.name}
+                    name={entry.name}
+                    defaultValue=""
+                    control={control}
+                    render={({
+                      field: { onChange, value },
+                      fieldState: { error },
+                    }) => (
+                      <Box m={2}>
+                        <TextField
+                          required
+                          fullWidth
+                          InputProps={{ disableUnderline: true }}
+                          label={entry.label}
+                          variant={variant}
+                          value={value}
+                          onChange={onChange}
+                          error={!!error}
+                          helperText={error ? error.message : null}
+                          className={classes.root}
+                        />
+                      </Box>
+                    )}
                   />
-                </Box>
-              )}
-            />
-          </div>
+                </FieldWrapper>
+              ))}
+            </Row>
+            <Row>
+              {/* ------- Phone Number -------  */}
+              <FieldWrapper>
+                <Controller
+                  className={classes.box}
+                  key="number"
+                  name="number"
+                  defaultValue=""
+                  control={control}
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error },
+                  }) => (
+                    <Box m={2}>
+                      <TextField
+                        required
+                        fullWidth
+                        InputProps={{ disableUnderline: true }}
+                        label="Phone Number"
+                        variant={variant}
+                        value={value}
+                        onChange={onChange}
+                        error={!!error}
+                        helperText={error ? error.message : null}
+                        className={classes.root}
+                      />
+                    </Box>
+                  )}
+                />
+              </FieldWrapper>
+              {/* ------- Notes -------  */}
+              <FieldWrapper>
+                <Controller
+                  name="notes"
+                  defaultValue=""
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <Box m={2}>
+                      <TextField
+                        fullWidth
+                        label="Notes"
+                        InputProps={{ disableUnderline: true }}
+                        variant={variant}
+                        value={value}
+                        onChange={onChange}
+                        className={classes.root}
+                      />
+                    </Box>
+                  )}
+                />
+              </FieldWrapper>
+            </Row>
+          </RowWrapper>
           {/* ------- Submit Button -------  */}
           <div>
             <Box m={2}>
