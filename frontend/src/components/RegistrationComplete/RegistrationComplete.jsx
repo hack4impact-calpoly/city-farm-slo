@@ -16,6 +16,7 @@ const Container = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
+  z-index: 10;
 `;
 
 const Button = styled.button`
