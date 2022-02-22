@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Modal from "@mui/material/Modal";
-// import { isMobile } from "react-device-detect";
 
 export default function HomeModal({ children, open, handleClose }) {
   const ModalContainer = styled.div`

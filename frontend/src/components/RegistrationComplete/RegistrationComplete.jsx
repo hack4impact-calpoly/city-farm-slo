@@ -107,24 +107,6 @@ export default function RegistrationComplete({
         </StyledLink>
       </ButtonWrapper>
     </PopupWrapper>
-    // <div>
-    //   <Container>
-    //     <h1>Successfully Registered</h1>
-    //   </Container>
-    //   <div>{/* EventCard placeholder here */}</div>
-    //   <Container>
-    //     <p>A confirmation email / text will be sent soon</p>
-    //   </Container>
-
-    //   <Container>
-    //     <ButtonContainer>
-    //       <Button>Register for another event</Button>
-    //       <Link to="/">
-    //         <Button>Return to City Farm SLO</Button>
-    //       </Link>
-    //     </ButtonContainer>
-    //   </Container>
-    // </div>
   );
 }
 

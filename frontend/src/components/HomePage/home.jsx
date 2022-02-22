@@ -5,7 +5,7 @@ import styled from "styled-components";
 import flower from "./flower-bg.png";
 import Calendar from "../UserSignUp/Calendar";
 import EventCard from "../UserSignUp/EventCard";
-import HomeModal from "../HomeModal";
+import HomeModal from "./HomeModal";
 import SignUpForm from "../UserSignUp/SignUpForm";
 import RegistrationComplete from "../RegistrationComplete/RegistrationComplete";
 
