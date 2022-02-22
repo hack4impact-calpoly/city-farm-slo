@@ -213,7 +213,10 @@ export default function Home({ selectedEvent, setEvent }) {
             />
           </Route>
           <Route path="/registration-complete">
-            <RegistrationComplete />
+            <RegistrationComplete
+              selectedEvent={selectedEvent}
+              handleModalClose={handleModalClose}
+            />
           </Route>
         </Switch>
       </HomeModal>

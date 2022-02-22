@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
 const PopupTitle = styled.h1`
   font-style: normal;
   font-weight: normal;
-  font-size: 30px;
+  font-size: 36px;
   line-height: 58px;
   color: #ffffff;
   margin: -10px 0px 20px 20px;
@@ -118,17 +118,24 @@ const FieldWrapper = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  background-color: #c1d741;
+  background-color: #0ba360;
   border-radius: 20px;
   padding: 20px;
-  font-size: 20px;
-  font-weight: 400;
+  font-family: "Urbanist", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
   text-transform: capitalize;
+  box-shadow: none;
+  &:disabled {
+    background-color: #b8b4b4;
+  }
   &:hover {
-    background-color: #0ba360;
+    background-color: #0a8a52;
+    box-shadow: none;
   }
   &:focus {
-    background-color: green;
+    background-color: #0cb069;
+    box-shadow: none;
   }
 `;
 
@@ -151,7 +158,8 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
       .max(10, "Too long")
       .matches(phoneRegExp, "Invalid format"),
   });
-  const { handleSubmit, control, reset } = useForm({
+  const { handleSubmit, control, reset, formState } = useForm({
+    mode: "onChange",
     resolver: yupResolver(validationSchema),
   });
 
@@ -284,6 +292,7 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
                 variant="contained"
                 color="primary"
                 fullWidth
+                disabled={!formState.isValid}
               >
                 Register
               </StyledButton>
