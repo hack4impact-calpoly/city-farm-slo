@@ -130,7 +130,7 @@ function SignUpForm({ selectedEvent }) {
   const onSubmit = (values) => {
     console.log(values);
     reset();
-    history.push("/registration-complete");
+    history.push("/waiver");
   };
 
   // info for required entries

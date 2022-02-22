@@ -4,6 +4,7 @@ import { StylesProvider } from "@material-ui/core/styles";
 import Home from "./components/HomePage/home";
 import SignUpForm from "./components/UserSignUp/SignUpForm";
 import RegistrationComplete from "./components/RegistrationComplete/RegistrationComplete";
+import WaiverPage from "./components/WaiverPage";
 
 function App() {
   // lifted state for event selected
@@ -22,6 +23,9 @@ function App() {
             </Route>
             <Route path="/registration-complete">
               <RegistrationComplete selectedEvent={selectedEvent} />
+            </Route>
+            <Route path="/waiver">
+              <WaiverPage selectedEvent={selectedEvent} />
             </Route>
           </Switch>
         </div>
