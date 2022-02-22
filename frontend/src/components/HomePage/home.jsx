@@ -5,7 +5,6 @@ import styled from "styled-components";
 import flower from "./flower-bg.png";
 import Calendar from "../UserSignUp/Calendar";
 import EventCard from "../UserSignUp/EventCard";
-import Waiver from "../WaiverComponent/Waiver";
 
 // styled components
 const Title1 = styled.div`
@@ -31,14 +30,12 @@ const Header = styled.div`
   justify-content: flex-start;
 `;
 
-/* Commented out to demo Waiver component */
-
-// const FullPage = styled.div`
-//   background: #c9e8eb;
-//   display: flex;
-//   flex-direction: column;
-//   height: 100vh;
-// `;
+const FullPage = styled.div`
+  background: #c9e8eb;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
 
 const FullPage2 = styled.div`
   background: #c9e8eb;
@@ -139,9 +136,7 @@ export default function Home({ selectedEvent, setEvent }) {
   if (eventClicked === false) {
     return (
       <div>
-        <Waiver />
-        {/* Commented out home page to demo Waiver component */}
-        {/* <FullPage>
+        <FullPage>
           <Title1>City Farm SLO</Title1>
           <CenterWrap>
             <Title2>Select an Event to Register</Title2>
@@ -158,7 +153,7 @@ export default function Home({ selectedEvent, setEvent }) {
           <PlantContainer>
             <img src={flower} alt="Flower" />
           </PlantContainer>
-        </FullPage> */}
+        </FullPage>
       </div>
     );
   }
