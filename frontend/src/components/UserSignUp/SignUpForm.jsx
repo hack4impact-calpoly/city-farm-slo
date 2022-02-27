@@ -35,8 +35,11 @@ const PopupWrapper = styled.div`
   background: #003c45;
   border-radius: 80px;
   padding: 30px;
+  box-sizing: border-box;
   min-width: 800px;
   min-height: 400px;
+  width: 100%;
+  height: 100%;
 `;
 
 const FirstSection = styled.div`
@@ -137,6 +140,10 @@ const StyledButton = styled(Button)`
     background-color: #0cb069;
     box-shadow: none;
   }
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 function SignUpForm({ selectedEvent, handleModalClose }) {
@@ -285,19 +292,17 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
             </Row>
           </RowWrapper>
           {/* ------- Submit Button -------  */}
-          <div>
-            <Box m={2}>
-              <StyledButton
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-                disabled={!formState.isValid}
-              >
-                Register
-              </StyledButton>
-            </Box>
-          </div>
+          <Box m={2}>
+            <StyledButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              disabled={!formState.isValid}
+            >
+              Register
+            </StyledButton>
+          </Box>
         </form>
       </FormSection>
     </PopupWrapper>

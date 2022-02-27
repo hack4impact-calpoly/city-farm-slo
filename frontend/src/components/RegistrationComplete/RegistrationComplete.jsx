@@ -15,8 +15,11 @@ const PopupWrapper = styled.div`
   background: #003c45;
   border-radius: 80px;
   padding: 30px;
+  box-sizing: border-box;
   min-width: 800px;
   min-height: 400px;
+  width: 100%;
+  height: 100%;
 `;
 
 const PopupTitle = styled.h1`
