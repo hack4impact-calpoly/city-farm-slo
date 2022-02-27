@@ -1,6 +1,7 @@
 const express = require("express");
 const Volunteer = require("../models/volunteer");
 const Event = require("../models/event");
+const { body, validationResult, check } = require("express-validator");
 
 const router = express.Router();
 
@@ -17,31 +18,39 @@ router.get("/:id", async (req, res) => {
 });
 
 // #2 - add a volunteer
-router.post("/register", async (req, res) => {
-  try {
-    const { firstName, lastName, email, phone } = req.body.volunteer;
-    const { eventID } = req.body;
+router.post(
+  "/register",
+  check("firstName").isString().withMessage("Not a string"),
+  check("lastName").isString().withMessage("Not a string"),
+  check("email").isEmail().withMessage("Not an email"),
+  check("phone").isMobilePhone().withMessage("Not a date"),
+  // eslint-disable-next-line consistent-return
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
 
-    if (!eventID) {
-      res.status(400).send("Missing eventID");
-      return;
+      const volunteer = await Volunteer.create({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        phone: req.body.phone,
+      });
+      volunteer.save();
+      res.json(volunteer);
+
+      // update event with volunteer
+      const { eventID } = req.body;
+      await Event.findByIdAndUpdate(eventID, {
+        $push: { volunteers: volunteer._id },
+      });
+    } catch (error) {
+      res.status(500).send(error.message);
+      console.log(`error is ${error.message}`);
     }
-
-    let volunteer = new Volunteer({
-      firstName,
-      lastName,
-      email,
-      phone,
-    });
-    volunteer = await volunteer.save();
-    await Event.findByIdAndUpdate(eventID, {
-      $push: { volunteers: volunteer._id },
-    });
-    res.json(volunteer);
-  } catch (error) {
-    res.status(500).send(error.message);
-    console.log(`error is ${error.message}`);
   }
-});
+);
 
 module.exports = router;
