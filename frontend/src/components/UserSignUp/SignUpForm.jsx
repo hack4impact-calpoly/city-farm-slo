@@ -28,6 +28,9 @@ const PopupTitle = styled.h1`
   line-height: 58px;
   color: #ffffff;
   margin-top: -10px;
+  @media (max-width: 985px) {
+    text-align: center;
+  }
 `;
 
 const PopupWrapper = styled.div`
@@ -37,15 +40,20 @@ const PopupWrapper = styled.div`
   border-radius: 80px;
   padding: 20px;
   min-width: 800px;
+  @media (max-width: 985px) {
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 
 const FirstSection = styled.div`
   position: relative;
   display: flex;
+  flex-direction: column;
   border-radius: 5px;
   padding: 20px;
-  min-width: 250px;
   width: fit-content;
+  margin-right: 5%;
 `;
 
 // const LeftEventCard = styled.div`
@@ -61,22 +69,27 @@ const FirstSection = styled.div`
 // `;
 
 const DividerLine = styled.div`
-  margin: 0px 20px;
   min-width: 18px;
   height: 500px;
-  left: 655px;
-  top: 247px;
   background: white;
   border-radius: 30px;
+  @media (max-width: 985px) {
+    width: 94vw;
+    height: 18px;
+  }
 `;
 
 const FormSection = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 8px;
   min-width: 500px;
   width: 90%;
+  @media (max-width: 985px) {
+    height: 25em;
+  }
 `;
 
 const Center = styled.div`
