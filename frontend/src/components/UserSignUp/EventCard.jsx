@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+const dayjs = require("dayjs");
+
 // Displays volunteer event information.
 
 const EventCardWrapper = styled.div`
@@ -9,6 +11,8 @@ const EventCardWrapper = styled.div`
   background: #c1d741;
   border-radius: 30px;
   padding: 3%;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const Header = styled.h1`
@@ -34,13 +38,14 @@ const Name = styled.h1`
   padding: 0%;
   margin: 0%;
   border: 0%;
-  font-size: 36px;
+  font-size: 150%;
 `;
 
-const Slots = styled.h1`
+const Slots = styled.h2`
   padding: 0%;
   margin: 0%;
   border: 0%;
+  padding-left: 30%;
   font-size: 25px;
 `;
 
@@ -66,8 +71,11 @@ export default function EventCard({ event }) {
         <Name>{event.title}</Name>
         <Slots>{`${event.volunteers.length} slots / ${event.slots}`}</Slots>
       </Header>
-      <Subheader>{event.start.toLocaleDateString("en-US")}</Subheader>
-      <Subheader>{event.start.toLocaleTimeString("en-US")}</Subheader>
+      <Subheader>{dayjs(event.start).format("MMM D, YYYY")}</Subheader>
+      <Subheader>
+        {dayjs(event.start).format("h:mm A")}-
+        {dayjs(event.end).format("h:mm A")}
+      </Subheader>
       <Subheader>{event.location}</Subheader>
     </EventCardWrapper>
   );

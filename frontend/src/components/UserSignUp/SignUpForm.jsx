@@ -7,6 +7,8 @@ import * as Yup from "yup";
 import styled from "styled-components";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
+import EventCard from "./EventCard";
 
 // override MUI styles for TextField component
 const useStyles = makeStyles(() => ({
@@ -44,18 +46,6 @@ const FirstSection = styled.div`
   padding: 20px;
   min-width: 250px;
   width: fit-content;
-`;
-
-const LeftEventCard = styled.div`
-  height: 50%;
-  background: #c1d741;
-  border-radius: 20px;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  width: 250px;
 `;
 
 const DividerLine = styled.div`
@@ -103,7 +93,7 @@ const StyledButton = styled(Button)`
 `;
 
 function SignUpForm({ selectedEvent }) {
-  console.log(selectedEvent);
+  const history = useHistory();
 
   // style
   const variant = "filled";
@@ -129,6 +119,7 @@ function SignUpForm({ selectedEvent }) {
   const onSubmit = (values) => {
     console.log(values);
     reset();
+    history.push("/waiver");
   };
 
   // info for required entries
@@ -143,7 +134,8 @@ function SignUpForm({ selectedEvent }) {
       {/* Left event card */}
       <FirstSection>
         <PopupTitle> Sign Up </PopupTitle>
-        <LeftEventCard />
+        <EventCard event={selectedEvent} />
+        {/* <LeftEventCard /> */}
       </FirstSection>
       {/* Divider line */}
       <DividerLine />

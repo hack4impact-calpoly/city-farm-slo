@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import EventCard from "../UserSignUp/EventCard";
 
 // Requirements
 // Please use styled-components, and don't worry about the background around the modal,
@@ -32,13 +34,26 @@ const Button = styled.button`
   font: Urbanist;
 `;
 
-export default function RegistrationComplete() {
+const EventCardWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  align-items: center;
+`;
+
+const FullPage = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+export default function RegistrationComplete({ selectedEvent }) {
   return (
-    <div>
+    <FullPage>
       <Container>
         <h1>Registered For</h1>
       </Container>
-      <div>{/* EventCard placeholder here */}</div>
+      <EventCardWrapper>
+        <EventCard event={selectedEvent} />
+      </EventCardWrapper>
       <Container>
         <p>A confirmation email / text will be sent soon</p>
       </Container>
@@ -51,6 +66,10 @@ export default function RegistrationComplete() {
           </Link>
         </ButtonContainer>
       </Container>
-    </div>
+    </FullPage>
   );
 }
+
+RegistrationComplete.propTypes = {
+  selectedEvent: PropTypes.instanceOf({}).isRequired,
+};
