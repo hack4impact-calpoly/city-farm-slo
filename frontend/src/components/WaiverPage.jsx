@@ -155,7 +155,3 @@ export default function WaiverPage() {
     </div>
   );
 }
-
-WaiverPage.propTypes = {
-  selectedEvent: PropTypes.instanceOf({}).isRequired,
-};
