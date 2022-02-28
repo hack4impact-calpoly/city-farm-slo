@@ -48,18 +48,6 @@ const FirstSection = styled.div`
   width: fit-content;
 `;
 
-// const LeftEventCard = styled.div`
-//   height: 50%;
-//   background: #c1d741;
-//   border-radius: 20px;
-//   margin: 0;
-//   position: absolute;
-//   top: 50%;
-//   -ms-transform: translateY(-50%);
-//   transform: translateY(-50%);
-//   width: 250px;
-// `;
-
 const DividerLine = styled.div`
   margin: 0px 20px;
   min-width: 18px;

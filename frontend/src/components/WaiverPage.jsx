@@ -117,7 +117,7 @@ const WaiverExplanation = styled.p`
   margin-right: 10%;
 `;
 
-export default function WaiverPage({ selectedEvent }) {
+export default function WaiverPage() {
   return (
     <div>
       <FullPage>
@@ -138,10 +138,7 @@ export default function WaiverPage({ selectedEvent }) {
                 </AgreementText>
                 <CheckBox />
               </AgreementSection>
-              <RegistrationLink
-                to="/registration-complete"
-                style={selectedEvent}
-              >
+              <RegistrationLink to="/registration-complete">
                 <RegisterButton>Register</RegisterButton>
               </RegistrationLink>
               <WaiverExplanation>

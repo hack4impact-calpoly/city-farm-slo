@@ -4,6 +4,7 @@ const eventRoutes = require("./routes/event");
 const volunteerRoutes = require("./routes/volunteer");
 
 require("dotenv").config();
+
 // Start Express Server
 const app = express();
 app.use(express.json());

@@ -25,7 +25,7 @@ function App() {
               <RegistrationComplete selectedEvent={selectedEvent} />
             </Route>
             <Route path="/waiver">
-              <WaiverPage selectedEvent={selectedEvent} />
+              <WaiverPage />
             </Route>
           </Switch>
         </div>
