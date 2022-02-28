@@ -93,6 +93,10 @@ const CheckBox = styled.div`
   margin-right: 10%;
 `;
 
+const RegistrationLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const RegisterButton = styled.div`
   display: flex;
   justify-content: center;
@@ -134,9 +138,12 @@ export default function WaiverPage({ selectedEvent }) {
                 </AgreementText>
                 <CheckBox />
               </AgreementSection>
-              <Link to="/registration-complete" style={selectedEvent}>
+              <RegistrationLink
+                to="/registration-complete"
+                style={selectedEvent}
+              >
                 <RegisterButton>Register</RegisterButton>
-              </Link>
+              </RegistrationLink>
               <WaiverExplanation>
                 Waiver signage is required for first time volunteers. This will
                 not have to be done nextime.{" "}
