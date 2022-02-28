@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import flower from "./HomePage/flower-bg.png";
 
