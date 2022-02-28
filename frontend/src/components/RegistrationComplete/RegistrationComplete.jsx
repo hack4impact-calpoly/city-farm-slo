@@ -33,15 +33,26 @@ const Button = styled.button`
   font: Urbanist;
 `;
 
+const EventCardWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  align-items: center;
+`;
+
+const FullPage = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
 export default function RegistrationComplete({ selectedEvent }) {
   return (
-    <div>
+    <FullPage>
       <Container>
         <h1>Registered For</h1>
       </Container>
-      <div>
+      <EventCardWrapper>
         <EventCard event={selectedEvent} />
-      </div>
+      </EventCardWrapper>
       <Container>
         <p>A confirmation email / text will be sent soon</p>
       </Container>
@@ -54,7 +65,7 @@ export default function RegistrationComplete({ selectedEvent }) {
           </Link>
         </ButtonContainer>
       </Container>
-    </div>
+    </FullPage>
   );
 }
 

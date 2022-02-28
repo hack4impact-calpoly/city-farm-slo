@@ -82,7 +82,7 @@ const AgreementText = styled.p`
   color: white;
   size: 200%;
   margin-right: 10%;
-  font-size: 100%;
+  font-size: 20px;
 `;
 
 const CheckBox = styled.div`
@@ -103,14 +103,13 @@ const RegisterButton = styled.div`
   background: #c4c4c4;
   border-radius: 30px;
   font-size: 42px;
-  font-weight: 900;
+  font-weight: bold;
   padding: 10px;
   margin-top: 6%;
 `;
 
 const WaiverExplanation = styled.p`
   color: white;
-  font-size: 120%;
   margin-right: 10%;
 `;
 

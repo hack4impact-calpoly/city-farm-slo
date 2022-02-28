@@ -11,16 +11,9 @@ const EventCardWrapper = styled.div`
   background: #c1d741;
   border-radius: 30px;
   padding: 3%;
+  margin-left: auto;
+  margin-right: auto;
 `;
-
-// border-radius: 20px;
-// margin: 0;
-// position: absolute;
-// top: 50%;
-// left: 0%;
-// -ms-transform: translateY(-50%);
-// transform: translateY(-50%);
-// width: 90%;
 
 const Header = styled.h1`
   display: flex;
