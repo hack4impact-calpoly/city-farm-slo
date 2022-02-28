@@ -65,7 +65,7 @@ const PlantContainer = styled.div`
   position: absolute;
   bottom: 0;
   left: 5%;
-  z-index: 0;
+  z-index: -10;
 `;
 
 const LeftContainer = styled.div`

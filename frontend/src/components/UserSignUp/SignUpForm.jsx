@@ -92,6 +92,7 @@ const StyledButton = styled(Button)`
   padding: 20px;
   font-size: 20px;
   font-weight: 400;
+  z-index: 10;
   text-transform: capitalize;
   &:hover {
     background-color: #0ba360;
