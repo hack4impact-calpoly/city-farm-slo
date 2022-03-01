@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import flower from "./HomePage/flower-bg.png";
 
 const Title1 = styled.h1`
   color: white;
@@ -18,28 +17,12 @@ const CenterWrap = styled.div`
   z-index: 1;
 `;
 
-const PlantContainer = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 5%;
-  z-index: 0;
-`;
-
 const BackGround = styled.div`
-  width: 80%;
-  height: 90%;
   position: center;
   background: #003c45;
   border-radius: 80px;
   padding: 20px;
   border: center;
-  min-width: 800px;
-`;
-
-const FullPage = styled.div`
-  align-items: center;
-  background: #c9e8eb;
-  height: 100vh;
 `;
 
 const WaiverComp = styled.div`
@@ -119,38 +102,33 @@ const WaiverExplanation = styled.p`
 export default function WaiverPage() {
   return (
     <div>
-      <FullPage>
-        <BackGround>
-          <CenterWrap>
-            <Title1>Sign Waiver</Title1>
-          </CenterWrap>
-          <WaiverFormWrapper>
-            <WaiverFormLeftWrapper>
-              {/* waiver component goes here */}
-              <WaiverComp />
-            </WaiverFormLeftWrapper>
-            <WaiverFormRightWrapper>
-              <AgreementSection>
-                <AgreementText>
-                  Check here to indicate that you have read and agree to the
-                  terms of the City Farm SLO Volunteer Agreement
-                </AgreementText>
-                <CheckBox />
-              </AgreementSection>
-              <RegistrationLink to="/registration-complete">
-                <RegisterButton>Register</RegisterButton>
-              </RegistrationLink>
-              <WaiverExplanation>
-                Waiver signage is required for first time volunteers. This will
-                not have to be done nextime.{" "}
-              </WaiverExplanation>
-            </WaiverFormRightWrapper>
-          </WaiverFormWrapper>
-        </BackGround>
-        <PlantContainer>
-          <img src={flower} alt="Flower" />
-        </PlantContainer>
-      </FullPage>
+      <BackGround>
+        <CenterWrap>
+          <Title1>Sign Waiver</Title1>
+        </CenterWrap>
+        <WaiverFormWrapper>
+          <WaiverFormLeftWrapper>
+            {/* waiver component goes here */}
+            <WaiverComp />
+          </WaiverFormLeftWrapper>
+          <WaiverFormRightWrapper>
+            <AgreementSection>
+              <AgreementText>
+                Check here to indicate that you have read and agree to the terms
+                of the City Farm SLO Volunteer Agreement
+              </AgreementText>
+              <CheckBox />
+            </AgreementSection>
+            <RegistrationLink to="/registration-complete">
+              <RegisterButton>Register</RegisterButton>
+            </RegistrationLink>
+            <WaiverExplanation>
+              Waiver signage is required for first time volunteers. This will
+              not have to be done nextime.{" "}
+            </WaiverExplanation>
+          </WaiverFormRightWrapper>
+        </WaiverFormWrapper>
+      </BackGround>
     </div>
   );
 }

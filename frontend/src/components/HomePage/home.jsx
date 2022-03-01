@@ -8,6 +8,8 @@ import EventCard from "../UserSignUp/EventCard";
 import HomeModal from "./HomeModal";
 import SignUpForm from "../UserSignUp/SignUpForm";
 import RegistrationComplete from "../RegistrationComplete/RegistrationComplete";
+import Waiver from "../WaiverComponent/Waiver";
+import WaiverPage from "../WaiverPage";
 
 // styled components
 const Title1 = styled.div`
@@ -211,6 +213,9 @@ export default function Home({ selectedEvent, setEvent }) {
               selectedEvent={selectedEvent}
               handleModalClose={handleModalClose}
             />
+          </Route>
+          <Route path="/waiver">
+            <WaiverPage />
           </Route>
           <Route path="/registration-complete">
             <RegistrationComplete
