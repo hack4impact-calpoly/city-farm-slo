@@ -31,19 +31,6 @@ const PopupTitle = styled.h1`
   margin: 30px 0px 20px 0px;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  z-index: 10;
-`;
-
-const EventCardPlaceholder = styled.div`
-  background: #c1d741;
-  border-radius: 20px;
-  min-width: 250px;
-  min-height: 100px;
-`;
-
 const Message = styled.p`
   font-style: normal;
   font-weight: normal;

@@ -8,7 +8,6 @@ import EventCard from "../UserSignUp/EventCard";
 import HomeModal from "./HomeModal";
 import SignUpForm from "../UserSignUp/SignUpForm";
 import RegistrationComplete from "../RegistrationComplete/RegistrationComplete";
-import Waiver from "../WaiverComponent/Waiver";
 import WaiverPage from "../WaiverComponent/WaiverPage";
 
 // styled components
