@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import styled from "styled-components";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
+import EventCard from "./EventCard";
 
 // override MUI styles for TextField component
 const useStyles = makeStyles(() => ({
@@ -46,20 +47,9 @@ const FirstSection = styled.div`
   position: relative;
   display: flex;
   padding: 20px;
-  min-width: 250px;
-  width: 50%;
-`;
-
-const LeftEventCard = styled.div`
-  height: 40%;
-  background: #c1d741;
-  border-radius: 20px;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  min-width: 250px;
-  width: 80%;
+  width: fit-content;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const LinkWrapper = styled.div`
@@ -127,6 +117,7 @@ const StyledButton = styled(Button)`
   font-family: "Urbanist", sans-serif;
   font-size: 24px;
   font-weight: 800;
+  z-index: 10;
   text-transform: capitalize;
   box-shadow: none;
   &:disabled {
@@ -147,8 +138,6 @@ const StyledButton = styled(Button)`
 `;
 
 function SignUpForm({ selectedEvent, handleModalClose }) {
-  console.log(selectedEvent);
-
   // style
   const variant = "filled";
   const classes = useStyles();
@@ -177,7 +166,7 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
   const onSubmit = (values) => {
     console.log(values);
     reset();
-    history.push("/registration-complete");
+    history.push("/waiver");
   };
 
   // info for required entries
@@ -190,7 +179,7 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
     <PopupWrapper>
       {/* Left event card */}
       <FirstSection>
-        <LeftEventCard />
+        <EventCard event={selectedEvent} />
         <LinkWrapper>
           <ReturnLink to="/" onClick={handleModalClose}>
             <BackArrow />

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
+import EventCard from "../UserSignUp/EventCard";
 
 // Requirements
 // Please use styled-components, and don't worry about the background around the modal,
@@ -28,6 +29,12 @@ const PopupTitle = styled.h1`
   font-size: 48px;
   color: #ffffff;
   margin: 30px 0px 20px 0px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
 `;
 
 const EventCardPlaceholder = styled.div`
@@ -84,6 +91,12 @@ const StyledButton = styled(Button)`
   }
 `;
 
+const EventCardWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  align-items: center;
+`;
+
 export default function RegistrationComplete({
   selectedEvent,
   handleModalClose,
@@ -93,7 +106,9 @@ export default function RegistrationComplete({
   return (
     <PopupWrapper>
       <PopupTitle>Successfully Registered</PopupTitle>
-      <EventCardPlaceholder />
+      <EventCardWrapper>
+        <EventCard event={selectedEvent} />
+      </EventCardWrapper>
       <Message>
         You will receive an email confirmation with the event&apos;s details.
       </Message>
