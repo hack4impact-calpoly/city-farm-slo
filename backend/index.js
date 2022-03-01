@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const eventRoutes = require("./routes/event");
 const volunteerRoutes = require("./routes/volunteer");
+const mailRoutes = require("./routes/mail");
 
 require("dotenv").config();
 
@@ -24,5 +25,6 @@ app.get("/", (req, res) => {
 
 app.use("/events", eventRoutes);
 app.use("/volunteer", volunteerRoutes);
+app.use("/mail", mailRoutes);
 
 app.listen(3001);
