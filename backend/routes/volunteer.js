@@ -1,7 +1,7 @@
 const express = require("express");
+const { validationResult, check } = require("express-validator");
 const Volunteer = require("../models/volunteer");
 const Event = require("../models/event");
-const { body, validationResult, check } = require("express-validator");
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.post(
   check("firstName").isString().withMessage("Not a string"),
   check("lastName").isString().withMessage("Not a string"),
   check("email").isEmail().withMessage("Not an email"),
-  check("phone").isMobilePhone().withMessage("Not a date"),
+  check("phone").isMobilePhone().withMessage("Not a phone number"),
   // eslint-disable-next-line consistent-return
   async (req, res) => {
     try {
