@@ -9,7 +9,7 @@ import HomeModal from "./HomeModal";
 import SignUpForm from "../UserSignUp/SignUpForm";
 import RegistrationComplete from "../RegistrationComplete/RegistrationComplete";
 import Waiver from "../WaiverComponent/Waiver";
-import WaiverPage from "../WaiverPage";
+import WaiverPage from "../WaiverComponent/WaiverPage";
 
 // styled components
 const Title1 = styled.div`
