@@ -1,37 +1,81 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import { Button } from "@material-ui/core";
 import EventCard from "../UserSignUp/EventCard";
 
 // Requirements
 // Please use styled-components, and don't worry about the background around the modal,
 // the content in the event card, or the functionality of the register for another event button.
 
-const Container = styled.div`
-  display: flex;
-  color: #ffffff;
-  justify-content: center;
-  background: #003c45;
-`;
-
-const ButtonContainer = styled.div`
+const PopupWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  z-index: 10;
+  align-items: center;
+  background: #003c45;
+  border-radius: 80px;
+  padding: 30px;
+  box-sizing: border-box;
+  min-width: 800px;
+  min-height: 400px;
+  width: 100%;
+  height: 100%;
 `;
 
-const Button = styled.button`
-  background: #c1d741;
-  border: #0ba360;
-  border-radius: 30px;
-  color: white;
-  font-size: 25px;
-  width: 930px;
-  height: 81px;
-  margin-bottom: 10px;
-  padding: 8px 0px;
-  font: Urbanist;
+const PopupTitle = styled.h1`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 48px;
+  color: #ffffff;
+  margin: 30px 0px 20px 0px;
+`;
+
+const Message = styled.p`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 43px;
+  color: #ffffff;
+  margin: 20px 0px 20px 0px;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const StyledA = styled.a`
+  text-decoration: none;
+  margin: 0px 10px;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  margin: 0px 10px;
+`;
+
+const StyledButton = styled(Button)`
+  background-color: #0ba360;
+  border-radius: 20px;
+  padding: 4px 30px;
+  font-family: "Urbanist", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  text-transform: capitalize;
+  box-shadow: none;
+  &:disabled {
+    background-color: #b8b4b4;
+  }
+  &:hover {
+    background-color: #0a8a52;
+    box-shadow: none;
+  }
+  &:focus {
+    background-color: #0cb069;
+    box-shadow: none;
+  }
 `;
 
 const EventCardWrapper = styled.div`
@@ -40,36 +84,38 @@ const EventCardWrapper = styled.div`
   align-items: center;
 `;
 
-const FullPage = styled.div`
-  width: 100%;
-  height: 100%;
-`;
+export default function RegistrationComplete({
+  selectedEvent,
+  handleModalClose,
+}) {
+  console.log(selectedEvent);
 
-export default function RegistrationComplete({ selectedEvent }) {
   return (
-    <FullPage>
-      <Container>
-        <h1>Registered For</h1>
-      </Container>
+    <PopupWrapper>
+      <PopupTitle>Successfully Registered</PopupTitle>
       <EventCardWrapper>
         <EventCard event={selectedEvent} />
       </EventCardWrapper>
-      <Container>
-        <p>A confirmation email / text will be sent soon</p>
-      </Container>
-
-      <Container>
-        <ButtonContainer>
-          <Button>Register for another event</Button>
-          <Link to="/">
-            <Button>Return to City Farm SLO</Button>
-          </Link>
-        </ButtonContainer>
-      </Container>
-    </FullPage>
+      <Message>
+        You will receive an email confirmation with the event&apos;s details.
+      </Message>
+      <ButtonWrapper>
+        <StyledA href="https://www.cityfarmslo.org/" onClick={handleModalClose}>
+          <StyledButton type="button" variant="contained" color="primary">
+            Return to City Farm SLO
+          </StyledButton>
+        </StyledA>
+        <StyledLink to="/" onClick={handleModalClose}>
+          <StyledButton type="button" variant="contained" color="primary">
+            Register for another event
+          </StyledButton>
+        </StyledLink>
+      </ButtonWrapper>
+    </PopupWrapper>
   );
 }
 
 RegistrationComplete.propTypes = {
   selectedEvent: PropTypes.instanceOf({}).isRequired,
+  handleModalClose: PropTypes.func.isRequired,
 };
