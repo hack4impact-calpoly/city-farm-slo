@@ -37,6 +37,8 @@ router.post(
         lastName: req.body.lastName,
         email: req.body.email,
         phone: req.body.phone,
+        // initialize signedWaiver to false when Volunteer is created
+        signedWaiver: false,
       });
       volunteer.save();
       res.json(volunteer);
@@ -52,5 +54,25 @@ router.post(
     }
   }
 );
+
+// #3 - put route to set signedWaiver and dateSigned
+router.put("volunteer/:id/signWaiver", async (req, res) => {
+  const { firstName } = req.body.firstName;
+  const { lastName } = req.body.lastName;
+  const { email } = req.body.email;
+  const { phone } = req.body.phone;
+  const volunteer = await Volunteer.findOne({
+    firstName,
+    lastName,
+    email,
+    phone,
+  });
+  const current = new Date();
+  // update signedWaiver and dateSigned fields
+  volunteer.signedWaiver = true;
+  volunteer.dateSigned = current.getTime();
+  volunteer.save();
+  res.send(`Signed waiver at time ${volunteer.dateSigned}`);
+});
 
 module.exports = router;
