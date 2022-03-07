@@ -6,7 +6,7 @@ const VolunteerSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   phone: { type: String, required: true },
   signedWaiver: { type: Boolean, required: true },
-  dateSigned: { type: Date, required: true },
+  dateSigned: { type: Date, required: false },
   notes: { type: String, required: false },
 });
 

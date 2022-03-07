@@ -56,17 +56,8 @@ router.post(
 );
 
 // #3 - put route to set signedWaiver and dateSigned
-router.put("volunteer/:id/signWaiver", async (req, res) => {
-  const { firstName } = req.body.firstName;
-  const { lastName } = req.body.lastName;
-  const { email } = req.body.email;
-  const { phone } = req.body.phone;
-  const volunteer = await Volunteer.findOne({
-    firstName,
-    lastName,
-    email,
-    phone,
-  });
+router.put("/:id/signWaiver", async (req, res) => {
+  const volunteer = await Volunteer.findById(req.params.id);
   const current = new Date();
   // update signedWaiver and dateSigned fields
   volunteer.signedWaiver = true;
