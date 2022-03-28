@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
 
 const PopupTitle = styled.h1`
   font-style: normal;
-  font-weight: normal;
+  font-weight: 700;
   font-size: 36px;
   line-height: 58px;
   color: #ffffff;
@@ -41,21 +41,49 @@ const PopupWrapper = styled.div`
   min-height: 400px;
   width: 100%;
   height: 100%;
+  justify-content: center;
+  @media (max-width: 1150px) {
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+  }
 `;
 
 const FirstSection = styled.div`
   position: relative;
   display: flex;
-  padding: 20px;
-  width: fit-content;
   flex-direction: column;
+  padding: 20px;
+  min-width: 330px;
   justify-content: space-between;
+  @media (max-width: 1150px) {
+    min-height: fit-content;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+`;
+
+const EventCardWrapper = styled.div`
+  position: absolute;
+  left: 0;
+  top: 35%;
+  @media (max-width: 1150px) {
+    position: relative;
+    min-height: fit-content;
+    margin-top: 20px;
+    top: 0;
+  }
 `;
 
 const LinkWrapper = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  @media (max-width: 1150px) {
+    position: relative;
+    min-height: fit-content;
+    margin-top: 60px;
+  }
 `;
 
 const ReturnLink = styled(Link)`
@@ -79,20 +107,31 @@ const BackArrow = styled.i`
 `;
 
 const DividerLine = styled.div`
-  margin: 0px 20px;
+  margin: 0 5%;
   min-width: 18px;
   min-height: 100%;
   background: white;
   border-radius: 30px;
+
+  @media (max-width: 1150px) {
+    min-width: 100%;
+    min-height: 18px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 `;
 
 const FormSection = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 8px;
-  min-width: 500px;
-  width: 90%;
+  padding: 4px;
+  width: fit-content;
+  justify-items: center;
+
+  @media (max-width: 1150px) {
+    margin-bottom: 50px;
+  }
 `;
 
 const RowWrapper = styled.div`
@@ -135,6 +174,11 @@ const StyledButton = styled(Button)`
   top: 85%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media (max-width: 1150px) {
+    position: relative;
+    margin-top: 50px;
+  }
 `;
 
 function SignUpForm({ selectedEvent, handleModalClose }) {
@@ -179,7 +223,9 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
     <PopupWrapper>
       {/* Left event card */}
       <FirstSection>
-        <EventCard event={selectedEvent} />
+        <EventCardWrapper>
+          <EventCard event={selectedEvent} />
+        </EventCardWrapper>
         <LinkWrapper>
           <ReturnLink to="/" onClick={handleModalClose}>
             <BackArrow />
@@ -212,7 +258,9 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
                         <TextField
                           required
                           fullWidth
-                          InputProps={{ disableUnderline: true }}
+                          InputProps={{
+                            disableUnderline: true,
+                          }}
                           label={entry.label}
                           variant={variant}
                           value={value}
