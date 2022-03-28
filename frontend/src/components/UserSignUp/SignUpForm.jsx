@@ -128,7 +128,6 @@ const FormSection = styled.div`
   padding: 4px;
   width: fit-content;
   justify-items: center;
-  align-items: center;
 
   @media (max-width: 1150px) {
     margin-bottom: 50px;
