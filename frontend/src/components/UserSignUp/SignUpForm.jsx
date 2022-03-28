@@ -91,8 +91,8 @@ const FormSection = styled.div`
   display: flex;
   flex-direction: column;
   padding: 8px;
-  min-width: 500px;
-  width: 90%;
+  width: fit-content;
+  background-color: blue;
 `;
 
 const RowWrapper = styled.div`
@@ -212,7 +212,9 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
                         <TextField
                           required
                           fullWidth
-                          InputProps={{ disableUnderline: true }}
+                          InputProps={{
+                            disableUnderline: true,
+                          }}
                           label={entry.label}
                           variant={variant}
                           value={value}
