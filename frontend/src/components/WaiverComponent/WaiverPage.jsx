@@ -85,14 +85,6 @@ const AgreementText = styled.p`
   font-size: 20px;
 `;
 
-// const CheckBox = styled.div`
-//   background: #c4c4c4;
-//   width: 50px;
-//   height: 30px;
-//   margin-top: 1%;
-//   margin-right: 10%;
-// `;
-
 const RegistrationLink = styled(Link)`
   text-decoration: none;
 `;
@@ -119,7 +111,7 @@ const WaiverExplanation = styled.p`
 
 export default function WaiverPage() {
   // isAdult prop to be defined and passed in as state variable later
-  const isAdult = false;
+  const isAdult = true;
   const classes = useStyles();
 
   const [checked, setChecked] = useState(false);
@@ -150,7 +142,6 @@ export default function WaiverPage() {
                 Click here to indicate that you have read and agree to the terms
                 of the City Farm SLO Volunteer Agreement
               </AgreementText>
-              {/* <CheckBox /> */}
               {/* Checkbox for City Farm SLO Volunteer Agreement */}
               <Radio
                 sx={{
@@ -180,7 +171,7 @@ export default function WaiverPage() {
               />
             </AgreementSection>
             {/* Conditional rendering for whether Volunteer isAdult or not */}
-            {isAdult === true ? (
+            {isAdult ? (
               <>
                 <AgreementText>
                   Click here to indicate that you are signing this waiver for
