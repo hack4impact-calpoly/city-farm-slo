@@ -4,6 +4,7 @@ import { Radio } from "@mui/material";
 import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
+import Waiver from "./Waiver";
 
 // override MUI styles for TextField component
 const useStyles = makeStyles(() => ({
@@ -25,10 +26,11 @@ const Title1 = styled.h1`
   font-weight: 900;
   font-size: 200%;
   padding-bottom: 0px;
+  margin-top: 50px;
+  margin-bottom: 0px;
 `;
 
 const CenterWrap = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,6 +38,7 @@ const CenterWrap = styled.div`
 `;
 
 const BackGround = styled.div`
+  min-width: fit-content;
   position: center;
   background: #003c45;
   border-radius: 80px;
@@ -43,31 +46,35 @@ const BackGround = styled.div`
   border: center;
 `;
 
-const WaiverComp = styled.div`
-  width: 60%;
-  height: 70%;
-  background: #c4c4c4;
-  margin-left: 10%;
-`;
+// const WaiverComp = styled.div`
+//   width: 60%;
+//   height: 70%;
+//   background-color: #c4c4c4;
+//   margin-left: 10%;
+// `;
+
+// const WaiverComp = styled.div`
+//   background-color: red;
+//   margin-left: 10%;
+// `;
 
 const WaiverFormWrapper = styled.div`
-  width: 100%;
+  width: fit-content;
   height: 100%;
   display: flex;
   flex-direction: row;
 `;
 
 const WaiverFormLeftWrapper = styled.div`
-  width: 100%;
+  width: fit-content;
   height: 100%;
-  display: row;
-  flex-direction: column;
 `;
 
 const WaiverFormRightWrapper = styled.div`
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: fit-content;
   height: 100%;
 `;
 
@@ -134,7 +141,7 @@ export default function WaiverPage() {
         <WaiverFormWrapper>
           <WaiverFormLeftWrapper>
             {/* waiver component goes here */}
-            <WaiverComp />
+            <Waiver />
           </WaiverFormLeftWrapper>
           <WaiverFormRightWrapper>
             <AgreementSection>
