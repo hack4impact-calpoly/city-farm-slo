@@ -70,6 +70,8 @@ const EventCardWrapper = styled.div`
   @media (max-width: 1150px) {
     position: relative;
     min-height: fit-content;
+    margin-top: 20px;
+    top: 0;
   }
 `;
 
@@ -80,6 +82,7 @@ const LinkWrapper = styled.div`
   @media (max-width: 1150px) {
     position: relative;
     min-height: fit-content;
+    margin-top: 60px;
   }
 `;
 
@@ -172,6 +175,11 @@ const StyledButton = styled(Button)`
   top: 85%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media (max-width: 1150px) {
+    position: relative;
+    margin-top: 50px;
+  }
 `;
 
 function SignUpForm({ selectedEvent, handleModalClose }) {
