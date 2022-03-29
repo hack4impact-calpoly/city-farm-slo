@@ -13,13 +13,6 @@ const InnerWaiver = styled.div`
   transform: scale(0.85);
 `;
 
-// const StyledPage = styled(Page)`
-//   & .react-pdf__Page__canvas {
-//     width: 94.27vh !important;
-//     height: 122vh !important;
-//   }
-// `;
-
 export default function Waiver() {
   return (
     <InnerWaiver>

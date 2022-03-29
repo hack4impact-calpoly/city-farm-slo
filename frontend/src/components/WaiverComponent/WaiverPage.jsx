@@ -46,18 +46,6 @@ const BackGround = styled.div`
   border: center;
 `;
 
-// const WaiverComp = styled.div`
-//   width: 60%;
-//   height: 70%;
-//   background-color: #c4c4c4;
-//   margin-left: 10%;
-// `;
-
-// const WaiverComp = styled.div`
-//   background-color: red;
-//   margin-left: 10%;
-// `;
-
 const WaiverFormWrapper = styled.div`
   width: fit-content;
   height: 100%;
