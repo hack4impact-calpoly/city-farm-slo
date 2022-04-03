@@ -148,6 +148,13 @@ export default function Home({ selectedEvent, setEvent }) {
       .catch((err) => console.log(err));
   }, []);
 
+  // current user state
+  const [user, setUser] = useState({
+    // temp user for testing
+    // replace by calling setUser() in the SignUpForm component
+    id: "621dd07b29f7fa692b27bca6",
+  });
+
   if (eventClicked === false) {
     return (
       <div>
@@ -211,10 +218,11 @@ export default function Home({ selectedEvent, setEvent }) {
             <SignUpForm
               selectedEvent={selectedEvent}
               handleModalClose={handleModalClose}
+              setUser={setUser}
             />
           </Route>
           <Route path="/waiver">
-            <WaiverPage />
+            <WaiverPage user={user} />
           </Route>
           <Route path="/registration-complete">
             <RegistrationComplete

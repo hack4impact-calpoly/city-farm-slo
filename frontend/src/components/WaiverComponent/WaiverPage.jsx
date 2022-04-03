@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import { Radio } from "@mui/material";
 import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -109,7 +110,12 @@ const WaiverExplanation = styled.p`
   margin-right: 10%;
 `;
 
-export default function WaiverPage() {
+export default function WaiverPage({ user }) {
+  const signWaiver = () => {
+    fetch(`/volunteer/${user.id}/signWaiver`, {
+      method: "PUT",
+    });
+  };
   // isAdult prop to be defined and passed in as state variable later
   const isAdult = true;
   const classes = useStyles();
@@ -205,7 +211,7 @@ export default function WaiverPage() {
               </>
             )}
             <RegistrationLink to="/registration-complete">
-              <RegisterButton>Register</RegisterButton>
+              <RegisterButton onClick={signWaiver}>Register</RegisterButton>
             </RegistrationLink>
             <WaiverExplanation>
               Waiver signage is required for first time volunteers. This will
@@ -217,3 +223,7 @@ export default function WaiverPage() {
     </div>
   );
 }
+
+WaiverPage.propTypes = {
+  user: PropTypes.instanceOf({}).isRequired,
+};
