@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const Title1 = styled.h1`
   color: white;
@@ -99,7 +100,13 @@ const WaiverExplanation = styled.p`
   margin-right: 10%;
 `;
 
-export default function WaiverPage() {
+export default function WaiverPage({ user }) {
+  const signWaiver = () => {
+    fetch(`/volunteer/${user.id}/signWaiver`, {
+      method: "PUT",
+    });
+  };
+
   return (
     <div>
       <BackGround>
@@ -120,7 +127,7 @@ export default function WaiverPage() {
               <CheckBox />
             </AgreementSection>
             <RegistrationLink to="/registration-complete">
-              <RegisterButton>Register</RegisterButton>
+              <RegisterButton onClick={signWaiver}>Register</RegisterButton>
             </RegistrationLink>
             <WaiverExplanation>
               Waiver signage is required for first time volunteers. This will
@@ -132,3 +139,7 @@ export default function WaiverPage() {
     </div>
   );
 }
+
+WaiverPage.propTypes = {
+  user: PropTypes.instanceOf({}).isRequired,
+};
