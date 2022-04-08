@@ -132,6 +132,12 @@ export default function Home({ selectedEvent, setEvent }) {
     history.push("/");
   };
 
+  // over 18 state
+  const [isAdult, setisAdult] = useState(false);
+  const handleisAdult = () => {
+    setisAdult(true);
+  };
+
   // events state
   const [events, setEvents] = useState([]);
   const [eventClicked, setClicked] = useState(false);
@@ -185,7 +191,12 @@ export default function Home({ selectedEvent, setEvent }) {
       <FullPage2>
         <LeftContainer>
           <EventCard event={selectedEvent} />
-          <Link to="/age-selection" style={linkStyle} onClick={handleModalOpen}>
+          <Link
+            to="/age-selection"
+            style={linkStyle}
+            onClick={handleModalOpen}
+            onsetAdult={handleisAdult}
+          >
             <Register>Register</Register>
           </Link>
           <PlantContainer>

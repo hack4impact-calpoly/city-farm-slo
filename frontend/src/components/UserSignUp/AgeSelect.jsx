@@ -151,7 +151,7 @@ const StyledButton2 = styled(Button)`
   transform: translate(-50%, -50%);
 `;
 
-function AgeSelect({ selectedEvent, handleModalClose }) {
+function AgeSelect({ selectedEvent, handleModalClose, handleisAdult }) {
   return (
     <PopupWrapper>
       {/* Left event card */}
@@ -169,14 +169,16 @@ function AgeSelect({ selectedEvent, handleModalClose }) {
       {/* Sign up form */}
       <FormSection>
         <PopupTitle>Sign Up</PopupTitle>
-        <StyledButton1 type="button">
+        <StyledButton1 type="button" onClick={handleisAdult}>
           I am <b>under</b> 18
         </StyledButton1>
-        <StyledButton2 type="button">
-          I am <b>over</b> 18
-          <br />
-          (or signing up for others)
-        </StyledButton2>
+        <Link to="/registration">
+          <StyledButton2 type="button">
+            I am <b>over</b> 18
+            <br />
+            (or signing up for others)
+          </StyledButton2>
+        </Link>
       </FormSection>
     </PopupWrapper>
   );
@@ -185,6 +187,7 @@ function AgeSelect({ selectedEvent, handleModalClose }) {
 AgeSelect.propTypes = {
   selectedEvent: PropTypes.instanceOf({}).isRequired,
   handleModalClose: PropTypes.func.isRequired,
+  handleisAdult: PropTypes.func.isRequired,
 };
 
 export default AgeSelect;
