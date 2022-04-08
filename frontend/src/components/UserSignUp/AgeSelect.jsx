@@ -80,11 +80,12 @@ const FormSection = styled.div`
 `;
 
 const StyledButton1 = styled(Button)`
+  display: block;
   background-color: #0ba360;
   border-radius: 5px;
-  padding: 20px;
+  padding: 10px;
   font-family: "Urbanist", sans-serif;
-  font-size: 24px;
+  font-size: clamp(80%, 24px, 100%);
   font-weight: 400;
   color: white;
   z-index: 10;
@@ -102,25 +103,25 @@ const StyledButton1 = styled(Button)`
     box-shadow: none;
   }
   position: absolute;
-  width: 500px;
+  width: 443px;
+  min-width: 40%;
+  max-width: 55%;
   height: 140px;
-  //left: 750px;
-  //top: 340px;
-  margin-top: 25%;
-  margin-left: 50%;
-  margin-bottom: 20%;
-  // width: 50%;
-  // height: 20%;
+  max-height: 20%;
+  min-height: 20%;
+  margin-top: clamp(15%, 300px, 25%);
+  margin-left: 30%;
   transform: translate(-50%, -50%);
 `;
 
 const StyledButton2 = styled(Button)`
+  display: block;
   background-color: #0ba360;
   border-radius: 5px;
-  padding: 20px;
+  padding: 10px;
   border: 10px;
   font-family: "Urbanist", sans-serif;
-  font-size: 24px;
+  font-size: clamp(80%, 24px, 100%);
   font-weight: 400;
   color: white;
   z-index: 10;
@@ -138,22 +139,16 @@ const StyledButton2 = styled(Button)`
     box-shadow: none;
   }
   position: absolute;
-  min-width: 400px;
-  max-width: 400px
-  max-height: 140px;
-  min-height: 140px;
-  // width: 500px;
-  // height: 140px;
-  margin-left: 50%;
-  margin-top: 60%;
-  margin-bottom: 50%;
-  // width: 50%;
-  // height: 20%;
+  width: 443px;
+  min-width: 40%;
+  max-width: 55%;
+  height: 140px;
+  max-height: 20%;
+  min-height: 20%;
+  margin-left: 30%;
+  margin-top: clamp(40%, 350px, 45%);
+  margin-bottom: 20%;
   transform: translate(-50%, -50%);
-`;
-
-const Bold = styled.div`
-  font-weight: 800;
 `;
 
 function AgeSelect({ selectedEvent, handleModalClose }) {
@@ -175,10 +170,12 @@ function AgeSelect({ selectedEvent, handleModalClose }) {
       <FormSection>
         <PopupTitle>Sign Up</PopupTitle>
         <StyledButton1 type="button">
-          I am <Bold>under</Bold> 18
+          I am <b>under</b> 18
         </StyledButton1>
         <StyledButton2 type="button">
-          I am <b>over</b> 18 (or signing up <br /> for others)
+          I am <b>over</b> 18
+          <br />
+          (or signing up for others)
         </StyledButton2>
       </FormSection>
     </PopupWrapper>
@@ -191,91 +188,3 @@ AgeSelect.propTypes = {
 };
 
 export default AgeSelect;
-
-// import React from "react";
-// import { Link } from "react-router-dom";
-// import PropTypes from "prop-types";
-// import styled from "styled-components";
-// import EventCard from "./EventCard";
-
-// const PopupWrapper = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   background: #003c45;
-//   border-radius: 80px;
-//   padding: 30px;
-//   box-sizing: border-box;
-//   min-width: 800px;
-//   min-height: 400px;
-//   width: 100%;
-//   height: 100%;
-// `;
-
-// const FirstSection = styled.div`
-//   position: relative;
-//   display: flex;
-//   padding: 20px;
-//   width: fit-content;
-//   flex-direction: column;
-//   justify-content: space-between;
-// `;
-
-// const LinkWrapper = styled.div`
-//   display: flex;
-//   align-items: flex-end;
-//   justify-content: flex-start;
-// `;
-
-// const ReturnLink = styled(Link)`
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   text-decoration: none;
-//   font-size: 24px;
-//   line-height: 58px;
-//   color: white;
-// `;
-
-// const BackArrow = styled.i`
-//   border: solid white;
-//   border-width: 0px 2px 2px 0;
-//   display: inline-block;
-//   width: 24px;
-//   height: 24px;
-//   transform: rotate(135deg);
-//   -webkit-transform: rotate(135deg);
-// `;
-
-// const DividerLine = styled.div`
-//   margin: 0px 20px;
-//   min-width: 18px;
-//   min-height: 100%;
-//   background: white;
-//   border-radius: 30px;
-// `;
-
-// function AgeSelect({ selectedEvent, handleModalClose }) {
-//   return (
-//     <PopupWrapper>
-//       {/* Left event card */}
-//       <FirstSection>
-//         <EventCard event={selectedEvent} />
-//         <LinkWrapper>
-//           <ReturnLink to="/" onClick={handleModalClose}>
-//             <BackArrow />
-//             Return
-//           </ReturnLink>
-//         </LinkWrapper>
-//       </FirstSection>
-//       {/* Divider line */}
-//       <DividerLine />
-//     </PopupWrapper>
-//   );
-// }
-
-// AgeSelect.propTypes = {
-//   selectedEvent: PropTypes.instanceOf({}).isRequired,
-//   handleModalClose: PropTypes.func.isRequired,
-// };
-
-// export default AgeSelect;
