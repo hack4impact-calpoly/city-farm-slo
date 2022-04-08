@@ -7,6 +7,7 @@ import Calendar from "../UserSignUp/Calendar";
 import EventCard from "../UserSignUp/EventCard";
 import HomeModal from "./HomeModal";
 import SignUpForm from "../UserSignUp/SignUpForm";
+import AgeSelect from "../UserSignUp/AgeSelect";
 import RegistrationComplete from "../RegistrationComplete/RegistrationComplete";
 import WaiverPage from "../WaiverComponent/WaiverPage";
 
@@ -177,7 +178,7 @@ export default function Home({ selectedEvent, setEvent }) {
       <FullPage2>
         <LeftContainer>
           <EventCard event={selectedEvent} />
-          <Link to="/registration" style={linkStyle} onClick={handleModalOpen}>
+          <Link to="/age-selection" style={linkStyle} onClick={handleModalOpen}>
             <Register>Register</Register>
           </Link>
           <PlantContainer>
@@ -218,6 +219,12 @@ export default function Home({ selectedEvent, setEvent }) {
           </Route>
           <Route path="/registration-complete">
             <RegistrationComplete
+              selectedEvent={selectedEvent}
+              handleModalClose={handleModalClose}
+            />
+          </Route>
+          <Route path="/age-selection">
+            <AgeSelect
               selectedEvent={selectedEvent}
               handleModalClose={handleModalClose}
             />
