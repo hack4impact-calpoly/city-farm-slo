@@ -137,6 +137,9 @@ export default function Home({ selectedEvent, setEvent }) {
   const handleisAdult = () => {
     setisAdult(true);
   };
+  const handlenotAdult = () => {
+    setisAdult(false);
+  };
 
   // events state
   const [events, setEvents] = useState([]);
@@ -191,12 +194,7 @@ export default function Home({ selectedEvent, setEvent }) {
       <FullPage2>
         <LeftContainer>
           <EventCard event={selectedEvent} />
-          <Link
-            to="/age-selection"
-            style={linkStyle}
-            onClick={handleModalOpen}
-            onsetAdult={handleisAdult}
-          >
+          <Link to="/age-selection" style={linkStyle} onClick={handleModalOpen}>
             <Register>Register</Register>
           </Link>
           <PlantContainer>
@@ -231,6 +229,7 @@ export default function Home({ selectedEvent, setEvent }) {
               selectedEvent={selectedEvent}
               handleModalClose={handleModalClose}
               setUser={setUser}
+              isAdult={isAdult}
             />
           </Route>
           <Route path="/waiver">
@@ -246,6 +245,8 @@ export default function Home({ selectedEvent, setEvent }) {
             <AgeSelect
               selectedEvent={selectedEvent}
               handleModalClose={handleModalClose}
+              handleisAdult={handleisAdult}
+              handlenotAdult={handlenotAdult}
             />
           </Route>
         </Switch>

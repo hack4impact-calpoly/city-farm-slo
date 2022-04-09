@@ -14,6 +14,11 @@ const PopupTitle = styled.h1`
   margin: -10px 0px 20px 20px;
 `;
 
+const linkStyle = {
+  textDecoration: "none",
+  color: "inherit",
+};
+
 const PopupWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -151,7 +156,12 @@ const StyledButton2 = styled(Button)`
   transform: translate(-50%, -50%);
 `;
 
-function AgeSelect({ selectedEvent, handleModalClose, handleisAdult }) {
+function AgeSelect({
+  selectedEvent,
+  handleModalClose,
+  handleisAdult,
+  handlenotAdult,
+}) {
   return (
     <PopupWrapper>
       {/* Left event card */}
@@ -169,10 +179,12 @@ function AgeSelect({ selectedEvent, handleModalClose, handleisAdult }) {
       {/* Sign up form */}
       <FormSection>
         <PopupTitle>Sign Up</PopupTitle>
-        <StyledButton1 type="button" onClick={handleisAdult}>
-          I am <b>under</b> 18
-        </StyledButton1>
-        <Link to="/registration">
+        <Link to="/registration" style={linkStyle} onClick={handlenotAdult}>
+          <StyledButton1 type="button">
+            I am <b>under</b> 18
+          </StyledButton1>
+        </Link>
+        <Link to="/registration" style={linkStyle} onClick={handleisAdult}>
           <StyledButton2 type="button">
             I am <b>over</b> 18
             <br />
@@ -188,6 +200,7 @@ AgeSelect.propTypes = {
   selectedEvent: PropTypes.instanceOf({}).isRequired,
   handleModalClose: PropTypes.func.isRequired,
   handleisAdult: PropTypes.func.isRequired,
+  handlenotAdult: PropTypes.func.isRequired,
 };
 
 export default AgeSelect;
