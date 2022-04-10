@@ -181,7 +181,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
-function SignUpForm({ selectedEvent, handleModalClose }) {
+function SignUpForm({ selectedEvent, handleModalClose, isAdult }) {
   // style
   const variant = "filled";
   const classes = useStyles();
@@ -329,6 +329,7 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
             </Row>
           </RowWrapper>
           {/* ------- Submit Button -------  */}
+          {isAdult === false ? <p>under 18</p> : <p>over 18</p>}
           <Box m={2}>
             <StyledButton
               type="submit"
@@ -349,6 +350,7 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
 SignUpForm.propTypes = {
   selectedEvent: PropTypes.instanceOf({}).isRequired,
   handleModalClose: PropTypes.func.isRequired,
+  isAdult: PropTypes.bool.isRequired,
 };
 
 export default SignUpForm;

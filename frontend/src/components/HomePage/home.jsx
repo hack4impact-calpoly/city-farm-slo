@@ -7,6 +7,7 @@ import Calendar from "../UserSignUp/Calendar";
 import EventCard from "../UserSignUp/EventCard";
 import HomeModal from "./HomeModal";
 import SignUpForm from "../UserSignUp/SignUpForm";
+import AgeSelect from "../UserSignUp/AgeSelect";
 import RegistrationComplete from "../RegistrationComplete/RegistrationComplete";
 import WaiverPage from "../WaiverComponent/WaiverPage";
 
@@ -131,6 +132,15 @@ export default function Home({ selectedEvent, setEvent }) {
     history.push("/");
   };
 
+  // over 18 state
+  const [isAdult, setisAdult] = useState(false);
+  const handleisAdult = () => {
+    setisAdult(true);
+  };
+  const handlenotAdult = () => {
+    setisAdult(false);
+  };
+
   // events state
   const [events, setEvents] = useState([]);
   const [eventClicked, setClicked] = useState(false);
@@ -184,7 +194,7 @@ export default function Home({ selectedEvent, setEvent }) {
       <FullPage2>
         <LeftContainer>
           <EventCard event={selectedEvent} />
-          <Link to="/registration" style={linkStyle} onClick={handleModalOpen}>
+          <Link to="/age-selection" style={linkStyle} onClick={handleModalOpen}>
             <Register>Register</Register>
           </Link>
           <PlantContainer>
@@ -219,6 +229,7 @@ export default function Home({ selectedEvent, setEvent }) {
               selectedEvent={selectedEvent}
               handleModalClose={handleModalClose}
               setUser={setUser}
+              isAdult={isAdult}
             />
           </Route>
           <Route path="/waiver">
@@ -228,6 +239,14 @@ export default function Home({ selectedEvent, setEvent }) {
             <RegistrationComplete
               selectedEvent={selectedEvent}
               handleModalClose={handleModalClose}
+            />
+          </Route>
+          <Route path="/age-selection">
+            <AgeSelect
+              selectedEvent={selectedEvent}
+              handleModalClose={handleModalClose}
+              handleisAdult={handleisAdult}
+              handlenotAdult={handlenotAdult}
             />
           </Route>
         </Switch>
