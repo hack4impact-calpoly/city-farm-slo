@@ -39,6 +39,7 @@ const FirstSection = styled.div`
   width: fit-content;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 330px;
 `;
 
 const LinkWrapper = styled.div`
@@ -84,7 +85,7 @@ const FormSection = styled.div`
   width: 90%;
 `;
 
-const StyledButton1 = styled(Button)`
+const StyledButton = styled(Button)`
   display: block;
   background-color: #0ba360;
   border-radius: 5px;
@@ -107,53 +108,21 @@ const StyledButton1 = styled(Button)`
     background-color: #0cb069;
     box-shadow: none;
   }
-  position: absolute;
   width: 443px;
-  min-width: 40%;
-  max-width: 55%;
   height: 140px;
-  max-height: 20%;
-  min-height: 20%;
-  margin-top: clamp(15%, 300px, 25%);
-  margin-left: 30%;
-  transform: translate(-50%, -50%);
+  margin: 10px;
 `;
 
-const StyledButton2 = styled(Button)`
-  display: block;
-  background-color: #0ba360;
-  border-radius: 5px;
-  padding: 10px;
-  border: 10px;
-  font-family: "Urbanist", sans-serif;
-  font-size: clamp(80%, 24px, 100%);
-  font-weight: 400;
-  color: white;
-  z-index: 10;
-  text-transform: capitalize;
-  box-shadow: none;
-  &:disabled {
-    background-color: #b8b4b4;
-  }
-  &:hover {
-    background-color: #0a8a52;
-    box-shadow: none;
-  }
-  &:focus {
-    background-color: #0cb069;
-    box-shadow: none;
-  }
+const EventCardWrapper = styled.div`
   position: absolute;
-  width: 443px;
-  min-width: 40%;
-  max-width: 55%;
-  height: 140px;
-  max-height: 20%;
-  min-height: 20%;
-  margin-left: 30%;
-  margin-top: clamp(40%, 350px, 45%);
-  margin-bottom: 20%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  top: 35%;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  padding-top: 50px;
+  flex-direction: column;
 `;
 
 function AgeSelect({
@@ -166,7 +135,9 @@ function AgeSelect({
     <PopupWrapper>
       {/* Left event card */}
       <FirstSection>
-        <EventCard event={selectedEvent} />
+        <EventCardWrapper>
+          <EventCard event={selectedEvent} />
+        </EventCardWrapper>
         <LinkWrapper>
           <ReturnLink to="/" onClick={handleModalClose}>
             <BackArrow />
@@ -179,18 +150,18 @@ function AgeSelect({
       {/* Sign up form */}
       <FormSection>
         <PopupTitle>Sign Up</PopupTitle>
-        <Link to="/registration" style={linkStyle} onClick={handlenotAdult}>
-          <StyledButton1 type="button">
-            I am <b>under</b> 18
-          </StyledButton1>
-        </Link>
-        <Link to="/registration" style={linkStyle} onClick={handleisAdult}>
-          <StyledButton2 type="button">
-            I am <b>over</b> 18
-            <br />
-            (or signing up for others)
-          </StyledButton2>
-        </Link>
+        <ButtonWrapper>
+          <Link to="/registration" style={linkStyle} onClick={handlenotAdult}>
+            <StyledButton type="button">
+              I am <b>under</b> 18
+            </StyledButton>
+          </Link>
+          <Link to="/registration" style={linkStyle} onClick={handleisAdult}>
+            <StyledButton type="button">
+              I am <b>over</b> 18
+            </StyledButton>
+          </Link>
+        </ButtonWrapper>
       </FormSection>
     </PopupWrapper>
   );
