@@ -66,9 +66,10 @@ const Subheader = styled.div`
 `;
 
 const Button = styled.button`
-  position: absolute;
-  bottom: 0;
-  right: -10px;
+  text-align: right;
+  width: 40%;
+  margin-left: 60%;
+  cursor: pointer;
   font-family: Urbanist;
   font-size: 20px;
   font-weight: bold;
