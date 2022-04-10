@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react/jsx-no-bind */
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
@@ -64,20 +65,56 @@ const Subheader = styled.div`
   padding-bottom: 5px;
 `;
 
+const Button = styled.button`
+  text-align: right;
+  width: 40%;
+  margin-left: 60%;
+  cursor: pointer;
+  font-family: Urbanist;
+  font-size: 20px;
+  font-weight: bold;
+  background: none !important;
+  border: none;
+  color: #003c45;
+  margin-bottom: 14px;
+`;
+
 export default function EventCard({ event }) {
+  const [eventMessage, setEventMessage] = useState("See notes");
+  function handler() {
+    if (eventMessage === "See event info") {
+      setEventMessage("See notes");
+    } else {
+      setEventMessage("See event info");
+    }
+  }
+
   return (
-    <EventCardWrapper>
-      <Header>
-        <Name>{event.title}</Name>
-        <Slots>{`${event.volunteers.length} slots / ${event.slots}`}</Slots>
-      </Header>
-      <Subheader>{dayjs(event.start).format("MMM D, YYYY")}</Subheader>
-      <Subheader>
-        {dayjs(event.start).format("h:mm A")}-
-        {dayjs(event.end).format("h:mm A")}
-      </Subheader>
-      <Subheader>{event.location}</Subheader>
-    </EventCardWrapper>
+    <div>
+      <EventCardWrapper>
+        <Header>
+          <Name>{event.title}</Name>
+          <Slots>{`${event.volunteers.length} slots / ${event.slots}`}</Slots>
+        </Header>
+        {eventMessage !== "See event info" ? (
+          <div className="event-body">
+            <Subheader>{dayjs(event.start).format("MMM D, YYYY")}</Subheader>
+            <Subheader>
+              {dayjs(event.start).format("h:mm A")}-
+              {dayjs(event.end).format("h:mm A")}
+            </Subheader>
+            <Subheader>{event.location}</Subheader>
+          </div>
+        ) : (
+          <Subheader>{event.notes}</Subheader>
+        )}
+        {event.notes.length > 0 && (
+          <Button type="button" onClick={handler}>
+            {eventMessage}
+          </Button>
+        )}
+      </EventCardWrapper>
+    </div>
   );
 }
 
