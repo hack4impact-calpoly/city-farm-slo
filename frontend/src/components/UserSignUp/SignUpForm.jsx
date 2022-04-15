@@ -170,7 +170,6 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-
       body: JSON.stringify({
         ...values,
         eventID: selectedEvent._id.toString(),
@@ -183,7 +182,6 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
       .then((data) => console.log(data))
       .catch((error) => console.log(error.json()));
 
-    console.log(values);
     reset();
     history.push("/waiver");
   };

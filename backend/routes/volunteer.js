@@ -65,7 +65,7 @@ router.post(
         return res.status(400).json({ errors: errors.array() });
       }
 
-      let volunteer = await Volunteer.create({
+      const volunteer = await Volunteer.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
@@ -73,15 +73,11 @@ router.post(
         // initialize signedWaiver to false when Volunteer is created
         signedWaiver: false,
       });
-      let volunteerID = "";
-      await volunteer.save((err, room) => {
-        volunteerID = room._id;
-      });
 
       // update event with volunteer
       const { eventID } = req.body;
       await Event.findByIdAndUpdate(eventID, {
-        $push: { volunteers: volunteerID },
+        $push: { volunteers: volunteer._id },
       });
 
       res.json(volunteer);
