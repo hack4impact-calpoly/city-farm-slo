@@ -164,6 +164,25 @@ function SignUpForm({ selectedEvent, handleModalClose }) {
 
   // log values when data is submitted
   const onSubmit = (values) => {
+    fetch("volunteer/register", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        ...values,
+        eventID: selectedEvent._id.toString(),
+        firstName: values.name,
+        lastName: values.name,
+        email: values.email,
+        phone: values.number,
+      }),
+    })
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error.json()));
+
     console.log(values);
     reset();
     history.push("/waiver");
