@@ -208,7 +208,24 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult }) {
 
   // log values when data is submitted
   const onSubmit = (values) => {
-    console.log(values);
+    fetch("volunteer/register", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...values,
+        eventID: selectedEvent._id.toString(),
+        firstName: values.name,
+        lastName: values.name,
+        email: values.email,
+        phone: values.number,
+      }),
+    })
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error.json()));
+
     reset();
     history.push("/waiver");
   };
