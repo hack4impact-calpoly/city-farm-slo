@@ -224,19 +224,13 @@ export default function Home({ selectedEvent, setEvent }) {
             <SignUpForm
               selectedEvent={selectedEvent}
               handleModalClose={handleModalClose}
+              user={user}
               setUser={setUser}
               isAdult={isAdult}
             />
           </Route>
           <Route path="/waiver">
-            {user.signedWaiver ? (
-              <RegistrationComplete
-                selectedEvent={selectedEvent}
-                handleModalClose={handleModalClose}
-              />
-            ) : (
-              <WaiverPage user={user} />
-            )}
+            <WaiverPage user={user} />
           </Route>
           <Route path="/registration-complete">
             <RegistrationComplete

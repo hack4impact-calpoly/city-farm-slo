@@ -225,12 +225,15 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         // set user when submitted
         setUser(data);
+        if (data.signedWaiver) {
+          history.push("/registration-complete");
+        } else {
+          history.push("/waiver");
+        }
       })
       .catch((error) => console.log(error));
-    history.push("/waiver");
     reset();
   };
 

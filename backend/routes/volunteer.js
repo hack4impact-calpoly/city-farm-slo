@@ -96,7 +96,7 @@ router.post(
           $addToSet: { volunteers: volunteer._id },
         });
       } else {
-        res.json(volunteer);
+        // signed up for same event with same volunteer twice
         // eslint-disable-next-line no-throw-literal
         // throw {
         //   message: "Volunteer array already contains user for this event",

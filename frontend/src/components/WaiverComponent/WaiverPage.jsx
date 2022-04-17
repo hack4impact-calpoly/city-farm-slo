@@ -107,7 +107,6 @@ const WaiverExplanation = styled.p`
 
 export default function WaiverPage({ user }) {
   const signWaiver = () => {
-    console.log(user);
     fetch(`/volunteer/${user._id}/signWaiver`, {
       method: "PUT",
     });
