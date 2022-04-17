@@ -187,16 +187,12 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
   const classes = useStyles();
 
   // validation
-  const phoneRegExp =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const phoneRegExp = /^$|^\d{10}$/;
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Required field"),
+    firstName: Yup.string().required("Required field"),
+    lastName: Yup.string().required("Required field"),
     email: Yup.string().required("Required field").email("Invalid format"),
-    number: Yup.string()
-      .required("Required field")
-      .min(10, "Too short")
-      .max(10, "Too long")
-      .matches(phoneRegExp, "Invalid format"),
+    phone: Yup.string().matches(phoneRegExp, "Use 10 digits only"),
   });
   const { handleSubmit, control, reset, formState } = useForm({
     mode: "onChange",
@@ -208,6 +204,8 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
 
   // log values when data is submitted
   const onSubmit = (values) => {
+    const cleanValues = values;
+    if (!values.phone) delete cleanValues.phone; // remove phone if it is empty string
     fetch("volunteer/register", {
       method: "POST",
       headers: {
@@ -215,12 +213,8 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        ...values,
+        ...cleanValues,
         eventID: selectedEvent._id.toString(),
-        firstName: values.name,
-        lastName: values.name,
-        email: values.email,
-        phone: values.number,
       }),
     })
       .then((res) => res.json())
@@ -235,10 +229,17 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
   };
 
   // info for required entries
-  const rEntries = [
-    { name: "name", label: "Name" },
-    { name: "email", label: "Email" },
+  const r1Entries = [
+    { name: "firstName", label: "First Name", required: true },
+    { name: "lastName", label: "Last Name", required: true },
   ];
+
+  const r2Entries = [
+    { name: "email", label: "Email", required: true },
+    { name: "phone", label: "Phone Number", required: false },
+  ];
+
+  const rEntries = [r1Entries, r2Entries];
 
   return (
     <PopupWrapper>
@@ -261,93 +262,42 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
         <PopupTitle>Sign Up</PopupTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <RowWrapper>
-            <Row>
-              {/* ------- Name, Email -------  */}
-              {rEntries.map((entry) => (
-                <FieldWrapper>
-                  <Controller
-                    className={classes.box}
-                    key={entry.name}
-                    name={entry.name}
-                    defaultValue=""
-                    control={control}
-                    render={({
-                      field: { onChange, value },
-                      fieldState: { error },
-                    }) => (
-                      <Box m={2}>
-                        <TextField
-                          required
-                          fullWidth
-                          InputProps={{
-                            disableUnderline: true,
-                          }}
-                          label={entry.label}
-                          variant={variant}
-                          value={value}
-                          onChange={onChange}
-                          error={!!error}
-                          helperText={error ? error.message : null}
-                          className={classes.root}
-                        />
-                      </Box>
-                    )}
-                  />
-                </FieldWrapper>
-              ))}
-            </Row>
-            <Row>
-              {/* ------- Phone Number -------  */}
-              <FieldWrapper>
-                <Controller
-                  className={classes.box}
-                  key="number"
-                  name="number"
-                  defaultValue=""
-                  control={control}
-                  render={({
-                    field: { onChange, value },
-                    fieldState: { error },
-                  }) => (
-                    <Box m={2}>
-                      <TextField
-                        required
-                        fullWidth
-                        InputProps={{ disableUnderline: true }}
-                        label="Phone Number"
-                        variant={variant}
-                        value={value}
-                        onChange={onChange}
-                        error={!!error}
-                        helperText={error ? error.message : null}
-                        className={classes.root}
-                      />
-                    </Box>
-                  )}
-                />
-              </FieldWrapper>
-              {/* ------- Notes -------  */}
-              <FieldWrapper>
-                <Controller
-                  name="notes"
-                  defaultValue=""
-                  control={control}
-                  render={({ field: { onChange, value } }) => (
-                    <Box m={2}>
-                      <TextField
-                        fullWidth
-                        label="Notes"
-                        InputProps={{ disableUnderline: true }}
-                        variant={variant}
-                        value={value}
-                        onChange={onChange}
-                        className={classes.root}
-                      />
-                    </Box>
-                  )}
-                />
-              </FieldWrapper>
-            </Row>
+            {rEntries.map((row) => (
+              <Row>
+                {row.map((entry) => (
+                  <FieldWrapper>
+                    <Controller
+                      className={classes.box}
+                      key={entry.name}
+                      name={entry.name}
+                      defaultValue=""
+                      control={control}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <Box m={2}>
+                          <TextField
+                            required={entry.required}
+                            fullWidth
+                            InputProps={{
+                              disableUnderline: true,
+                            }}
+                            label={entry.label}
+                            variant={variant}
+                            value={value}
+                            onChange={onChange}
+                            error={!!error}
+                            helperText={error ? error.message : null}
+                            className={classes.root}
+                          />
+                        </Box>
+                      )}
+                    />
+                  </FieldWrapper>
+                ))}
+              </Row>
+            ))}
           </RowWrapper>
           {/* ------- Submit Button -------  */}
           {isAdult === false ? <p>under 18</p> : <p>over 18</p>}
