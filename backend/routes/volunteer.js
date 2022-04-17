@@ -56,7 +56,6 @@ router.post(
   check("firstName").isString().withMessage("Not a string"),
   check("lastName").isString().withMessage("Not a string"),
   check("email").isEmail().withMessage("Not an email"),
-  check("phone").isMobilePhone().withMessage("Not a phone number"),
   // eslint-disable-next-line consistent-return
   async (req, res) => {
     try {
@@ -70,6 +69,7 @@ router.post(
       let volunteer = await Volunteer.findOne({
         email: req.body.email,
         firstName: req.body.firstName,
+        lastName: req.body.lastName,
       });
       // check if volunteer with req email exists
       if (volunteer === null) {
@@ -78,10 +78,10 @@ router.post(
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           email: req.body.email,
-          phone: req.body.phone,
           // initialize signedWaiver to false when new Volunteer is created
           signedWaiver: false,
         });
+        if (req.body.phone) volunteer.phone = req.body.phone;
         volunteer.save();
       }
 
