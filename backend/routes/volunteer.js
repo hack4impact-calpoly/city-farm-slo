@@ -55,7 +55,6 @@ router.post(
   check("firstName").isString().withMessage("Not a string"),
   check("lastName").isString().withMessage("Not a string"),
   check("email").isEmail().withMessage("Not an email"),
-  check("phone").isMobilePhone().withMessage("Not a phone number"),
   // eslint-disable-next-line consistent-return
   async (req, res) => {
     try {
@@ -66,10 +65,7 @@ router.post(
       }
 
       const volunteer = await Volunteer.create({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        phone: req.body.phone,
+        ...req.body,
         // initialize signedWaiver to false when Volunteer is created
         signedWaiver: false,
       });
