@@ -181,7 +181,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
-function SignUpForm({ selectedEvent, handleModalClose, isAdult }) {
+function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
   // style
   const variant = "filled";
   const classes = useStyles();
@@ -223,11 +223,15 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult }) {
         phone: values.number,
       }),
     })
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error.json()));
-
-    reset();
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        // set user when submitted
+        setUser(data);
+      })
+      .catch((error) => console.log(error));
     history.push("/waiver");
+    reset();
   };
 
   // info for required entries
@@ -368,6 +372,7 @@ SignUpForm.propTypes = {
   selectedEvent: PropTypes.instanceOf({}).isRequired,
   handleModalClose: PropTypes.func.isRequired,
   isAdult: PropTypes.bool.isRequired,
+  setUser: PropTypes.func.isRequired,
 };
 
 export default SignUpForm;
