@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const VolunteerSchema = new mongoose.Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true },
-  phone: { type: String },
+  firstName: { type: String, required: true, unique: false },
+  lastName: { type: String, required: true, unique: false },
+  email: { type: String, required: true, unique: false },
+  phone: { type: String, unique: false },
   isAdult: { type: Boolean },
   signedWaiver: { type: Boolean, default: false },
   dateSigned: { type: Date },

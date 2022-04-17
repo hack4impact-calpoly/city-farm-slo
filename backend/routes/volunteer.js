@@ -1,5 +1,6 @@
 const express = require("express");
 const { validationResult, check } = require("express-validator");
+const mongoose = require("mongoose");
 const Volunteer = require("../models/volunteer");
 const Event = require("../models/event");
 
@@ -64,18 +65,43 @@ router.post(
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const volunteer = await Volunteer.create({
-        ...req.body,
-        // initialize signedWaiver to false when Volunteer is created
-        signedWaiver: false,
+      // add this later
+      let volunteer = await Volunteer.findOne({
+        email: req.body.email,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
       });
+      // check if volunteer with req email exists
+      if (volunteer === null) {
+        // create new volunteer with same email but different name
+        volunteer = await Volunteer.create({
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          // initialize signedWaiver to false when new Volunteer is created
+          signedWaiver: false,
+        });
+        if (req.body.phone) volunteer.phone = req.body.phone;
+        volunteer.save();
+      }
 
       // update event with volunteer
       const { eventID } = req.body;
-      await Event.findByIdAndUpdate(eventID, {
-        $push: { volunteers: volunteer._id },
+      const event = await Event.findOne({
+        _id: mongoose.Types.ObjectId(eventID),
       });
-
+      if (!event.volunteers.includes(volunteer._id)) {
+        await event.updateOne({
+          // addToSet checks for duplicates
+          $addToSet: { volunteers: volunteer._id },
+        });
+      } else {
+        // signed up for same event with same volunteer twice
+        // eslint-disable-next-line no-throw-literal
+        // throw {
+        //   message: "Volunteer array already contains user for this event",
+        // };
+      }
       res.json(volunteer);
     } catch (error) {
       res.status(500).send(error.message);

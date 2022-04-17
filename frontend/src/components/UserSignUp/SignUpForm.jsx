@@ -181,7 +181,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
-function SignUpForm({ selectedEvent, handleModalClose, isAdult }) {
+function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
   // style
   const variant = "filled";
   const classes = useStyles();
@@ -216,10 +216,19 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult }) {
         ...cleanValues,
         eventID: selectedEvent._id.toString(),
       }),
-    }).catch((error) => console.log(error.json()));
-
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // set user when submitted
+        setUser(data);
+        if (data.signedWaiver) {
+          history.push("/registration-complete");
+        } else {
+          history.push("/waiver");
+        }
+      })
+      .catch((error) => console.log(error));
     reset();
-    history.push("/waiver");
   };
 
   // info for required entries
@@ -316,6 +325,7 @@ SignUpForm.propTypes = {
   selectedEvent: PropTypes.instanceOf({}).isRequired,
   handleModalClose: PropTypes.func.isRequired,
   isAdult: PropTypes.bool.isRequired,
+  setUser: PropTypes.func.isRequired,
 };
 
 export default SignUpForm;
