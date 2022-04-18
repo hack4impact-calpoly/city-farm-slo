@@ -105,14 +105,14 @@ const WaiverExplanation = styled.p`
   margin-right: 10%;
 `;
 
-export default function WaiverPage({ user }) {
+export default function WaiverPage({ user, isAdult }) {
   const signWaiver = () => {
     fetch(`/volunteer/${user.id}/signWaiver`, {
       method: "PUT",
     });
   };
   // isAdult prop to be defined and passed in as state variable later
-  const isAdult = true;
+  // const isAdult = true;
   const classes = useStyles();
 
   const [checked, setChecked] = useState(false);
@@ -221,4 +221,5 @@ export default function WaiverPage({ user }) {
 
 WaiverPage.propTypes = {
   user: PropTypes.instanceOf({}).isRequired,
+  isAdult: PropTypes.bool.isRequired,
 };
