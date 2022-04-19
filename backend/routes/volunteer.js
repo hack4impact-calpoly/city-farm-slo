@@ -39,6 +39,8 @@ router.get("/:id", async (req, res) => {
 //         phone: req.body.phone,
 //         // initialize signedWaiver to false when Volunteer is created
 //         signedWaiver: false,
+//         isAdult: req.body.isAdult,
+//         parentName: req.body.parentName,
 //       });
 //       volunteer.save();
 //       res.json(volunteer);
@@ -72,6 +74,8 @@ router.post(
         phone: req.body.phone,
         // initialize signedWaiver to false when Volunteer is created
         signedWaiver: false,
+        isAdult: true,
+        parentName: "",
       });
 
       // update event with volunteer
@@ -95,6 +99,16 @@ router.put("/:id/signWaiver", async (req, res) => {
   // update signedWaiver and dateSigned fields
   volunteer.signedWaiver = true;
   volunteer.dateSigned = current.getTime();
+  volunteer.save();
+  res.send(`Signed waiver at time ${volunteer.dateSigned}`);
+});
+
+// #4 - put route to include parent information for non adult volunteers.
+router.put("/:id/:parentname", async (req, res) => {
+  const volunteer = await Volunteer.findById(req.params.id);
+  // update signedWaiver and dateSigned fields
+  volunteer.isAdult = false;
+  volunteer.parentName = req.params.parentname;
   volunteer.save();
   res.send(`Signed waiver at time ${volunteer.dateSigned}`);
 });

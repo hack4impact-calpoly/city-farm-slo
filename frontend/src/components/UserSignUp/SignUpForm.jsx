@@ -246,8 +246,6 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult }) {
         lastName: values.name,
         email: values.email,
         phone: values.number,
-        isAdult: values.isAdult,
-        parent: values.parent,
       }),
     })
       .then((data) => console.log(data))

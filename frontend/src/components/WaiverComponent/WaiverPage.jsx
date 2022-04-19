@@ -106,8 +106,19 @@ const WaiverExplanation = styled.p`
 `;
 
 export default function WaiverPage({ user, isAdult }) {
+  const [parent, setParent] = useState("");
+
   const signWaiver = () => {
     fetch(`/volunteer/${user.id}/signWaiver`, {
+      method: "PUT",
+    });
+  };
+
+  const handleAdult = () => {
+    if (isAdult === true) {
+      setParent("");
+    }
+    fetch(`/volunteer/${user.id}/${parent}`, {
       method: "PUT",
     });
   };
@@ -169,6 +180,10 @@ export default function WaiverPage({ user, isAdult }) {
                 id="filled-basic"
                 variant="filled"
                 className={classes.root}
+                value={parent}
+                onChange={(e) => {
+                  setParent(e.target.parent);
+                }}
               />
             </AgreementSection>
             {/* Conditional rendering for whether Volunteer isAdult or not */}
@@ -202,11 +217,17 @@ export default function WaiverPage({ user, isAdult }) {
                   id="filled-basic"
                   variant="filled"
                   className={classes.root}
+                  value={parent}
+                  onChange={(e) => {
+                    setParent(e.target.parent);
+                  }}
                 />
               </>
             )}
             <RegistrationLink to="/registration-complete">
-              <RegisterButton onClick={signWaiver}>Register</RegisterButton>
+              <RegisterButton onClick={signWaiver && handleAdult}>
+                Register
+              </RegisterButton>
             </RegistrationLink>
             <WaiverExplanation>
               Waiver signage is required for first time volunteers. This will
