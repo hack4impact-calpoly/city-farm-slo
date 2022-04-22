@@ -25,29 +25,28 @@ const Header = styled.h1`
   top: 0%;
   font-family: Urbanist, default;
   font-style: normal;
-  font-weight: bold;
   font-size: 100%;
-  line-height: 43px;
+  line-height: 28px;
   color: #003c45;
-  padding: 0%;
   margin: 0%;
   border: 0%;
-  padding-bottom: 5px;
+  padding: 5px 0 5px;
 `;
 
 const Name = styled.h1`
-  padding: 0%;
-  margin: 0%;
-  border: 0%;
-  font-size: 150%;
+  padding: 0;
+  margin: 0;
+  font-size: 28px;
+  padding-right: 10px;
+  flex: 4;
 `;
 
 const Slots = styled.h2`
   padding: 0%;
   margin: 0%;
-  border: 0%;
-  padding-left: 30%;
   font-size: 25px;
+  font-weight: normal;
+  flex: 1;
 `;
 
 const Subheader = styled.div`
@@ -94,7 +93,10 @@ export default function EventCard({ event }) {
       <EventCardWrapper>
         <Header>
           <Name>{event.title}</Name>
-          <Slots>{`${event.volunteers.length} slots / ${event.slots}`}</Slots>
+          <Slots>
+            {`${event.volunteers.length} / ${event.slots}`}
+            <br /> slots
+          </Slots>
         </Header>
         {eventMessage !== "See event info" ? (
           <div className="event-body">

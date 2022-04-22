@@ -159,11 +159,7 @@ export default function Home({ selectedEvent, setEvent }) {
   }, []);
 
   // current user state
-  const [user, setUser] = useState({
-    // temp user for testing
-    // replace by calling setUser() in the SignUpForm component
-    id: "621dd07b29f7fa692b27bca6",
-  });
+  const [user, setUser] = useState({});
 
   if (eventClicked === false) {
     return (
@@ -228,6 +224,7 @@ export default function Home({ selectedEvent, setEvent }) {
             <SignUpForm
               selectedEvent={selectedEvent}
               handleModalClose={handleModalClose}
+              user={user}
               setUser={setUser}
               isAdult={isAdult}
             />

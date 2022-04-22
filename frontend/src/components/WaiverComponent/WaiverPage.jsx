@@ -109,7 +109,7 @@ export default function WaiverPage({ user, isAdult }) {
   const [parent, setParent] = useState("");
 
   const signWaiver = () => {
-    fetch(`/volunteer/${user.id}/signWaiver`, {
+    fetch(`/volunteer/${user._id}/signWaiver`, {
       method: "PUT",
     });
   };
