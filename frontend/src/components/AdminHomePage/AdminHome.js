@@ -32,13 +32,6 @@ const Header = styled.div`
   justify-content: flex-start;
 `;
 
-// const FullPage = styled.div`
-//   background: #c9e8eb;
-//   display: flex;
-//   flex-direction: column;
-//   height: 100vh;
-// `;
-
 const FullPage2 = styled.div`
   background: #c9e8eb;
   display: flex;
