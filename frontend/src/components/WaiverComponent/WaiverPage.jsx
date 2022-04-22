@@ -109,19 +109,12 @@ export default function WaiverPage({ user, isAdult }) {
   const [parent, setParent] = useState("");
 
   const signWaiver = () => {
-    fetch(`/volunteer/${user._id}/signWaiver`, {
+    const parentName = isAdult ? "" : `?parentName=${parent}`;
+    fetch(`/volunteer/${user._id}/signWaiver${parentName}`, {
       method: "PUT",
     });
   };
 
-  const handleAdult = () => {
-    if (isAdult === true) {
-      setParent("");
-    }
-    fetch(`/volunteer/${user.id}/${parent}`, {
-      method: "PUT",
-    });
-  };
   // isAdult prop to be defined and passed in as state variable later
   // const isAdult = true;
   const classes = useStyles();
@@ -184,10 +177,6 @@ export default function WaiverPage({ user, isAdult }) {
                 id="filled-basic"
                 variant="filled"
                 className={classes.root}
-                value={parent}
-                onChange={(e) => {
-                  setParent(e.target.parent);
-                }}
               />
             </AgreementSection>
             {/* Conditional rendering for whether Volunteer isAdult or not */}
@@ -224,15 +213,13 @@ export default function WaiverPage({ user, isAdult }) {
                   className={classes.root}
                   value={parent}
                   onChange={(e) => {
-                    setParent(e.target.parent);
+                    setParent(e.target.value);
                   }}
                 />
               </>
             )}
             <RegistrationLink to="/registration-complete">
-              <RegisterButton onClick={signWaiver && handleAdult}>
-                Register
-              </RegisterButton>
+              <RegisterButton onClick={signWaiver}>Register</RegisterButton>
             </RegistrationLink>
             <WaiverExplanation>
               Waiver signage is required for first time volunteers. This will
