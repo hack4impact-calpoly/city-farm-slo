@@ -147,11 +147,6 @@ const MenuButton = styled.div`
   margin-top: 2%;
 `;
 
-// const linkStyle = {
-//   textDecoration: "none",
-//   color: "inherit",
-// };
-
 export default function AdminHome({ selectedEvent, setEvent }) {
   // routing
   const history = useHistory();
