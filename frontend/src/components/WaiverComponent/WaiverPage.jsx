@@ -115,8 +115,6 @@ export default function WaiverPage({ user, isAdult }) {
     });
   };
 
-  // isAdult prop to be defined and passed in as state variable later
-  // const isAdult = true;
   const classes = useStyles();
 
   const [checked, setChecked] = useState(false);
