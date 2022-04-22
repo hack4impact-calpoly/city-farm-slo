@@ -127,15 +127,19 @@ export default function WaiverPage({ user, isAdult }) {
   const classes = useStyles();
 
   const [checked, setChecked] = useState(false);
-  const [checked2, setChecked2] = useState(false);
 
   const handleChange1 = () => {
     setChecked(!checked);
   };
 
-  const handleChange2 = () => {
-    setChecked2(!checked2);
-  };
+  // --- Unimplemented sign up for otehrs code ---
+
+  // const [checked2, setChecked2] = useState(false);
+  // const handleChange2 = () => {
+  //   setChecked2(!checked2);
+  // };
+
+  // --- End unimplemented code ---
 
   return (
     <div>
@@ -187,30 +191,31 @@ export default function WaiverPage({ user, isAdult }) {
               />
             </AgreementSection>
             {/* Conditional rendering for whether Volunteer isAdult or not */}
-            {isAdult ? (
-              <>
-                <AgreementText>
-                  Click here to indicate that you are signing this waiver for
-                  individuals that you have registered for
-                </AgreementText>
-                {/* Checkbox for City Farm SLO Volunteer Agreement */}
-                <Radio
-                  sx={{
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                    },
-                    paddingRight: "485px",
-                    color: "white",
-                    "&.Mui-checked": {
-                      color: "white",
-                    },
-                  }}
-                  checked={checked2 === true}
-                  onClick={handleChange2}
-                  name="radio-buttons"
-                />
-              </>
-            ) : (
+            {
+              // <>
+              //   <AgreementText>
+              //     Click here to indicate that you are signing this waiver for
+              //     individuals that you have registered for
+              //   </AgreementText>
+              //   {/* Checkbox for City Farm SLO Volunteer Agreement */}
+              //   <Radio
+              //     sx={{
+              //       "&:hover": {
+              //         backgroundColor: "transparent",
+              //       },
+              //       paddingRight: "485px",
+              //       color: "white",
+              //       "&.Mui-checked": {
+              //         color: "white",
+              //       },
+              //     }}
+              //     checked={checked2 === true}
+              //     onClick={handleChange2}
+              //     name="radio-buttons"
+              //   />
+              // </>
+            }
+            {!isAdult && (
               <>
                 <AgreementText>Print parental name</AgreementText>
                 <TextField

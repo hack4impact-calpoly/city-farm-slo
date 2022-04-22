@@ -1,10 +1,9 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { Link, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { TextField, Button } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Radio } from "@mui/material";
 import * as Yup from "yup";
 import styled from "styled-components";
 import Box from "@material-ui/core/Box";
@@ -31,18 +30,18 @@ const PopupTitle = styled.h1`
   margin: -10px 0px 20px 20px;
 `;
 
-const GeneralText = styled.p`
-  display: inline-block;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 10px;
-  color: #ffffff;
-`;
+// const GeneralText = styled.p`
+//   display: inline-block;
+//   font-style: normal;
+//   font-weight: 700;
+//   font-size: 10px;
+//   color: #ffffff;
+// `;
 
-const Radioform = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+// const Radioform = styled.div`
+//   display: flex;
+//   flex-direction: row;
+// `;
 
 const PopupWrapper = styled.div`
   display: flex;
@@ -153,9 +152,9 @@ const RowWrapper = styled.div`
   flex-direction: column;
 `;
 
-const NewPersonWrapper = styled.div`
-  margin: -15px;
-`;
+// const NewPersonWrapper = styled.div`
+//   margin: -15px;
+// `;
 
 const Row = styled.div`
   display: flex;
@@ -205,11 +204,19 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
   const variant = "filled";
   const classes = useStyles();
 
-  const [checked, setChecked] = useState(false);
+  // --- Unimplemented signing up for others code ---
+  // const [checked, setChecked] = useState(false);
 
-  const handleChange1 = () => {
-    setChecked(!checked);
-  };
+  // const handleChange1 = () => {
+  //   setChecked(!checked);
+  // };
+
+  // const childEntries = [
+  //   { name: "firstname", label: "First Name" },
+  //   { name: "lastname", label: "Last Name" },
+  // ];
+
+  // --- End unimplimented code ---
 
   // validation
   const phoneRegExp = /^$|^\d{10}$/;
@@ -328,8 +335,7 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
               </Row>
             ))}
           </RowWrapper>
-          {/* ------- Submit Button -------  */}
-          {isAdult === false ? (
+          {/* {isAdult === false ? (
             <div />
           ) : (
             <Radioform>
@@ -354,12 +360,13 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
                 name="radio-buttons"
               />
             </Radioform>
-          )}
-          {checked === true ? (
+          )} */}
+
+          {/* {checked === true ? (
             <NewPersonWrapper>
-              <Row>
-                {/* ------- Name, Email -------  */}
-                {childEntries.map((entry) => (
+              <Row> */}
+          {/* ------- Name, Email -------  */}
+          {/* {childEntries.map((entry) => (
                   <FieldWrapper>
                     <Controller
                       className={classes.box}
@@ -390,12 +397,13 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
                       )}
                     />
                   </FieldWrapper>
-                ))}
-              </Row>
+                ))} */}
+          {/* </Row>
             </NewPersonWrapper>
           ) : (
             <div />
-          )}
+          )} */}
+          {/* ------- Submit Button -------  */}
           <Box m={2}>
             <StyledButton
               type="submit"
