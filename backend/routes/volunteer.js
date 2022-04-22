@@ -40,6 +40,8 @@ router.get("/:id", async (req, res) => {
 //         phone: req.body.phone,
 //         // initialize signedWaiver to false when Volunteer is created
 //         signedWaiver: false,
+//         isAdult: req.body.isAdult,
+//         parentName: req.body.parentName,
 //       });
 //       volunteer.save();
 //       res.json(volunteer);
@@ -80,6 +82,7 @@ router.post(
           email: req.body.email,
           // initialize signedWaiver to false when new Volunteer is created
           signedWaiver: false,
+          isAdult: req.body.isAdult,
         });
         if (req.body.phone) volunteer.phone = req.body.phone;
         volunteer.save();
@@ -117,6 +120,9 @@ router.put("/:id/signWaiver", async (req, res) => {
   // update signedWaiver and dateSigned fields
   volunteer.signedWaiver = true;
   volunteer.dateSigned = current.getTime();
+  if (!volunteer.isAdult && req.query.parentName) {
+    volunteer.parentName = req.query.parentName;
+  }
   volunteer.save();
   res.send(`Signed waiver at time ${volunteer.dateSigned}`);
 });

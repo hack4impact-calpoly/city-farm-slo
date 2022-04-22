@@ -105,26 +105,32 @@ const WaiverExplanation = styled.p`
   margin-right: 10%;
 `;
 
-export default function WaiverPage({ user }) {
+export default function WaiverPage({ user, isAdult }) {
+  const [parent, setParent] = useState("");
+
   const signWaiver = () => {
-    fetch(`/volunteer/${user._id}/signWaiver`, {
+    const parentName = isAdult ? "" : `?parentName=${parent}`;
+    fetch(`/volunteer/${user._id}/signWaiver${parentName}`, {
       method: "PUT",
     });
   };
-  // isAdult prop to be defined and passed in as state variable later
-  const isAdult = true;
+
   const classes = useStyles();
 
   const [checked, setChecked] = useState(false);
-  const [checked2, setChecked2] = useState(false);
 
   const handleChange1 = () => {
     setChecked(!checked);
   };
 
-  const handleChange2 = () => {
-    setChecked2(!checked2);
-  };
+  // --- Unimplemented sign up for otehrs code ---
+
+  // const [checked2, setChecked2] = useState(false);
+  // const handleChange2 = () => {
+  //   setChecked2(!checked2);
+  // };
+
+  // --- End unimplemented code ---
 
   return (
     <div>
@@ -172,36 +178,41 @@ export default function WaiverPage({ user }) {
               />
             </AgreementSection>
             {/* Conditional rendering for whether Volunteer isAdult or not */}
-            {isAdult ? (
-              <>
-                <AgreementText>
-                  Click here to indicate that you are signing this waiver for
-                  individuals that you have registered for
-                </AgreementText>
-                {/* Checkbox for City Farm SLO Volunteer Agreement */}
-                <Radio
-                  sx={{
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                    },
-                    paddingRight: "485px",
-                    color: "white",
-                    "&.Mui-checked": {
-                      color: "white",
-                    },
-                  }}
-                  checked={checked2 === true}
-                  onClick={handleChange2}
-                  name="radio-buttons"
-                />
-              </>
-            ) : (
+            {
+              // <>
+              //   <AgreementText>
+              //     Click here to indicate that you are signing this waiver for
+              //     individuals that you have registered for
+              //   </AgreementText>
+              //   {/* Checkbox for City Farm SLO Volunteer Agreement */}
+              //   <Radio
+              //     sx={{
+              //       "&:hover": {
+              //         backgroundColor: "transparent",
+              //       },
+              //       paddingRight: "485px",
+              //       color: "white",
+              //       "&.Mui-checked": {
+              //         color: "white",
+              //       },
+              //     }}
+              //     checked={checked2 === true}
+              //     onClick={handleChange2}
+              //     name="radio-buttons"
+              //   />
+              // </>
+            }
+            {!isAdult && (
               <>
                 <AgreementText>Print parental name</AgreementText>
                 <TextField
                   id="filled-basic"
                   variant="filled"
                   className={classes.root}
+                  value={parent}
+                  onChange={(e) => {
+                    setParent(e.target.value);
+                  }}
                 />
               </>
             )}
@@ -221,4 +232,5 @@ export default function WaiverPage({ user }) {
 
 WaiverPage.propTypes = {
   user: PropTypes.instanceOf({}).isRequired,
+  isAdult: PropTypes.bool.isRequired,
 };

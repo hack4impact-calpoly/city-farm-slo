@@ -1,4 +1,4 @@
-import React from "react";
+import { React } from "react";
 import { Link, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { TextField, Button } from "@material-ui/core";
@@ -29,6 +29,19 @@ const PopupTitle = styled.h1`
   color: #ffffff;
   margin: -10px 0px 20px 20px;
 `;
+
+// const GeneralText = styled.p`
+//   display: inline-block;
+//   font-style: normal;
+//   font-weight: 700;
+//   font-size: 10px;
+//   color: #ffffff;
+// `;
+
+// const Radioform = styled.div`
+//   display: flex;
+//   flex-direction: row;
+// `;
 
 const PopupWrapper = styled.div`
   display: flex;
@@ -139,6 +152,10 @@ const RowWrapper = styled.div`
   flex-direction: column;
 `;
 
+// const NewPersonWrapper = styled.div`
+//   margin: -15px;
+// `;
+
 const Row = styled.div`
   display: flex;
   flex-direction: row;
@@ -150,6 +167,7 @@ const FieldWrapper = styled.div`
 `;
 
 const StyledButton = styled(Button)`
+  margin-top: 40px;
   background-color: #0ba360;
   border-radius: 20px;
   padding: 20px;
@@ -186,6 +204,20 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
   const variant = "filled";
   const classes = useStyles();
 
+  // --- Unimplemented signing up for others code ---
+  // const [checked, setChecked] = useState(false);
+
+  // const handleChange1 = () => {
+  //   setChecked(!checked);
+  // };
+
+  // const childEntries = [
+  //   { name: "firstname", label: "First Name" },
+  //   { name: "lastname", label: "Last Name" },
+  // ];
+
+  // --- End unimplimented code ---
+
   // validation
   const phoneRegExp = /^$|^\d{10}$/;
   const validationSchema = Yup.object().shape({
@@ -206,6 +238,7 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
   const onSubmit = (values) => {
     const cleanValues = values;
     if (!values.phone) delete cleanValues.phone; // remove phone if it is empty string
+    cleanValues.isAdult = isAdult;
     fetch("volunteer/register", {
       method: "POST",
       headers: {
@@ -302,8 +335,75 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
               </Row>
             ))}
           </RowWrapper>
+          {/* {isAdult === false ? (
+            <div />
+          ) : (
+            <Radioform>
+              <GeneralText>I am registering for others under 18</GeneralText>
+              <Radio
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                    "@media (hover: none)": {
+                      backgroundColor: "transparent",
+                    },
+                  },
+                  paddingRight: "200px",
+                  color: "white",
+                  "&.Mui-checked": {
+                    color: "white",
+                    transitionDuration: "0s !important",
+                  },
+                }}
+                checked={checked === true}
+                onClick={handleChange1}
+                name="radio-buttons"
+              />
+            </Radioform>
+          )} */}
+
+          {/* {checked === true ? (
+            <NewPersonWrapper>
+              <Row> */}
+          {/* ------- Name, Email -------  */}
+          {/* {childEntries.map((entry) => (
+                  <FieldWrapper>
+                    <Controller
+                      className={classes.box}
+                      key={entry.name}
+                      name={entry.name}
+                      defaultValue=""
+                      control={control}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <Box m={2}>
+                          <TextField
+                            required
+                            fullWidth
+                            InputProps={{
+                              disableUnderline: true,
+                            }}
+                            label={entry.label}
+                            variant={variant}
+                            value={value}
+                            onChange={onChange}
+                            error={!!error}
+                            helperText={error ? error.message : null}
+                            className={classes.root}
+                          />
+                        </Box>
+                      )}
+                    />
+                  </FieldWrapper>
+                ))} */}
+          {/* </Row>
+            </NewPersonWrapper>
+          ) : (
+            <div />
+          )} */}
           {/* ------- Submit Button -------  */}
-          {isAdult === false ? <p>under 18</p> : <p>over 18</p>}
           <Box m={2}>
             <StyledButton
               type="submit"
