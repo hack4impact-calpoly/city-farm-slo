@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { StylesProvider } from "@material-ui/core/styles";
 import Home from "./components/HomePage/home";
-import ManageEventsPage from "./components/ManageEventsPage/ManageEventsPage";
+import AdminHome from "./components/AdminHomePage/AdminHome";
 
 function App() {
   // lifted state for event selected
@@ -14,10 +14,7 @@ function App() {
         <div>
           <Switch>
             <Route path="/admin">
-              <ManageEventsPage
-                selectedEvent={selectedEvent}
-                setEvent={setEvent}
-              />
+              <AdminHome selectedEvent={selectedEvent} setEvent={setEvent} />
             </Route>
             <Route path="/">
               <Home selectedEvent={selectedEvent} setEvent={setEvent} />
