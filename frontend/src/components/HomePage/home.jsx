@@ -192,7 +192,7 @@ export default function Home({ selectedEvent, setEvent }) {
           <PlantContainer>
             <img src={flower} alt="Flower" />
           </PlantContainer>
-          <AdminLoginButton to="/admin-login">Login as Admin</AdminLoginButton>
+          <AdminLoginButton to="/admin/login">Login as Admin</AdminLoginButton>
         </FullPage>
       </div>
     );
