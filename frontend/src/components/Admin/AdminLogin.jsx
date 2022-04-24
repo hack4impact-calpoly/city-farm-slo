@@ -161,7 +161,9 @@ export default function AdminLogin() {
               label="Password"
               variant="filled"
             />
-            <StyledButton>Login</StyledButton>
+            <StyledButton type="submit" variant="contained" color="primary">
+              Login
+            </StyledButton>
           </LoginContainer>
         </RightContainer>
         <Flower src={flower} alt="flower" />
