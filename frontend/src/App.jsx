@@ -4,6 +4,7 @@ import { StylesProvider } from "@material-ui/core/styles";
 import Home from "./components/HomePage/home";
 import AdminHome from "./components/AdminHomePage/AdminHome";
 import ManageEventsPage from "./components/ManageEventsPage/ManageEventsPage";
+import AdminLogin from "./components/AdminLogin/AdminLogin";
 
 function App() {
   // lifted state for event selected
@@ -19,6 +20,9 @@ function App() {
                 selectedEvent={selectedEvent}
                 setEvent={setEvent}
               />
+            </Route>
+            <Route path="/admin/login">
+              <AdminLogin />
             </Route>
             <Route path="/admin">
               <AdminHome selectedEvent={selectedEvent} setEvent={setEvent} />
