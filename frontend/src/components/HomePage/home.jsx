@@ -1,6 +1,6 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { Switch, Route, Link, useHistory } from "react-router-dom";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import flower from "./flower-bg.png";
 import Calendar from "../UserSignUp/Calendar";
@@ -10,6 +10,8 @@ import SignUpForm from "../UserSignUp/SignUpForm";
 import AgeSelect from "../UserSignUp/AgeSelect";
 import RegistrationComplete from "../RegistrationComplete/RegistrationComplete";
 import WaiverPage from "../WaiverComponent/WaiverPage";
+// eslint-disable-next-line import/named
+import { selectAllEvents, selectEvent } from "../../redux/selectors/event";
 
 // styled components
 const Title1 = styled.div`
@@ -120,7 +122,7 @@ const linkStyle = {
   color: "inherit",
 };
 
-export default function Home({ selectedEvent, setEvent }) {
+export default function Home() {
   // routing
   const history = useHistory();
 
@@ -142,21 +144,9 @@ export default function Home({ selectedEvent, setEvent }) {
   };
 
   // events state
-  const [events, setEvents] = useState([]);
+  const events = useSelector(selectAllEvents);
+  const selected = useSelector(selectEvent);
   const [eventClicked, setClicked] = useState(false);
-  useEffect(() => {
-    fetch("/events")
-      .then((res) => res.json())
-      .then((dataNoDates) =>
-        dataNoDates.map((anEvent) => ({
-          ...anEvent,
-          start: new Date(anEvent.start),
-          end: new Date(anEvent.end),
-        }))
-      )
-      .then((data) => setEvents(data))
-      .catch((err) => console.log(err));
-  }, []);
 
   // current user state
   const [user, setUser] = useState({});
@@ -171,8 +161,7 @@ export default function Home({ selectedEvent, setEvent }) {
             <CalendarWrapper>
               <Calendar
                 events={events}
-                selectedEvent={selectedEvent}
-                setEvent={setEvent}
+                selectedEvent={selected}
                 eventClicked={eventClicked}
                 setClicked={setClicked}
               />
@@ -189,7 +178,7 @@ export default function Home({ selectedEvent, setEvent }) {
     <div>
       <FullPage2>
         <LeftContainer>
-          <EventCard event={selectedEvent} />
+          <EventCard event={selected} />
           <Link to="/age-selection" style={linkStyle} onClick={handleModalOpen}>
             <Register>Register</Register>
           </Link>
@@ -209,8 +198,7 @@ export default function Home({ selectedEvent, setEvent }) {
             <CalendarWrapper>
               <Calendar
                 events={events}
-                selectedEvent={selectedEvent}
-                setEvent={setEvent}
+                selectedEvent={selected}
                 eventClicked={eventClicked}
                 setClicked={setClicked}
               />
@@ -222,7 +210,7 @@ export default function Home({ selectedEvent, setEvent }) {
         <Switch>
           <Route path="/registration">
             <SignUpForm
-              selectedEvent={selectedEvent}
+              selectedEvent={selected}
               handleModalClose={handleModalClose}
               user={user}
               setUser={setUser}
@@ -234,13 +222,13 @@ export default function Home({ selectedEvent, setEvent }) {
           </Route>
           <Route path="/registration-complete">
             <RegistrationComplete
-              selectedEvent={selectedEvent}
+              selectedEvent={selected}
               handleModalClose={handleModalClose}
             />
           </Route>
           <Route path="/age-selection">
             <AgeSelect
-              selectedEvent={selectedEvent}
+              selectedEvent={selected}
               handleModalClose={handleModalClose}
               handleisAdult={handleisAdult}
               handlenotAdult={handlenotAdult}
@@ -251,8 +239,3 @@ export default function Home({ selectedEvent, setEvent }) {
     </div>
   );
 }
-
-Home.propTypes = {
-  selectedEvent: PropTypes.instanceOf({}).isRequired,
-  setEvent: PropTypes.func.isRequired,
-};
