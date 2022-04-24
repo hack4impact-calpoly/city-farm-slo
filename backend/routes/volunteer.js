@@ -9,8 +9,7 @@ const router = express.Router();
 // #1 - get all volunteers
 router.get("/:id", async (req, res) => {
   try {
-    const volunteer =
-      (await Volunteer.findById(req.params.id)) ?? "Volunteer not found";
+    const volunteer = (await Volunteer.findById(req.params.id)) ?? "Volunteer not found";
     res.send(volunteer);
   } catch (error) {
     res.status(500).send(error.message);

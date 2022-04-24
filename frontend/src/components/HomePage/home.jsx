@@ -230,7 +230,11 @@ export default function Home({ selectedEvent, setEvent }) {
             />
           </Route>
           <Route path="/waiver">
-            <WaiverPage user={user} isAdult={isAdult} />
+            <WaiverPage
+              selectedEvent={selectedEvent}
+              user={user}
+              isAdult={isAdult}
+            />
           </Route>
           <Route path="/registration-complete">
             <RegistrationComplete

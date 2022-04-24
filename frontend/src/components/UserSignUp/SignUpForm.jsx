@@ -234,6 +234,22 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
   // routing
   const history = useHistory();
 
+  const sendEmail = (data) => {
+    fetch("mail/register", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: data,
+        event: selectedEvent.title,
+      }),
+    })
+      .then((res) => res.json())
+      .catch((error) => console.log(error));
+  };
+
   // log values when data is submitted
   const onSubmit = (values) => {
     const cleanValues = values;
@@ -255,12 +271,15 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
         // set user when submitted
         setUser(data);
         if (data.signedWaiver) {
+          console.log("innn here times");
           history.push("/registration-complete");
+          sendEmail(data);
         } else {
           history.push("/waiver");
         }
       })
       .catch((error) => console.log(error));
+
     reset();
   };
 
@@ -410,7 +429,8 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
               variant="contained"
               color="primary"
               fullWidth
-              disabled={!formState.isValid}
+              // disabled={!formState.isValid}
+              onClick={onSubmit}
             >
               Register
             </StyledButton>
