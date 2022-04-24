@@ -1,11 +1,9 @@
 import { React, useState, useEffect } from "react";
-import { Switch, Route, Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import flower from "./tulip.png";
 import Calendar from "../UserSignUp/Calendar";
-import AdminHomeModal from "./AdminHomeModal";
-import ManageEventsPage from "../ManageEventsPage/ManageEventsPage";
 
 // styled components
 const Title1 = styled.div`
@@ -148,18 +146,8 @@ const MenuButton = styled.div`
 `;
 
 export default function AdminHome({ selectedEvent, setEvent }) {
-  // routing
-  const history = useHistory();
-
-  // modal state
-  const [open, setOpen] = useState(false);
-  const handleModalOpen = () => setOpen(true);
-  const handleModalClose = () => {
-    setOpen(false);
-    history.push("/admin");
-  };
-
   // events state
+  // TODO: Replace with Redux
   const [events, setEvents] = useState([]);
   const [eventClicked, setClicked] = useState(false);
   useEffect(() => {
@@ -182,11 +170,7 @@ export default function AdminHome({ selectedEvent, setEvent }) {
         <LeftContainer>
           <MenuHeader1>City Farm SLO</MenuHeader1>
           <MenuHeader2>Admin Page</MenuHeader2>
-          <Link
-            to="/admin/manage-events"
-            style={linkStyle}
-            onClick={handleModalOpen}
-          >
+          <Link to="/admin/manage-events" style={linkStyle}>
             <MenuButton1>Manage Events</MenuButton1>
           </Link>
           <MenuButton>Send Emails</MenuButton>
@@ -212,16 +196,6 @@ export default function AdminHome({ selectedEvent, setEvent }) {
           </CenterWrap>
         </RightContainer>
       </FullPage2>
-      <AdminHomeModal open={open} handleClose={handleModalClose}>
-        <Switch>
-          <Route path="/admin/manage-events">
-            <ManageEventsPage
-              selectedEvent={selectedEvent}
-              setEvent={setEvent}
-            />
-          </Route>
-        </Switch>
-      </AdminHomeModal>
     </div>
   );
 }
