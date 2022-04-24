@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Button, TextField } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import farm from "./farm-bg.png";
 import logo from "./logo.svg";
 import flower from "./flower-2-bg.png";
@@ -135,6 +136,8 @@ const Flower = styled.img`
 `;
 
 export default function AdminLogin() {
+  const history = useHistory();
+
   return (
     <div>
       <FullPage>
@@ -161,7 +164,12 @@ export default function AdminLogin() {
               label="Password"
               variant="filled"
             />
-            <StyledButton type="submit" variant="contained" color="primary">
+            <StyledButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              onClick={() => history.push("/admin")}
+            >
               Login
             </StyledButton>
           </LoginContainer>
