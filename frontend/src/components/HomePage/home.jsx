@@ -10,7 +10,6 @@ import SignUpForm from "../UserSignUp/SignUpForm";
 import AgeSelect from "../UserSignUp/AgeSelect";
 import RegistrationComplete from "../RegistrationComplete/RegistrationComplete";
 import WaiverPage from "../WaiverComponent/WaiverPage";
-// eslint-disable-next-line import/named
 import { selectAllEvents, selectEvent } from "../../redux/selectors/event";
 
 // styled components
