@@ -1,8 +1,10 @@
-import { React, useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import { React, useState } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import Calendar from "../UserSignUp/Calendar";
 import returnImg from "./return.png";
+
+import { selectAllEvents } from "../../redux/selectors/event";
 
 const Title = styled.div`
   color: white;
@@ -74,23 +76,9 @@ const Button = styled.button`
   color: white;
 `;
 
-export default function ManageEventsPage({ selectedEvent, setEvent }) {
-  // events state
-  const [events, setEvents] = useState([]);
+export default function ManageEventsPage() {
+  const events = useSelector(selectAllEvents);
   const [eventClicked, setClicked] = useState(false);
-  useEffect(() => {
-    fetch("/events")
-      .then((res) => res.json())
-      .then((dataNoDates) =>
-        dataNoDates.map((anEvent) => ({
-          ...anEvent,
-          start: new Date(anEvent.start),
-          end: new Date(anEvent.end),
-        }))
-      )
-      .then((data) => setEvents(data))
-      .catch((err) => console.log(err));
-  }, []);
 
   if (eventClicked === false) {
     return (
@@ -99,13 +87,7 @@ export default function ManageEventsPage({ selectedEvent, setEvent }) {
           <LeftContainer>
             <Title> Manage Events </Title>
             <CalendarWrapper>
-              <Calendar
-                events={events}
-                selectedEvent={selectedEvent}
-                setEvent={setEvent}
-                eventClicked={eventClicked}
-                setClicked={setClicked}
-              />
+              <Calendar events={events} setClicked={setClicked} />
             </CalendarWrapper>
           </LeftContainer>
           <RightContainer>
@@ -126,13 +108,7 @@ export default function ManageEventsPage({ selectedEvent, setEvent }) {
           <LeftContainer>
             <Title> Manage Events </Title>
             <CalendarWrapper>
-              <Calendar
-                events={events}
-                selectedEvent={selectedEvent}
-                setEvent={setEvent}
-                eventClicked={eventClicked}
-                setClicked={setClicked}
-              />
+              <Calendar events={events} setClicked={setClicked} />
             </CalendarWrapper>
           </LeftContainer>
           <RightContainer>
@@ -147,8 +123,3 @@ export default function ManageEventsPage({ selectedEvent, setEvent }) {
     </div>
   );
 }
-
-ManageEventsPage.propTypes = {
-  selectedEvent: PropTypes.instanceOf({}).isRequired,
-  setEvent: PropTypes.func.isRequired,
-};
