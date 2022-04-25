@@ -1,9 +1,10 @@
-import { React, useState, useEffect } from "react";
+import { React } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import flower from "./tulip.png";
 import Calendar from "../UserSignUp/Calendar";
+import { selectAllEvents } from "../../redux/selectors/event";
 
 // styled components
 const Title1 = styled.div`
@@ -145,24 +146,8 @@ const MenuButton = styled.div`
   margin-top: 2%;
 `;
 
-export default function AdminHome({ selectedEvent, setEvent }) {
-  // events state
-  // TODO: Replace with Redux
-  const [events, setEvents] = useState([]);
-  const [eventClicked, setClicked] = useState(false);
-  useEffect(() => {
-    fetch("/events")
-      .then((res) => res.json())
-      .then((dataNoDates) =>
-        dataNoDates.map((anEvent) => ({
-          ...anEvent,
-          start: new Date(anEvent.start),
-          end: new Date(anEvent.end),
-        }))
-      )
-      .then((data) => setEvents(data))
-      .catch((err) => console.log(err));
-  }, []);
+export default function AdminHome() {
+  const events = useSelector(selectAllEvents);
 
   return (
     <div>
@@ -185,13 +170,7 @@ export default function AdminHome({ selectedEvent, setEvent }) {
               <Title1>Calendar</Title1>
             </Header>
             <CalendarWrapper>
-              <Calendar
-                events={events}
-                selectedEvent={selectedEvent}
-                setEvent={setEvent}
-                eventClicked={eventClicked}
-                setClicked={setClicked}
-              />
+              <Calendar events={events} />
             </CalendarWrapper>
           </CenterWrap>
         </RightContainer>
@@ -199,8 +178,3 @@ export default function AdminHome({ selectedEvent, setEvent }) {
     </div>
   );
 }
-
-AdminHome.propTypes = {
-  selectedEvent: PropTypes.instanceOf({}).isRequired,
-  setEvent: PropTypes.func.isRequired,
-};

@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { Switch, Route, Link, useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import flower from "./flower-bg.png";
 import Calendar from "../UserSignUp/Calendar";
@@ -11,6 +11,7 @@ import AgeSelect from "../UserSignUp/AgeSelect";
 import RegistrationComplete from "../RegistrationComplete/RegistrationComplete";
 import WaiverPage from "../WaiverComponent/WaiverPage";
 import { selectAllEvents, selectEvent } from "../../redux/selectors/event";
+import { setSelected } from "../../redux/slices/event";
 
 // styled components
 const Title1 = styled.div`
@@ -156,6 +157,7 @@ export default function Home() {
   // events state
   const events = useSelector(selectAllEvents);
   const selected = useSelector(selectEvent);
+  const dispatch = useDispatch();
   const [eventClicked, setClicked] = useState(false);
 
   // current user state
@@ -169,12 +171,7 @@ export default function Home() {
           <CenterWrap>
             <Title2>Select an Event to Register</Title2>
             <CalendarWrapper>
-              <Calendar
-                events={events}
-                selectedEvent={selected}
-                eventClicked={eventClicked}
-                setClicked={setClicked}
-              />
+              <Calendar events={events} setClicked={setClicked} />
             </CalendarWrapper>
           </CenterWrap>
           <PlantContainer>
@@ -203,7 +200,7 @@ export default function Home() {
         <RightContainer
           onClick={() => {
             setClicked(false);
-            setEvent({});
+            dispatch(setSelected(undefined));
           }}
         >
           <Title1>City Farm SLO</Title1>

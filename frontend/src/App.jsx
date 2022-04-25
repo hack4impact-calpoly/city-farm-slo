@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { StylesProvider } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
@@ -9,8 +9,6 @@ import fetchEvents from "./redux/reducers/event";
 import AdminLogin from "./components/AdminLogin/AdminLogin";
 
 function App() {
-  // lifted state for event selected
-  const [selectedEvent, setEvent] = useState([]);
   // call fetchEvents
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,19 +21,16 @@ function App() {
         <div>
           <Switch>
             <Route path="/admin/manage-events">
-              <ManageEventsPage
-                selectedEvent={selectedEvent}
-                setEvent={setEvent}
-              />
+              <ManageEventsPage />
             </Route>
             <Route path="/admin/login">
               <AdminLogin />
             </Route>
             <Route path="/admin">
-              <AdminHome selectedEvent={selectedEvent} setEvent={setEvent} />
+              <AdminHome />
             </Route>
             <Route path="/">
-              <Home selectedEvent={selectedEvent} setEvent={setEvent} />
+              <Home />
             </Route>
           </Switch>
         </div>
