@@ -116,6 +116,17 @@ const Register = styled.div`
   margin-top: 6%;
 `;
 
+const AdminLoginButton = styled(Link)`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #003c45;
+  font-weight: 900;
+  font-size: 36px;
+  text-decoration: none;
+  padding: 15px;
+`;
+
 const linkStyle = {
   textDecoration: "none",
   color: "inherit",
@@ -169,6 +180,7 @@ export default function Home() {
           <PlantContainer>
             <img src={flower} alt="Flower" />
           </PlantContainer>
+          <AdminLoginButton to="/admin/login">Login as Admin</AdminLoginButton>
         </FullPage>
       </div>
     );
@@ -188,7 +200,12 @@ export default function Home() {
         <DividerContainer>
           <Divider />
         </DividerContainer>
-        <RightContainer>
+        <RightContainer
+          onClick={() => {
+            setClicked(false);
+            setEvent({});
+          }}
+        >
           <Title1>City Farm SLO</Title1>
           <CenterWrap>
             <Header>
