@@ -105,35 +105,15 @@ const WaiverExplanation = styled.p`
   margin-right: 10%;
 `;
 
-export default function WaiverPage({ selectedEvent, user, isAdult }) {
+export default function WaiverPage({ user, isAdult, sendEmail }) {
   const [parent, setParent] = useState("");
-
-  const sendEmail = () => {
-    fetch("mail/register", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user,
-        event: selectedEvent.title,
-      }),
-    })
-      .then((res) => {
-        res.clone().json();
-        console.log("hiii");
-        // console.log(res.json());
-      })
-      .catch((error) => console.log(error));
-  };
 
   const signWaiver = () => {
     const parentName = isAdult ? "" : `?parentName=${parent}`;
     fetch(`/volunteer/${user._id}/signWaiver${parentName}`, {
       method: "PUT",
     });
-    sendEmail();
+    sendEmail(user);
   };
 
   const classes = useStyles();
@@ -167,8 +147,8 @@ export default function WaiverPage({ selectedEvent, user, isAdult }) {
           <WaiverFormRightWrapper>
             <AgreementSection>
               <AgreementText>
-                Click here to indicate that you have read and agree to the terms of the City Farm
-                SLO Volunteer Agreement
+                Click here to indicate that you have read and agree to the terms
+                of the City Farm SLO Volunteer Agreement
               </AgreementText>
               {/* Checkbox for City Farm SLO Volunteer Agreement */}
               <Radio
@@ -192,7 +172,11 @@ export default function WaiverPage({ selectedEvent, user, isAdult }) {
               />
               <AgreementText>Print your name</AgreementText>
               {/* Added text field here */}
-              <TextField id="filled-basic" variant="filled" className={classes.root} />
+              <TextField
+                id="filled-basic"
+                variant="filled"
+                className={classes.root}
+              />
             </AgreementSection>
             {/* Conditional rendering for whether Volunteer isAdult or not */}
             {
@@ -237,8 +221,8 @@ export default function WaiverPage({ selectedEvent, user, isAdult }) {
               <RegisterButton onClick={signWaiver}>Register</RegisterButton>
             </RegistrationLink>
             <WaiverExplanation>
-              Waiver signage is required for first time volunteers. This will not have to be done
-              nextime.{" "}
+              Waiver signage is required for first time volunteers. This will
+              not have to be done nextime.{" "}
             </WaiverExplanation>
           </WaiverFormRightWrapper>
         </WaiverFormWrapper>
@@ -248,7 +232,7 @@ export default function WaiverPage({ selectedEvent, user, isAdult }) {
 }
 
 WaiverPage.propTypes = {
-  selectedEvent: PropTypes.instanceOf({}).isRequired,
   user: PropTypes.instanceOf({}).isRequired,
   isAdult: PropTypes.bool.isRequired,
+  sendEmail: PropTypes.func.isRequired,
 };

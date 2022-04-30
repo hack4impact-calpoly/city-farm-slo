@@ -155,8 +155,27 @@ export default function Home({ selectedEvent, setEvent }) {
         }))
       )
       .then((data) => setEvents(data))
+      // eslint-disable-next-line no-console
       .catch((err) => console.log(err));
   }, []);
+
+  // email handler for successful sign up
+  const sendEmail = (data) => {
+    fetch("mail/register", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: data,
+        event: selectedEvent.title,
+      }),
+    })
+      .then((res) => res.json())
+      // eslint-disable-next-line no-console
+      .catch((error) => console.log(error));
+  };
 
   // current user state
   const [user, setUser] = useState({});
@@ -227,14 +246,11 @@ export default function Home({ selectedEvent, setEvent }) {
               user={user}
               setUser={setUser}
               isAdult={isAdult}
+              sendEmail={sendEmail}
             />
           </Route>
           <Route path="/waiver">
-            <WaiverPage
-              selectedEvent={selectedEvent}
-              user={user}
-              isAdult={isAdult}
-            />
+            <WaiverPage user={user} isAdult={isAdult} sendEmail={sendEmail} />
           </Route>
           <Route path="/registration-complete">
             <RegistrationComplete

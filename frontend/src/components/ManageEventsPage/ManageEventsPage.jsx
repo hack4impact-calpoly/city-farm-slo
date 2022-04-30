@@ -89,6 +89,7 @@ export default function ManageEventsPage({ selectedEvent, setEvent }) {
         }))
       )
       .then((data) => setEvents(data))
+      // eslint-disable-next-line no-console
       .catch((err) => console.log(err));
   }, []);
 

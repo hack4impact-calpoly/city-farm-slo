@@ -199,7 +199,13 @@ const StyledButton = styled(Button)`
   }
 `;
 
-function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
+export default function SignUpForm({
+  selectedEvent,
+  handleModalClose,
+  isAdult,
+  setUser,
+  sendEmail,
+}) {
   // style
   const variant = "filled";
   const classes = useStyles();
@@ -226,29 +232,13 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
     email: Yup.string().required("Required field").email("Invalid format"),
     phone: Yup.string().matches(phoneRegExp, "Use 10 digits only"),
   });
-  const { handleSubmit, control, reset, formState } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     mode: "onChange",
     resolver: yupResolver(validationSchema),
   });
 
   // routing
   const history = useHistory();
-
-  const sendEmail = (data) => {
-    fetch("mail/register", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user: data,
-        event: selectedEvent.title,
-      }),
-    })
-      .then((res) => res.json())
-      .catch((error) => console.log(error));
-  };
 
   // log values when data is submitted
   const onSubmit = (values) => {
@@ -271,13 +261,13 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
         // set user when submitted
         setUser(data);
         if (data.signedWaiver) {
-          console.log("innn here times");
           history.push("/registration-complete");
           sendEmail(data);
         } else {
           history.push("/waiver");
         }
       })
+      // eslint-disable-next-line no-console
       .catch((error) => console.log(error));
 
     reset();
@@ -446,6 +436,5 @@ SignUpForm.propTypes = {
   handleModalClose: PropTypes.func.isRequired,
   isAdult: PropTypes.bool.isRequired,
   setUser: PropTypes.func.isRequired,
+  sendEmail: PropTypes.func.isRequired,
 };
-
-export default SignUpForm;

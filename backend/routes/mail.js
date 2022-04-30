@@ -5,7 +5,11 @@ const router = express.Router();
 
 require("dotenv").config();
 
-if (!process.env.EMAIL_SERVICE || !process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+if (
+  !process.env.EMAIL_SERVICE ||
+  !process.env.EMAIL_USER ||
+  !process.env.EMAIL_PASS
+) {
   console.warn("Missing environment variables for email login");
 }
 
