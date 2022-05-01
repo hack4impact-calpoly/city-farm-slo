@@ -1,4 +1,9 @@
-import { eventsReceived } from "../slices/event";
+import {
+  addEventReducer,
+  deleteEventReducer,
+  editEventReducer,
+  eventsReceived,
+} from "../slices/event";
 
 const fetchEvents = () => async (dispatch) => {
   fetch("/events")
@@ -23,12 +28,8 @@ const addEvent = (event) => async (dispatch) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(event),
-  })
-    .then((res) => res.json())
-    .catch((err) => console.log(err))
-    .then(() => {
-      dispatch(fetchEvents());
-    });
+  }).catch((err) => console.log(err));
+  dispatch(addEventReducer(event));
 };
 
 const editEvent = (event) => async (dispatch) => {
@@ -38,12 +39,8 @@ const editEvent = (event) => async (dispatch) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(event),
-  })
-    .then((res) => res.json())
-    .catch((err) => console.log(err))
-    .then(() => {
-      dispatch(fetchEvents());
-    });
+  }).catch((err) => console.log(err));
+  dispatch(editEventReducer(event));
 };
 
 const deleteEvent = (event) => async (dispatch) => {
@@ -53,12 +50,8 @@ const deleteEvent = (event) => async (dispatch) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(event),
-  })
-    .then((res) => res.json())
-    .catch((err) => console.log(err))
-    .then(() => {
-      dispatch(fetchEvents());
-    });
+  }).catch((err) => console.log(err));
+  dispatch(deleteEventReducer(event));
 };
 
 export { fetchEvents, addEvent, editEvent, deleteEvent };

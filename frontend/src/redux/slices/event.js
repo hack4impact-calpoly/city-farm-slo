@@ -18,10 +18,28 @@ export const eventsSlice = createSlice({
     setSelected: (state, action) => {
       state.selectedEvent = action.payload;
     },
+    addEventReducer: (state, action) => {
+      const newArray = [...state.events, action.payload];
+      state.events = newArray;
+    },
+    editEventReducer: (state, action) => {
+      const idx = state.events.findIndex((e) => e.id === action.payload.id);
+      state.events[idx] = action.payload;
+    },
+    deleteEventReducer: (state, action) => {
+      const newArray = state.events.filter((e) => e.id !== action.payload.id);
+      state.events = newArray;
+    },
   },
 });
 
 // action creators generated for each case reducer function
-export const { eventsReceived, setSelected } = eventsSlice.actions;
+export const {
+  eventsReceived,
+  setSelected,
+  addEventReducer,
+  editEventReducer,
+  deleteEventReducer,
+} = eventsSlice.actions;
 
 export default eventsSlice.reducer;
