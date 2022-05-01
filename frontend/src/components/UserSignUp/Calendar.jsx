@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import { useDispatch } from "react-redux";
+import { setSelected } from "../../redux/slices/event";
 
 // Requirements
 // - Edit the Home component to look like this Figma Mockup: https://www.figma.com/file/AU4DBu8GtFmivr0q971PpY/cityfarmslo-high-fidel?node-id=4%3A18
@@ -18,9 +20,14 @@ const CalendarWrapper = styled.div`
   height: 100%;
 `;
 
-export default function Calendar({ events, setEvent, setClicked }) {
+export default function Calendar({ events, setClicked }) {
+  const dispatch = useDispatch();
   const handleEventClick = (clickInfo) => {
-    setEvent(events.find((e) => e._id === clickInfo.event.extendedProps._id));
+    dispatch(
+      setSelected(
+        events.find((e) => e._id === clickInfo.event.extendedProps._id)
+      )
+    );
     setClicked(true);
   };
 
@@ -43,6 +50,9 @@ export default function Calendar({ events, setEvent, setClicked }) {
 
 Calendar.propTypes = {
   events: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setEvent: PropTypes.func.isRequired,
-  setClicked: PropTypes.func.isRequired,
+  setClicked: PropTypes.func,
+};
+
+Calendar.defaultProps = {
+  setClicked: () => {},
 };
