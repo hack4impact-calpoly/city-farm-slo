@@ -16,7 +16,6 @@ export const eventsSlice = createSlice({
       state.events = action.payload;
     },
     setSelected: (state, action) => {
-      // change this
       state.selectedEvent = action.payload;
     },
   },

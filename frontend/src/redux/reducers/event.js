@@ -16,4 +16,49 @@ const fetchEvents = () => async (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export default fetchEvents;
+const addEvent = (event) => async (dispatch) => {
+  fetch("/events/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(event),
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err))
+    .then(() => {
+      dispatch(fetchEvents());
+    });
+};
+
+const editEvent = (event) => async (dispatch) => {
+  fetch("/events/edit", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(event),
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err))
+    .then(() => {
+      dispatch(fetchEvents());
+    });
+};
+
+const deleteEvent = (event) => async (dispatch) => {
+  fetch("/events/delete", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(event),
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err))
+    .then(() => {
+      dispatch(fetchEvents());
+    });
+};
+
+export { fetchEvents, addEvent, editEvent, deleteEvent };
