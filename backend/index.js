@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const eventRoutes = require("./routes/event");
 const volunteerRoutes = require("./routes/volunteer");
 const mailRoutes = require("./routes/mail");
+const adminRoutes = require("./routes/admin");
 
 require("dotenv").config();
 
@@ -26,5 +27,6 @@ app.get("/", (req, res) => {
 app.use("/events", eventRoutes);
 app.use("/volunteer", volunteerRoutes);
 app.use("/mail", mailRoutes);
+app.use("/admin", adminRoutes);
 
 app.listen(3001);
