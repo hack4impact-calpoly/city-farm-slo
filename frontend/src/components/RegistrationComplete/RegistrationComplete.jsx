@@ -88,6 +88,7 @@ export default function RegistrationComplete({
   selectedEvent,
   handleModalClose,
 }) {
+  // eslint-disable-next-line no-console
   console.log(selectedEvent);
 
   return (
