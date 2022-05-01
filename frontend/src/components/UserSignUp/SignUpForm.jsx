@@ -91,7 +91,7 @@ const EventCardWrapper = styled.div`
 const LinkWrapper = styled.div`
   position: absolute;
   left: 0;
-  bottom: 0;
+  top: 0;
   @media (max-width: 1150px) {
     position: relative;
     min-height: fit-content;

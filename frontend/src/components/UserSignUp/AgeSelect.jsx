@@ -45,7 +45,7 @@ const FirstSection = styled.div`
 const LinkWrapper = styled.div`
   position: absolute;
   left: 0;
-  bottom: 0;
+  top: 0;
   @media (max-width: 1150px) {
     position: relative;
     min-height: fit-content;
@@ -155,12 +155,14 @@ function AgeSelect({
       {/* Sign up form */}
       <FormSection>
         <PopupTitle>Sign Up</PopupTitle>
+        {/* under 18 button */}
         <ButtonWrapper>
           <Link to="/registration" style={linkStyle} onClick={handlenotAdult}>
             <StyledButton type="button">
               I am <b>under</b> 18
             </StyledButton>
           </Link>
+          {/* over 18 button */}
           <Link to="/registration" style={linkStyle} onClick={handleisAdult}>
             <StyledButton type="button">
               I am <b>over</b> 18

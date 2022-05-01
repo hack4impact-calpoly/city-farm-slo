@@ -56,7 +56,7 @@ const BackGround = styled.div`
 const LinkWrapper = styled.div`
   position: absolute;
   left: 40px;
-  bottom: 40px;
+  top: 40px;
   @media (max-width: 1150px) {
     position: relative;
     min-height: fit-content;
