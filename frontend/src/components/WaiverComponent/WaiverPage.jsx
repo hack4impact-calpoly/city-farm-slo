@@ -38,23 +38,64 @@ const CenterWrap = styled.div`
   z-index: 1;
 `;
 
+const WaiverPageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const BackGround = styled.div`
-  min-width: fit-content;
-  position: center;
   background: #003c45;
   border-radius: 80px;
-  padding: 20px;
-  border: center;
+  max-width: 100%;
+  max-height: 100%;
+`;
+
+const LinkWrapper = styled.div`
+  position: absolute;
+  left: 40px;
+  bottom: 40px;
+  @media (max-width: 1150px) {
+    position: relative;
+    min-height: fit-content;
+    margin-top: 60px;
+  }
+`;
+
+const ReturnLink = styled(Link)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  font-size: 24px;
+  line-height: 58px;
+  color: white;
+`;
+
+const BackArrow = styled.i`
+  border: solid white;
+  border-width: 0px 2px 2px 0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
 `;
 
 const WaiverFormWrapper = styled.div`
+  row-gap: 0px;
+  margin-top: -3%;
   width: fit-content;
   height: 100%;
   display: flex;
   flex-direction: row;
+  padding: 5px;
 `;
 
 const WaiverFormLeftWrapper = styled.div`
+  margin-top: -17%;
   width: fit-content;
   height: 100%;
 `;
@@ -65,6 +106,8 @@ const WaiverFormRightWrapper = styled.div`
   flex-direction: column;
   width: fit-content;
   height: 100%;
+  margin-left: -10%;
+  margin-top: -2%;
 `;
 
 const AgreementSection = styled.div`
@@ -78,7 +121,7 @@ const AgreementText = styled.p`
   color: white;
   size: 200%;
   margin-right: 10%;
-  font-size: 20px;
+  font-size: 15px;
 `;
 
 const RegistrationLink = styled(Link)`
@@ -105,7 +148,7 @@ const WaiverExplanation = styled.p`
   margin-right: 10%;
 `;
 
-export default function WaiverPage({ user, isAdult }) {
+export default function WaiverPage({ user, isAdult, handleModalClose }) {
   const [parent, setParent] = useState("");
 
   const signWaiver = () => {
@@ -133,7 +176,7 @@ export default function WaiverPage({ user, isAdult }) {
   // --- End unimplemented code ---
 
   return (
-    <div>
+    <WaiverPageWrapper>
       <BackGround>
         <CenterWrap>
           <Title1>Sign Waiver</Title1>
@@ -142,12 +185,18 @@ export default function WaiverPage({ user, isAdult }) {
           <WaiverFormLeftWrapper>
             {/* waiver component goes here */}
             <Waiver />
+            <LinkWrapper>
+              <ReturnLink to="/" onClick={handleModalClose}>
+                <BackArrow />
+                Return
+              </ReturnLink>
+            </LinkWrapper>
           </WaiverFormLeftWrapper>
           <WaiverFormRightWrapper>
             <AgreementSection>
               <AgreementText>
-                Click here to indicate that you have read and agree to the terms
-                of the City Farm SLO Volunteer Agreement
+                Click here to indicate that you have read and <br /> agree to
+                the terms of the City Farm SLO <br /> Volunteer Agreement
               </AgreementText>
               {/* Checkbox for City Farm SLO Volunteer Agreement */}
               <Radio
@@ -220,17 +269,18 @@ export default function WaiverPage({ user, isAdult }) {
               <RegisterButton onClick={signWaiver}>Register</RegisterButton>
             </RegistrationLink>
             <WaiverExplanation>
-              Waiver signage is required for first time volunteers. This will
-              not have to be done nextime.{" "}
+              Waiver signage is required for first time volunteers. <br /> This
+              will not have to be done nextime.{" "}
             </WaiverExplanation>
           </WaiverFormRightWrapper>
         </WaiverFormWrapper>
       </BackGround>
-    </div>
+    </WaiverPageWrapper>
   );
 }
 
 WaiverPage.propTypes = {
   user: PropTypes.instanceOf({}).isRequired,
   isAdult: PropTypes.bool.isRequired,
+  handleModalClose: PropTypes.func.isRequired,
 };

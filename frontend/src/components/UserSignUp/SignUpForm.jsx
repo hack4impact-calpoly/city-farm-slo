@@ -79,7 +79,7 @@ const FirstSection = styled.div`
 const EventCardWrapper = styled.div`
   position: absolute;
   left: 0;
-  top: 35%;
+  top: 20%;
   @media (max-width: 1150px) {
     position: relative;
     min-height: fit-content;

@@ -6,11 +6,11 @@ import releaseWaiver from "./WAIVER FORM 2021.docx.pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const InnerWaiver = styled.div`
-  padding: 10px;
+  padding-bottom: 10px;
   border: 10px;
   overflow-x: scroll;
   overflow-y: scroll;
-  transform: scale(0.85);
+  transform: scale(0.4);
 `;
 
 export default function Waiver() {

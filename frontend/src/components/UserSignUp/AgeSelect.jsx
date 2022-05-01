@@ -11,7 +11,7 @@ const PopupTitle = styled.h1`
   font-size: 36px;
   line-height: 58px;
   color: #ffffff;
-  margin: -10px 0px 20px 20px;
+  margin: -10px 0px -20px 20px;
 `;
 
 const linkStyle = {
@@ -43,9 +43,14 @@ const FirstSection = styled.div`
 `;
 
 const LinkWrapper = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  @media (max-width: 1150px) {
+    position: relative;
+    min-height: fit-content;
+    margin-top: 60px;
+  }
 `;
 
 const ReturnLink = styled(Link)`
@@ -116,7 +121,7 @@ const StyledButton = styled(Button)`
 const EventCardWrapper = styled.div`
   position: absolute;
   left: 0;
-  top: 35%;
+  top: 20%;
 `;
 
 const ButtonWrapper = styled.div`
