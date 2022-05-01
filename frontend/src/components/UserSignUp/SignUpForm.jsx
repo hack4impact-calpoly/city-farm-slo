@@ -55,10 +55,11 @@ const PopupWrapper = styled.div`
   width: 100%;
   height: 100%;
   justify-content: center;
-  @media (max-width: 1150px) {
+  @media (max-width: 1300px) {
     flex-direction: column;
     justify-items: center;
     align-items: center;
+    min-width: fit-content;
   }
 `;
 
@@ -69,7 +70,7 @@ const FirstSection = styled.div`
   padding: 20px;
   min-width: 330px;
   justify-content: space-between;
-  @media (max-width: 1150px) {
+  @media (max-width: 1300px) {
     min-height: fit-content;
     display: flex;
     flex-direction: column-reverse;
@@ -80,7 +81,7 @@ const EventCardWrapper = styled.div`
   position: absolute;
   left: 0;
   top: 35%;
-  @media (max-width: 1150px) {
+  @media (max-width: 1300px) {
     position: relative;
     min-height: fit-content;
     margin-top: 20px;
@@ -92,7 +93,7 @@ const LinkWrapper = styled.div`
   position: absolute;
   left: 0;
   bottom: 0;
-  @media (max-width: 1150px) {
+  @media (max-width: 1300px) {
     position: relative;
     min-height: fit-content;
     margin-top: 60px;
@@ -126,7 +127,7 @@ const DividerLine = styled.div`
   background: white;
   border-radius: 30px;
 
-  @media (max-width: 1150px) {
+  @media (max-width: 1300px) {
     min-width: 100%;
     min-height: 18px;
     margin-top: 30px;
@@ -142,7 +143,7 @@ const FormSection = styled.div`
   width: fit-content;
   justify-items: center;
 
-  @media (max-width: 1150px) {
+  @media (max-width: 1300px) {
     margin-bottom: 50px;
   }
 `;
@@ -193,7 +194,7 @@ const StyledButton = styled(Button)`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  @media (max-width: 1150px) {
+  @media (max-width: 1300px) {
     position: relative;
     margin-top: 50px;
   }
@@ -304,7 +305,7 @@ export default function SignUpForm({
       <DividerLine />
       {/* Sign up form */}
       <FormSection>
-        <PopupTitle>Sign Up</PopupTitle>
+        <PopupTitle>Sign Up alskdjf</PopupTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <RowWrapper>
             {rEntries.map((row) => (

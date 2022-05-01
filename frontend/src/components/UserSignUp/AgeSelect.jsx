@@ -12,12 +12,31 @@ const PopupTitle = styled.h1`
   line-height: 58px;
   color: #ffffff;
   margin: -10px 0px 20px 20px;
+  @media (max-width: 1300px) {
+    margin-bottom: unset;
+  }
 `;
 
 const linkStyle = {
   textDecoration: "none",
   color: "inherit",
 };
+
+// const PopupWrapper = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   background: #003c45;
+//   border-radius: 80px;
+//   padding: 30px;
+//   box-sizing: border-box;
+//   width: fit-content;
+//   min-height: 400px;
+//   height: 100%;
+//   @media (max-width: 1300px) {
+//     flex-direction: column;
+//     align-items: center;
+//   }
+// `;
 
 const PopupWrapper = styled.div`
   display: flex;
@@ -30,16 +49,26 @@ const PopupWrapper = styled.div`
   min-height: 400px;
   width: 100%;
   height: 100%;
+  justify-content: center;
+  @media (max-width: 1300px) {
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    min-width: fit-content;
+  }
 `;
 
 const FirstSection = styled.div`
-  position: relative;
   display: flex;
+  position: relative;
   padding: 20px;
   width: fit-content;
   flex-direction: column;
   justify-content: space-between;
   min-width: 330px;
+  @media (max-width: 1300px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const LinkWrapper = styled.div`
@@ -56,6 +85,11 @@ const ReturnLink = styled(Link)`
   font-size: 24px;
   line-height: 58px;
   color: white;
+  @media (max-width: 1300px) {
+    position: relative;
+    margin-top: -25px;
+    margin-bottom: 40px;
+  }
 `;
 
 const BackArrow = styled.i`
@@ -70,19 +104,26 @@ const BackArrow = styled.i`
 
 const DividerLine = styled.div`
   margin: 0px 20px;
-  min-width: 18px;
-  min-height: 100%;
+  width: 18px;
+  height: 100%;
   background: white;
   border-radius: 30px;
+  @media (max-width: 1300px) {
+    width: 100%;
+    height: 18px;
+  }
 `;
 
 const FormSection = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
+  position: relative;
   padding: 8px;
-  min-width: 500px;
-  width: 90%;
+  width: fit-content;
+  padding-right: unset;
+  @media (max-width: 1300px) {
+    margin-top: 20px;
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -117,12 +158,24 @@ const EventCardWrapper = styled.div`
   position: absolute;
   left: 0;
   top: 35%;
+  @media (max-width: 1300px) {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    top: unset;
+    left: unset;
+    width: 400px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
   padding-top: 50px;
   flex-direction: column;
+  @media (max-width: 1300px) {
+    padding: unset;
+  }
 `;
 
 function AgeSelect({

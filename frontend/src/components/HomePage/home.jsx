@@ -40,6 +40,8 @@ const FullPage = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  min-width: 1500px;
+  overflow-x: scroll;
 `;
 
 const FullPage2 = styled.div`
@@ -47,6 +49,8 @@ const FullPage2 = styled.div`
   display: flex;
   flex-direction: row;
   height: 100vh;
+  min-width: 1500px;
+  overflow-x: scroll;
 `;
 
 const CalendarWrapper = styled.div`
