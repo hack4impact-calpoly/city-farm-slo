@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { Button, TextField } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 import farm from "./farm-bg.png";
 import logo from "./logo.svg";
 import flower from "./flower-2-bg.png";
@@ -94,6 +97,7 @@ const LoginField = styled(TextField)`
   margin: 20px 0 0;
   width: 50%;
   min-width: 300px;
+  z-index: 1;
   .MuiFilledInput-root {
     background-color: white;
     border-radius: 50px;
@@ -138,6 +142,36 @@ const Flower = styled.img`
 export default function AdminLogin() {
   const history = useHistory();
 
+  const validationSchema = Yup.object().shape({
+    password: Yup.string().required("Required field"),
+  });
+  const { handleSubmit, control, reset, formState, setError } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(validationSchema),
+  });
+
+  const onSubmit = (values) => {
+    const { password } = values;
+    fetch("/admin/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ password }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          history.push("/admin");
+        } else {
+          setError("password", {
+            message: "Wrong password. Contact administrator for help.",
+          });
+        }
+      });
+    reset();
+  };
+
   return (
     <div>
       <FullPage>
@@ -153,26 +187,43 @@ export default function AdminLogin() {
             <Title>Login As Admin</Title>
             <Logo src={logo} alt="logo" />
           </TitleContainer>
-          <LoginContainer>
-            <LoginField
-              type="password"
-              required
-              fullWidth
-              InputProps={{
-                disableUnderline: true,
-              }}
-              label="Password"
-              variant="filled"
-            />
-            <StyledButton
-              type="submit"
-              variant="contained"
-              color="primary"
-              onClick={() => history.push("/admin")}
-            >
-              Login
-            </StyledButton>
-          </LoginContainer>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <LoginContainer>
+              <Controller
+                key="password"
+                name="password"
+                defaultValue=""
+                control={control}
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
+                  <LoginField
+                    type="password"
+                    required
+                    fullWidth
+                    InputProps={{
+                      disableUnderline: true,
+                    }}
+                    label="Password"
+                    variant="filled"
+                    value={value}
+                    onChange={onChange}
+                    helperText={error ? error.message : null}
+                    error={!!error}
+                  />
+                )}
+              />
+              <StyledButton
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={!formState.isValid}
+              >
+                Login
+              </StyledButton>
+            </LoginContainer>
+          </form>
         </RightContainer>
         <Flower src={flower} alt="flower" />
       </FullPage>
