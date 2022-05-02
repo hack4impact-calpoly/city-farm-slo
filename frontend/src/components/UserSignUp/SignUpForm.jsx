@@ -305,7 +305,7 @@ export default function SignUpForm({
       <DividerLine />
       {/* Sign up form */}
       <FormSection>
-        <PopupTitle>Sign Up alskdjf</PopupTitle>
+        <PopupTitle>Sign Up</PopupTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <RowWrapper>
             {rEntries.map((row) => (
