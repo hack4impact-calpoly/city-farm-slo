@@ -108,9 +108,9 @@ export default function EventCard({ event }) {
             <Subheader>{event.location}</Subheader>
           </div>
         ) : (
-          <Subheader>{event.notes}</Subheader>
+          <Subheader>{event?.notes}</Subheader>
         )}
-        {event.notes.length > 0 && (
+        {event?.notes?.length > 0 && (
           <Button type="button" onClick={handler}>
             {eventMessage}
           </Button>

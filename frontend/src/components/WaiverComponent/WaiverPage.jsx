@@ -117,7 +117,7 @@ const WaiverExplanation = styled.p`
   margin-right: 10%;
 `;
 
-export default function WaiverPage({ user, isAdult }) {
+export default function WaiverPage({ user, isAdult, sendEmail }) {
   const [parent, setParent] = useState("");
 
   const signWaiver = () => {
@@ -125,6 +125,7 @@ export default function WaiverPage({ user, isAdult }) {
     fetch(`/volunteer/${user._id}/signWaiver${parentName}`, {
       method: "PUT",
     });
+    sendEmail(user);
   };
 
   const classes = useStyles();
@@ -245,4 +246,5 @@ export default function WaiverPage({ user, isAdult }) {
 WaiverPage.propTypes = {
   user: PropTypes.instanceOf({}).isRequired,
   isAdult: PropTypes.bool.isRequired,
+  sendEmail: PropTypes.func.isRequired,
 };

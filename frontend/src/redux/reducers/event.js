@@ -1,4 +1,9 @@
-import { eventsReceived } from "../slices/event";
+import {
+  addEventReducer,
+  deleteEventReducer,
+  editEventReducer,
+  eventsReceived,
+} from "../slices/event";
 
 const fetchEvents = () => async (dispatch) => {
   fetch("/events")
@@ -16,4 +21,37 @@ const fetchEvents = () => async (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export default fetchEvents;
+const addEvent = (event) => async (dispatch) => {
+  fetch("/events/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(event),
+  }).catch((err) => console.log(err));
+  dispatch(addEventReducer(event));
+};
+
+const editEvent = (event) => async (dispatch) => {
+  fetch("/events/edit", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(event),
+  }).catch((err) => console.log(err));
+  dispatch(editEventReducer(event));
+};
+
+const deleteEvent = (event) => async (dispatch) => {
+  fetch("/events/delete", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(event),
+  }).catch((err) => console.log(err));
+  dispatch(deleteEventReducer(event));
+};
+
+export { fetchEvents, addEvent, editEvent, deleteEvent };

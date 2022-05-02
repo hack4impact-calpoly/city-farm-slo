@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import Home from "./components/HomePage/home";
 import AdminHome from "./components/AdminHomePage/AdminHome";
 import ManageEventsPage from "./components/ManageEventsPage/ManageEventsPage";
-import fetchEvents from "./redux/reducers/event";
+import { fetchEvents } from "./redux/reducers/event";
 import AdminLogin from "./components/AdminLogin/AdminLogin";
 
 function App() {

@@ -199,7 +199,13 @@ const StyledButton = styled(Button)`
   }
 `;
 
-function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
+export default function SignUpForm({
+  selectedEvent,
+  handleModalClose,
+  isAdult,
+  setUser,
+  sendEmail,
+}) {
   // style
   const variant = "filled";
   const classes = useStyles();
@@ -226,7 +232,7 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
     email: Yup.string().required("Required field").email("Invalid format"),
     phone: Yup.string().matches(phoneRegExp, "Use 10 digits only"),
   });
-  const { handleSubmit, control, reset, formState } = useForm({
+  const { handleSubmit, control, reset } = useForm({
     mode: "onChange",
     resolver: yupResolver(validationSchema),
   });
@@ -256,11 +262,14 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
         setUser(data);
         if (data.signedWaiver) {
           history.push("/registration-complete");
+          sendEmail(data);
         } else {
           history.push("/waiver");
         }
       })
+      // eslint-disable-next-line no-console
       .catch((error) => console.log(error));
+
     reset();
   };
 
@@ -410,7 +419,8 @@ function SignUpForm({ selectedEvent, handleModalClose, isAdult, setUser }) {
               variant="contained"
               color="primary"
               fullWidth
-              disabled={!formState.isValid}
+              // disabled={!formState.isValid}
+              onClick={onSubmit}
             >
               Register
             </StyledButton>
@@ -426,6 +436,5 @@ SignUpForm.propTypes = {
   handleModalClose: PropTypes.func.isRequired,
   isAdult: PropTypes.bool.isRequired,
   setUser: PropTypes.func.isRequired,
+  sendEmail: PropTypes.func.isRequired,
 };
-
-export default SignUpForm;

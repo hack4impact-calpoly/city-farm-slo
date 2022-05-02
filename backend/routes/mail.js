@@ -24,16 +24,15 @@ const transporter = nodemailer.createTransport({
 // #1 - email user about event
 router.post("/register", async (req, res) => {
   const { user, event } = req.body;
-
   try {
     transporter.sendMail(
       {
         from: `City Farm SLO ${process.env.EMAIL_USER}`,
         to: user.email,
-        subject: `Registered for ${event.title}`,
+        subject: `Registered for ${event}`,
         html: `<p>Hello ${user.firstName} ${user.lastName},</p>
             <p>You are registered for:</p>
-            <code>${JSON.stringify(event)}</code>`,
+            <code>${event}</code>`,
       },
       (error, info) => {
         if (error) {
