@@ -8,7 +8,8 @@ require("dotenv").config();
 if (
   !process.env.EMAIL_SERVICE ||
   !process.env.EMAIL_USER ||
-  !process.env.EMAIL_PASS
+  !process.env.EMAIL_PASS ||
+  !process.env.SEND_EMAIL
 ) {
   console.warn("Missing environment variables for email login");
 }
@@ -24,6 +25,11 @@ const transporter = nodemailer.createTransport({
 // #1 - email user about event
 router.post("/register", async (req, res) => {
   const { user, event } = req.body;
+  if (process.env.SEND_EMAIL !== "True") {
+    res.send("No email sent");
+    return;
+  }
+
   try {
     transporter.sendMail(
       {
