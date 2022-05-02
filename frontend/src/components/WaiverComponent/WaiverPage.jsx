@@ -38,23 +38,33 @@ const CenterWrap = styled.div`
   z-index: 1;
 `;
 
+const WaiverPageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const BackGround = styled.div`
-  min-width: fit-content;
-  position: center;
   background: #003c45;
   border-radius: 80px;
-  padding: 20px;
-  border: center;
+  max-width: 100%;
+  max-height: 100%;
 `;
 
 const WaiverFormWrapper = styled.div`
+  row-gap: 0px;
+  margin-top: -3%;
   width: fit-content;
   height: 100%;
   display: flex;
   flex-direction: row;
+  padding: 5px;
 `;
 
 const WaiverFormLeftWrapper = styled.div`
+  margin-top: -17%;
   width: fit-content;
   height: 100%;
 `;
@@ -65,6 +75,8 @@ const WaiverFormRightWrapper = styled.div`
   flex-direction: column;
   width: fit-content;
   height: 100%;
+  margin-left: -10%;
+  margin-top: -2%;
 `;
 
 const AgreementSection = styled.div`
@@ -78,7 +90,7 @@ const AgreementText = styled.p`
   color: white;
   size: 200%;
   margin-right: 10%;
-  font-size: 20px;
+  font-size: 15px;
 `;
 
 const RegistrationLink = styled(Link)`
@@ -134,7 +146,7 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
   // --- End unimplemented code ---
 
   return (
-    <div>
+    <WaiverPageWrapper>
       <BackGround>
         <CenterWrap>
           <Title1>Sign Waiver</Title1>
@@ -147,8 +159,8 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
           <WaiverFormRightWrapper>
             <AgreementSection>
               <AgreementText>
-                Click here to indicate that you have read and agree to the terms
-                of the City Farm SLO Volunteer Agreement
+                Click here to indicate that you have read and <br /> agree to
+                the terms of the City Farm SLO <br /> Volunteer Agreement
               </AgreementText>
               {/* Checkbox for City Farm SLO Volunteer Agreement */}
               <Radio
@@ -221,13 +233,13 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
               <RegisterButton onClick={signWaiver}>Register</RegisterButton>
             </RegistrationLink>
             <WaiverExplanation>
-              Waiver signage is required for first time volunteers. This will
-              not have to be done nextime.{" "}
+              Waiver signage is required for first time volunteers. <br /> This
+              will not have to be done nextime.{" "}
             </WaiverExplanation>
           </WaiverFormRightWrapper>
         </WaiverFormWrapper>
       </BackGround>
-    </div>
+    </WaiverPageWrapper>
   );
 }
 
