@@ -231,11 +231,7 @@ export default function Home() {
             />
           </Route>
           <Route path="/waiver">
-            <WaiverPage
-              user={user}
-              isAdult={isAdult}
-              handleModalClose={handleModalClose}
-            />
+            <WaiverPage user={user} isAdult={isAdult} />
           </Route>
           <Route path="/registration-complete">
             <RegistrationComplete

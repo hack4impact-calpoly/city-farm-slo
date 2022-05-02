@@ -53,37 +53,6 @@ const BackGround = styled.div`
   max-height: 100%;
 `;
 
-const LinkWrapper = styled.div`
-  position: absolute;
-  left: 40px;
-  top: 40px;
-  @media (max-width: 1150px) {
-    position: relative;
-    min-height: fit-content;
-    margin-top: 60px;
-  }
-`;
-
-const ReturnLink = styled(Link)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-decoration: none;
-  font-size: 24px;
-  line-height: 58px;
-  color: white;
-`;
-
-const BackArrow = styled.i`
-  border: solid white;
-  border-width: 0px 2px 2px 0;
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
-`;
-
 const WaiverFormWrapper = styled.div`
   row-gap: 0px;
   margin-top: -3%;
@@ -148,7 +117,7 @@ const WaiverExplanation = styled.p`
   margin-right: 10%;
 `;
 
-export default function WaiverPage({ user, isAdult, handleModalClose }) {
+export default function WaiverPage({ user, isAdult }) {
   const [parent, setParent] = useState("");
 
   const signWaiver = () => {
@@ -185,12 +154,6 @@ export default function WaiverPage({ user, isAdult, handleModalClose }) {
           <WaiverFormLeftWrapper>
             {/* waiver component goes here */}
             <Waiver />
-            <LinkWrapper>
-              <ReturnLink to="/" onClick={handleModalClose}>
-                <BackArrow />
-                Return
-              </ReturnLink>
-            </LinkWrapper>
           </WaiverFormLeftWrapper>
           <WaiverFormRightWrapper>
             <AgreementSection>
@@ -282,5 +245,4 @@ export default function WaiverPage({ user, isAdult, handleModalClose }) {
 WaiverPage.propTypes = {
   user: PropTypes.instanceOf({}).isRequired,
   isAdult: PropTypes.bool.isRequired,
-  handleModalClose: PropTypes.func.isRequired,
 };
