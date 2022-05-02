@@ -109,7 +109,8 @@ const Register = styled.div`
   width: 350px;
   max-height: 173px;
   color: #ffffff;
-  background: #003c45;
+  background: ${(props) => (props.enabled ? "#003c45" : "#c4c4c4")};
+  cursor: ${(props) => (props.enabled ? "pointer" : "auto")};
   border-radius: 30px;
   font-size: 42px;
   font-weight: 900;
@@ -127,11 +128,6 @@ const AdminLoginButton = styled(Link)`
   text-decoration: none;
   padding: 15px;
 `;
-
-const linkStyle = {
-  textDecoration: "none",
-  color: "inherit",
-};
 
 export default function Home() {
   // routing
@@ -181,6 +177,11 @@ export default function Home() {
   // current user state
   const [user, setUser] = useState({});
 
+  const onRegister = () => {
+    history.push("/age-selection");
+    handleModalOpen();
+  };
+
   if (eventClicked === false) {
     return (
       <div>
@@ -205,9 +206,13 @@ export default function Home() {
       <FullPage2>
         <LeftContainer>
           <EventCard event={selected} />
-          <Link to="/age-selection" style={linkStyle} onClick={handleModalOpen}>
-            <Register>Register</Register>
-          </Link>
+          {selected.slots > selected.volunteers.length ? (
+            <Register enabled onClick={onRegister}>
+              Register
+            </Register>
+          ) : (
+            <Register>Event Full</Register>
+          )}
           <PlantContainer>
             <img src={flower} alt="Flower" />
           </PlantContainer>
