@@ -30,6 +30,16 @@ export const eventsSlice = createSlice({
       const newArray = state.events.filter((e) => e.id !== action.payload.id);
       state.events = newArray;
     },
+    registerReducer: (state) => {
+      state.selectedEvent.volunteers = [
+        ...state.selectedEvent.volunteers,
+        "NEW_USER",
+      ];
+      const selectedIdx = state.events.findIndex(
+        (e) => e.id === state.selectedEvent.id
+      );
+      state.events[selectedIdx] = state.selectedEvent;
+    },
   },
 });
 
@@ -40,6 +50,7 @@ export const {
   addEventReducer,
   editEventReducer,
   deleteEventReducer,
+  registerReducer,
 } = eventsSlice.actions;
 
 export default eventsSlice.reducer;
