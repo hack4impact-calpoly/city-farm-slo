@@ -83,7 +83,7 @@ export default function Home({ selectedEvent, setEvent }) {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    fetch("/events")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/events`)
       .then((res) => res.json())
       .then((dataNoDates) =>
         dataNoDates.map((anEvent) => ({

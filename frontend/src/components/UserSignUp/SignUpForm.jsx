@@ -250,7 +250,7 @@ export default function SignUpForm({
     const cleanValues = values;
     if (!values.phone) delete cleanValues.phone; // remove phone if it is empty string
     cleanValues.isAdult = isAdult;
-    fetch("volunteer/register", {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/volunteer/register`, {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const eventRoutes = require("./routes/event");
 const volunteerRoutes = require("./routes/volunteer");
 const mailRoutes = require("./routes/mail");
@@ -10,6 +11,7 @@ require("dotenv").config();
 // Start Express Server
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Connect to MongoDB
 if (!process.env.CONNECTION_URL) {
