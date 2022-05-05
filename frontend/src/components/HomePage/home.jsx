@@ -166,7 +166,7 @@ export default function Home() {
       },
       body: JSON.stringify({
         user: data,
-        event: selected.title,
+        event: selected,
       }),
     })
       .then((res) => res.json())
