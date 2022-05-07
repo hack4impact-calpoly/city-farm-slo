@@ -20,7 +20,7 @@ const PopupWrapper = styled.div`
   min-width: 800px;
   min-height: 400px;
   width: 100%;
-  height: 100%;
+  height: fit-content;
 `;
 
 const PopupTitle = styled.h1`
