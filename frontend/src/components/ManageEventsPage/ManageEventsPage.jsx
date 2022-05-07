@@ -1,10 +1,16 @@
 import { React, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Calendar from "../UserSignUp/Calendar";
 import returnImg from "./return.png";
 
 import { selectAllEvents } from "../../redux/selectors/event";
+
+const linkStyle = {
+  textDecoration: "none",
+  color: "inherit",
+};
 
 const Title = styled.div`
   color: white;
@@ -26,7 +32,7 @@ const CalendarWrapper = styled.div`
   justify-content: flex-end;
   background-color: #ffffff;
   height: 75vh;
-  width: 900px;
+  width: 100;
   border-radius: 12px;
 `;
 
@@ -54,16 +60,16 @@ const RightContainer = styled.div`
   flex-direction: column;
   background-color: #c9e8eb;
   margin: 50px;
-  margin-left: unset;
+  margin-left: 1%;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 30px;
   position: relative;
 `;
 
 const Button = styled.button`
-  width: 100%;
+  width: 50vh;
   margin-bottom: 30px;
   cursor: pointer;
   font-family: Urbanist;
@@ -94,7 +100,9 @@ export default function ManageEventsPage() {
             <ReturnContainer>
               <img src={returnImg} alt="return" />
             </ReturnContainer>
-            <Button>Add event</Button>
+            <Link to="/admin/add-event">
+              <Button> Add Event </Button>
+            </Link>
             <Button>Edit and remove events</Button>
           </RightContainer>
         </FullPage>
@@ -115,7 +123,9 @@ export default function ManageEventsPage() {
             <ReturnContainer>
               <img src={returnImg} alt="return" />
             </ReturnContainer>
-            <Button>Add event</Button>
+            <Link to="/admin/add-event" style={linkStyle}>
+              <Button> Add Event </Button>
+            </Link>
             <Button>Edit and remove events</Button>
           </RightContainer>
         </FullPage>
