@@ -64,7 +64,6 @@ const WaiverFormWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: scroll;
     height: 600px;
   }
 `;
@@ -76,7 +75,28 @@ const WaiverFormLeftWrapper = styled.div`
     background: grey;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
       rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
     overflow-y: scroll;
+    overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+      width: 15px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px #00282e;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background: #00262b;
+      -webkit-box-shadow: inset 0 0 6px rgb(43, 43, 43);
+    }
   }
 `;
 
@@ -92,6 +112,28 @@ const WaiverFormRightWrapper = styled.div`
     overflow-y: scroll;
     transform: scale(0.85);
     margin-bottom: 40px;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+      width: 15px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px #00282e;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background: #00262b;
+      -webkit-box-shadow: inset 0 0 6px rgb(43, 43, 43);
+    }
   }
 `;
 

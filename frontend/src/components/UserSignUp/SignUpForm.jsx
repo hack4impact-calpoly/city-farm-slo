@@ -42,24 +42,54 @@ const PopupTitle = styled.h1`
 //   display: flex;
 //   flex-direction: row;
 // `;
+const ParentWrapper = styled.div`
+  border-radius: 80px;
+  padding: 30px;
+  background: #003c45;
+  min-width: fit-content;
+`;
 
 const PopupWrapper = styled.div`
   display: flex;
   flex-direction: row;
   background: #003c45;
-  border-radius: 80px;
+  justify-content: center;
   padding: 30px;
   box-sizing: border-box;
-  min-width: 800px;
-  min-height: 400px;
-  width: 100%;
   height: 100%;
-  justify-content: center;
+  min-height: 550px;
+  width: 100%;
+  max-width: 100%;
+
   @media (max-width: 1300px) {
     flex-direction: column;
     justify-items: center;
     align-items: center;
     min-width: fit-content;
+    max-height: 400px;
+    height: fit-content;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+      width: 15px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px #00282e;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background: #00262b;
+      -webkit-box-shadow: inset 0 0 6px rgb(43, 43, 43);
+    }
   }
 `;
 
@@ -71,9 +101,12 @@ const FirstSection = styled.div`
   min-width: 330px;
   justify-content: space-between;
   @media (max-width: 1300px) {
+    margin-top: unset;
     min-height: fit-content;
     display: flex;
     flex-direction: column-reverse;
+    padding-top: unset;
+    margin-top: unset;
   }
 `;
 
@@ -96,7 +129,7 @@ const LinkWrapper = styled.div`
   @media (max-width: 1300px) {
     position: relative;
     min-height: fit-content;
-    margin-top: 60px;
+    margin-top: 300px;
   }
 `;
 
@@ -142,9 +175,9 @@ const FormSection = styled.div`
   padding: 4px;
   width: fit-content;
   justify-items: center;
-
-  @media (max-width: 1300px) {
-    margin-bottom: 50px;
+  @media (max-width: 1300px) {\
+    margin-bottom: unset;
+    padding-bottom: unset;
   }
 `;
 
@@ -288,64 +321,65 @@ export default function SignUpForm({
   const rEntries = [r1Entries, r2Entries];
 
   return (
-    <PopupWrapper>
-      {/* Left event card */}
-      <FirstSection>
-        <EventCardWrapper>
-          <EventCard event={selectedEvent} />
-        </EventCardWrapper>
-        <LinkWrapper>
-          <ReturnLink to="/" onClick={handleModalClose}>
-            <BackArrow />
-            Return
-          </ReturnLink>
-        </LinkWrapper>
-      </FirstSection>
-      {/* Divider line */}
-      <DividerLine />
-      {/* Sign up form */}
-      <FormSection>
-        <PopupTitle>Sign Up alskdjf</PopupTitle>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <RowWrapper>
-            {rEntries.map((row) => (
-              <Row>
-                {row.map((entry) => (
-                  <FieldWrapper>
-                    <Controller
-                      className={classes.box}
-                      key={entry.name}
-                      name={entry.name}
-                      defaultValue=""
-                      control={control}
-                      render={({
-                        field: { onChange, value },
-                        fieldState: { error },
-                      }) => (
-                        <Box m={2}>
-                          <TextField
-                            required={entry.required}
-                            fullWidth
-                            InputProps={{
-                              disableUnderline: true,
-                            }}
-                            label={entry.label}
-                            variant={variant}
-                            value={value}
-                            onChange={onChange}
-                            error={!!error}
-                            helperText={error ? error.message : null}
-                            className={classes.root}
-                          />
-                        </Box>
-                      )}
-                    />
-                  </FieldWrapper>
-                ))}
-              </Row>
-            ))}
-          </RowWrapper>
-          {/* {isAdult === false ? (
+    <ParentWrapper>
+      <PopupWrapper>
+        {/* Left event card */}
+        <FirstSection>
+          <EventCardWrapper>
+            <EventCard event={selectedEvent} />
+          </EventCardWrapper>
+          <LinkWrapper>
+            <ReturnLink to="/" onClick={handleModalClose}>
+              <BackArrow />
+              Return
+            </ReturnLink>
+          </LinkWrapper>
+        </FirstSection>
+        {/* Divider line */}
+        <DividerLine />
+        {/* Sign up form */}
+        <FormSection>
+          <PopupTitle>Sign Up</PopupTitle>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <RowWrapper>
+              {rEntries.map((row) => (
+                <Row>
+                  {row.map((entry) => (
+                    <FieldWrapper>
+                      <Controller
+                        className={classes.box}
+                        key={entry.name}
+                        name={entry.name}
+                        defaultValue=""
+                        control={control}
+                        render={({
+                          field: { onChange, value },
+                          fieldState: { error },
+                        }) => (
+                          <Box m={2}>
+                            <TextField
+                              required={entry.required}
+                              fullWidth
+                              InputProps={{
+                                disableUnderline: true,
+                              }}
+                              label={entry.label}
+                              variant={variant}
+                              value={value}
+                              onChange={onChange}
+                              error={!!error}
+                              helperText={error ? error.message : null}
+                              className={classes.root}
+                            />
+                          </Box>
+                        )}
+                      />
+                    </FieldWrapper>
+                  ))}
+                </Row>
+              ))}
+            </RowWrapper>
+            {/* {isAdult === false ? (
             <div />
           ) : (
             <Radioform>
@@ -372,11 +406,11 @@ export default function SignUpForm({
             </Radioform>
           )} */}
 
-          {/* {checked === true ? (
+            {/* {checked === true ? (
             <NewPersonWrapper>
               <Row> */}
-          {/* ------- Name, Email -------  */}
-          {/* {childEntries.map((entry) => (
+            {/* ------- Name, Email -------  */}
+            {/* {childEntries.map((entry) => (
                   <FieldWrapper>
                     <Controller
                       className={classes.box}
@@ -408,27 +442,28 @@ export default function SignUpForm({
                     />
                   </FieldWrapper>
                 ))} */}
-          {/* </Row>
+            {/* </Row>
             </NewPersonWrapper>
           ) : (
             <div />
           )} */}
-          {/* ------- Submit Button -------  */}
-          <Box m={2}>
-            <StyledButton
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              // disabled={!formState.isValid}
-              onClick={onSubmit}
-            >
-              Register
-            </StyledButton>
-          </Box>
-        </form>
-      </FormSection>
-    </PopupWrapper>
+            {/* ------- Submit Button -------  */}
+            <Box m={2}>
+              <StyledButton
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+                // disabled={!formState.isValid}
+                onClick={onSubmit}
+              >
+                Register
+              </StyledButton>
+            </Box>
+          </form>
+        </FormSection>
+      </PopupWrapper>
+    </ParentWrapper>
   );
 }
 

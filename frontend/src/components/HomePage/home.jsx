@@ -42,6 +42,7 @@ const FullPage = styled.div`
   height: 100vh;
   min-width: 1500px;
   overflow-x: scroll;
+  overflow-y: scroll;
 `;
 
 const FullPage2 = styled.div`
@@ -51,6 +52,7 @@ const FullPage2 = styled.div`
   height: 100vh;
   min-width: 1500px;
   overflow-x: scroll;
+  overflow-y: scroll;
 `;
 
 const CalendarWrapper = styled.div`

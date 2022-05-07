@@ -22,52 +22,71 @@ const linkStyle = {
   color: "inherit",
 };
 
-// const PopupWrapper = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   background: #003c45;
-//   border-radius: 80px;
-//   padding: 30px;
-//   box-sizing: border-box;
-//   width: fit-content;
-//   min-height: 400px;
-//   height: 100%;
-//   @media (max-width: 1300px) {
-//     flex-direction: column;
-//     align-items: center;
-//   }
-// `;
+const ParentWrapper = styled.div`
+  border-radius: 80px;
+  padding: 30px;
+  background: #003c45;
+  min-width: fit-content;
+`;
 
 const PopupWrapper = styled.div`
   display: flex;
   flex-direction: row;
   background: #003c45;
-  border-radius: 80px;
+  justify-content: center;
   padding: 30px;
   box-sizing: border-box;
-  min-width: 800px;
-  min-height: 400px;
-  width: 100%;
   height: 100%;
-  justify-content: center;
+  min-height: 550px;
+  width: 100%;
+  max-width: 100%;
+
   @media (max-width: 1300px) {
     flex-direction: column;
     justify-items: center;
     align-items: center;
     min-width: fit-content;
+    max-height: 400px;
+    height: fit-content;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+      width: 15px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px #00282e;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background: #00262b;
+      -webkit-box-shadow: inset 0 0 6px rgb(43, 43, 43);
+    }
   }
 `;
 
 const FirstSection = styled.div`
-  display: flex;
   position: relative;
-  padding: 20px;
-  width: fit-content;
+  display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  padding: 20px;
   min-width: 330px;
+  justify-content: space-between;
   @media (max-width: 1300px) {
+    margin-top: unset;
+    min-height: fit-content;
+    display: flex;
     flex-direction: column-reverse;
+    padding-top: unset;
+    margin-top: unset;
   }
 `;
 
@@ -75,6 +94,9 @@ const LinkWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
+  @media (max-width: 1300px) {
+    margin-top: 300px;
+  }
 `;
 
 const ReturnLink = styled(Link)`
@@ -185,38 +207,40 @@ function AgeSelect({
   handlenotAdult,
 }) {
   return (
-    <PopupWrapper>
-      {/* Left event card */}
-      <FirstSection>
-        <EventCardWrapper>
-          <EventCard event={selectedEvent} />
-        </EventCardWrapper>
-        <LinkWrapper>
-          <ReturnLink to="/" onClick={handleModalClose}>
-            <BackArrow />
-            Return
-          </ReturnLink>
-        </LinkWrapper>
-      </FirstSection>
-      {/* Divider line */}
-      <DividerLine />
-      {/* Sign up form */}
-      <FormSection>
-        <PopupTitle>Sign Up</PopupTitle>
-        <ButtonWrapper>
-          <Link to="/registration" style={linkStyle} onClick={handlenotAdult}>
-            <StyledButton type="button">
-              I am <b>under</b> 18
-            </StyledButton>
-          </Link>
-          <Link to="/registration" style={linkStyle} onClick={handleisAdult}>
-            <StyledButton type="button">
-              I am <b>over</b> 18
-            </StyledButton>
-          </Link>
-        </ButtonWrapper>
-      </FormSection>
-    </PopupWrapper>
+    <ParentWrapper>
+      <PopupWrapper>
+        {/* Left event card */}
+        <FirstSection>
+          <EventCardWrapper>
+            <EventCard event={selectedEvent} />
+          </EventCardWrapper>
+          <LinkWrapper>
+            <ReturnLink to="/" onClick={handleModalClose}>
+              <BackArrow />
+              Return
+            </ReturnLink>
+          </LinkWrapper>
+        </FirstSection>
+        {/* Divider line */}
+        <DividerLine />
+        {/* Sign up form */}
+        <FormSection>
+          <PopupTitle>Sign Up</PopupTitle>
+          <ButtonWrapper>
+            <Link to="/registration" style={linkStyle} onClick={handlenotAdult}>
+              <StyledButton type="button">
+                I am <b>under</b> 18
+              </StyledButton>
+            </Link>
+            <Link to="/registration" style={linkStyle} onClick={handleisAdult}>
+              <StyledButton type="button">
+                I am <b>over</b> 18
+              </StyledButton>
+            </Link>
+          </ButtonWrapper>
+        </FormSection>
+      </PopupWrapper>
+    </ParentWrapper>
   );
 }
 
