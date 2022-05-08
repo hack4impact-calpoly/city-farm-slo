@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { TextField } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
@@ -28,6 +29,7 @@ const FullPage = styled.div`
   display: flex;
   flex-direction: row;
   height: 100vh;
+  overflow: hidden;
 `;
 
 const CalendarWrapper = styled.div`
@@ -151,7 +153,33 @@ const ColStack = styled.div`
   flex-direction: column;
 `;
 
+const StyledButton = styled(Button)`
+  margin: 0 20px 0 0;
+  background-color: #0ba360;
+  border-radius: 20px;
+  padding: 20px;
+  font-family: "Urbanist", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  z-index: 10;
+  text-transform: capitalize;
+  box-shadow: none;
+  &:disabled {
+    background-color: #b8b4b4;
+  }
+  &:hover {
+    background-color: #0a8a52;
+    box-shadow: none;
+  }
+  &:focus {
+    background-color: #0cb069;
+    box-shadow: none;
+  }
+`;
+
 export default function AddEvent() {
+  const history = useHistory();
+
   const events = useSelector(selectAllEvents);
   const dispatch = useDispatch();
 
@@ -196,6 +224,7 @@ export default function AddEvent() {
     const event = await updateNewEvent(values);
     dispatch(addEvent(event));
     reset();
+    history.push("admin/manage-events");
   };
 
   return (
@@ -209,7 +238,9 @@ export default function AddEvent() {
         </LeftContainer>
         <RightContainer onSubmit={handleSubmit(onSubmit)}>
           <ReturnContainer>
-            <img src={returnImg} alt="return" />
+            <Link to="/admin/manage-events">
+              <img src={returnImg} alt="return" />
+            </Link>
           </ReturnContainer>
           <ColStack>
             <Row> Event Name </Row>
@@ -393,13 +424,13 @@ export default function AddEvent() {
             />
           </ColStack>
           <Row>
-            <Button
+            <StyledButton
               type="submit"
               variant="contained"
               disabled={!formState.isValid}
             >
               Add
-            </Button>
+            </StyledButton>
             {/* Temporary div for event card */}
             <EventCard event={newEvent} />
           </Row>
