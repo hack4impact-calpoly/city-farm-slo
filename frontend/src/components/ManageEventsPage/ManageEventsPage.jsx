@@ -88,7 +88,7 @@ export default function ManageEventsPage() {
   const handleModalOpen = () => setOpen(true);
   const handleModalClose = () => {
     setOpen(false);
-    history.push("/");
+    history.push("/admin/manage-events");
   };
 
   const events = useSelector(selectAllEvents);
@@ -123,7 +123,13 @@ export default function ManageEventsPage() {
         <ManageEventsModal open={open} handleClose={handleModalClose}>
           <Switch>
             <Route path="/admin/manage-events/warning">
-              <WarningModal />
+              <WarningModal
+                handleModalClose={handleModalClose}
+                header="Warning"
+                text="Too Many Registered"
+                type="Suggestion"
+                continueAction={onEdit}
+              />
             </Route>
           </Switch>
         </ManageEventsModal>
