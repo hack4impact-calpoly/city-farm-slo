@@ -1,8 +1,11 @@
 import { React, useState } from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Calendar from "../UserSignUp/Calendar";
 import returnImg from "./return.png";
+import ManageEventsModal from "./ManageEventsModal";
+import WarningModal from "./WarningModal";
 
 import { selectAllEvents } from "../../redux/selectors/event";
 
@@ -77,8 +80,25 @@ const Button = styled.button`
 `;
 
 export default function ManageEventsPage() {
+  // routing
+  const history = useHistory();
+
+  // modal state
+  const [open, setOpen] = useState(false);
+  const handleModalOpen = () => setOpen(true);
+  const handleModalClose = () => {
+    setOpen(false);
+    history.push("/");
+  };
+
   const events = useSelector(selectAllEvents);
   const [eventClicked, setClicked] = useState(false);
+
+  const onEdit = () => {
+    console.log("AAAAAAAAAAARG");
+    history.push("/admin/manage-events/warning");
+    handleModalOpen();
+  };
 
   if (eventClicked === false) {
     return (
@@ -95,9 +115,18 @@ export default function ManageEventsPage() {
               <img src={returnImg} alt="return" />
             </ReturnContainer>
             <Button>Add event</Button>
-            <Button>Edit and remove events</Button>
+            <Button enabled onClick={onEdit}>
+              Edit and remove events
+            </Button>
           </RightContainer>
         </FullPage>
+        <ManageEventsModal open={open} handleClose={handleModalClose}>
+          <Switch>
+            <Route path="/admin/manage-events/warning">
+              <WarningModal />
+            </Route>
+          </Switch>
+        </ManageEventsModal>
       </div>
     );
   }
