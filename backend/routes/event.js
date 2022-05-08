@@ -30,7 +30,10 @@ router.post(
   check("end").trim().isISO8601().toDate().withMessage("Not a date"),
   check("slots").isInt().withMessage("Not a valid number"),
   // eslint-disable-next-line prettier/prettier
-  check("notes").if(body("notes").notEmpty()).isString().withMessage("Not a string"),
+  check("notes")
+    .if(body("notes").notEmpty())
+    .isString()
+    .withMessage("Not a string"),
   // eslint-disable-next-line consistent-return
   async (req, res) => {
     try {
