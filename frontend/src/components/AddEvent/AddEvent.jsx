@@ -1,7 +1,8 @@
-import { React, useState } from "react";
-import { useSelector } from "react-redux";
+import { React, useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { TextField } from "@material-ui/core";
+import { useForm, Controller } from "react-hook-form";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import {
   LocalizationProvider,
@@ -9,9 +10,10 @@ import {
   TimePicker,
 } from "@mui/x-date-pickers";
 import Calendar from "../UserSignUp/Calendar";
-// import EventCard from "../UserSignUp/EventCard";
+import EventCard from "../UserSignUp/EventCard";
 import returnImg from "../ManageEventsPage/return.png";
 
+import { addEvent } from "../../redux/reducers/event";
 import { selectAllEvents } from "../../redux/selectors/event";
 
 const Title = styled.div`
@@ -55,7 +57,7 @@ const LeftContainer = styled.div`
   z-index: 1;
 `;
 
-const RightContainer = styled.div`
+const RightContainer = styled.form`
   width: 30%;
   height: 78vh;
   display: flex;
@@ -149,27 +151,53 @@ const ColStack = styled.div`
   flex-direction: column;
 `;
 
-// temp div for event card
-// can discard after hooking up state to event card
-const TempEvent = styled.div`
-  background-color: #c1d741;
-  width: 20vh;
-  margin-bottom: 30px;
-  cursor: pointer;
-  font-family: Urbanist;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 5px;
-  border: none;
-  padding: 30px;
-  color: white;
-`;
-
 export default function AddEvent() {
   const events = useSelector(selectAllEvents);
+  const dispatch = useDispatch();
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState(new Date());
+  const { handleSubmit, control, reset, formState, watch } = useForm({
+    mode: "onChange",
+    // yup validation here
+  });
+
+  const [newEvent, setNewEvent] = useState({
+    title: "",
+    location: "",
+    start: new Date(),
+    end: new Date(),
+    slots: 0,
+    notes: "",
+    volunteers: [],
+  });
+
+  // updated new event state with combined date and start/end times to match backend schema
+  const updateNewEvent = async (values) =>
+    // async function to reduce input lag
+    new Promise((resolve) => {
+      const event = {
+        ...values,
+        start: new Date(
+          `${values.date.toDateString()} ${values.startTime.toTimeString()}`
+        ),
+        end: new Date(
+          `${values.date.toDateString()} ${values.endTime.toTimeString()}`
+        ),
+        volunteers: [],
+      };
+      setNewEvent(event);
+      resolve(event);
+    });
+
+  useEffect(() => {
+    updateNewEvent(watch());
+  }, [JSON.stringify(watch())]);
+
+  const onSubmit = async (values) => {
+    const event = await updateNewEvent(values);
+    dispatch(addEvent(event));
+    reset();
+  };
+
   return (
     <div>
       <FullPage>
@@ -179,24 +207,57 @@ export default function AddEvent() {
             <Calendar events={events} />
           </CalendarWrapper>
         </LeftContainer>
-        <RightContainer>
+        <RightContainer onSubmit={handleSubmit(onSubmit)}>
           <ReturnContainer>
             <img src={returnImg} alt="return" />
           </ReturnContainer>
           <ColStack>
             <Row> Event Name </Row>
-            <Text1 variant="filled" />
+            <Controller
+              key="title"
+              name="title"
+              defaultValue=""
+              control={control}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <Text1
+                  variant="filled"
+                  value={value}
+                  onChange={onChange}
+                  helperText={error ? error.message : null}
+                  error={!!error}
+                />
+              )}
+            />
           </ColStack>
           <Row>
             <ColStack>
               <Row> Date </Row>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  value={selectedDate}
-                  onChange={(date) => setSelectedDate(date)}
-                  renderInput={(params) => (
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    <Text2 variant="filled" {...params} />
+                <Controller
+                  key="date"
+                  name="date"
+                  defaultValue={new Date()}
+                  control={control}
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error },
+                  }) => (
+                    <DatePicker
+                      value={value}
+                      onChange={onChange}
+                      renderInput={(params) => (
+                        <Text2
+                          variant="filled"
+                          helperText={error ? error.message : null}
+                          error={!!error}
+                          // eslint-disable-next-line react/jsx-props-no-spreading
+                          {...params}
+                        />
+                      )}
+                    />
                   )}
                 />
               </LocalizationProvider>
@@ -204,7 +265,25 @@ export default function AddEvent() {
             <ColStack>
               <Row2> Max Slots </Row2>
               <Row2>
-                <Text2 variant="filled" type="number" />
+                <Controller
+                  key="slots"
+                  name="slots"
+                  defaultValue={0}
+                  control={control}
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error },
+                  }) => (
+                    <Text2
+                      variant="filled"
+                      type="number"
+                      value={value}
+                      onChange={onChange}
+                      helperText={error ? error.message : null}
+                      error={!!error}
+                    />
+                  )}
+                />
               </Row2>
             </ColStack>
           </Row>
@@ -212,12 +291,28 @@ export default function AddEvent() {
             <ColStack>
               <Row> Start Time </Row>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <TimePicker
-                  value={selectedTime}
-                  onChange={(date) => setSelectedTime(date)}
-                  renderInput={(params) => (
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    <Text2 variant="filled" {...params} />
+                <Controller
+                  key="startTime"
+                  name="startTime"
+                  defaultValue={new Date()}
+                  control={control}
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error },
+                  }) => (
+                    <TimePicker
+                      value={value}
+                      onChange={onChange}
+                      renderInput={(params) => (
+                        <Text2
+                          variant="filled"
+                          helperText={error ? error.message : null}
+                          error={!!error}
+                          // eslint-disable-next-line react/jsx-props-no-spreading
+                          {...params}
+                        />
+                      )}
+                    />
                   )}
                 />
               </LocalizationProvider>
@@ -226,12 +321,28 @@ export default function AddEvent() {
               <Row2> End Time </Row2>
               <Row2>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <TimePicker
-                    value={selectedTime}
-                    onChange={(date) => setSelectedTime(date)}
-                    renderInput={(params) => (
-                      // eslint-disable-next-line react/jsx-props-no-spreading
-                      <Text2 variant="filled" {...params} />
+                  <Controller
+                    key="endTime"
+                    name="endTime"
+                    defaultValue={new Date()}
+                    control={control}
+                    render={({
+                      field: { onChange, value },
+                      fieldState: { error },
+                    }) => (
+                      <TimePicker
+                        value={value}
+                        onChange={onChange}
+                        renderInput={(params) => (
+                          <Text2
+                            variant="filled"
+                            helperText={error ? error.message : null}
+                            error={!!error}
+                            // eslint-disable-next-line react/jsx-props-no-spreading
+                            {...params}
+                          />
+                        )}
+                      />
                     )}
                   />
                 </LocalizationProvider>
@@ -241,14 +352,56 @@ export default function AddEvent() {
 
           <ColStack>
             <Row> Location </Row>
-            <Text1 variant="filled" />
+            <Controller
+              key="location"
+              name="location"
+              defaultValue=""
+              control={control}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <Text1
+                  variant="filled"
+                  value={value}
+                  onChange={onChange}
+                  helperText={error ? error.message : null}
+                  error={!!error}
+                />
+              )}
+            />
             <Row> Special Notes </Row>
-            <Text3 variant="filled" multiline rows="6" />
+            <Controller
+              key="notes"
+              name="notes"
+              defaultValue=""
+              control={control}
+              render={({
+                field: { onChange, value },
+                fieldState: { error },
+              }) => (
+                <Text3
+                  variant="filled"
+                  multiline
+                  rows="4"
+                  value={value}
+                  onChange={onChange}
+                  helperText={error ? error.message : null}
+                  error={!!error}
+                />
+              )}
+            />
           </ColStack>
           <Row>
-            <Button> Add </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={!formState.isValid}
+            >
+              Add
+            </Button>
             {/* Temporary div for event card */}
-            <TempEvent> event card </TempEvent>
+            <EventCard event={newEvent} />
           </Row>
         </RightContainer>
       </FullPage>
