@@ -28,8 +28,10 @@ const addEvent = (event) => async (dispatch) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(event),
-  }).catch((err) => console.log(err));
-  dispatch(addEventReducer(event));
+  })
+    .then((res) => res.json())
+    .then((data) => dispatch(addEventReducer(data)))
+    .catch((err) => console.log(err));
 };
 
 const editEvent = (event) => async (dispatch) => {
