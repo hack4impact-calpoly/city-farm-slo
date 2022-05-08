@@ -6,7 +6,7 @@ import styled from "styled-components";
 import errorImg from "./Error.png";
 import returnImg from "./return2.png";
 
-// Displays volunteer event information.
+// Displays Suggestion, Warning, and Error Messages.
 
 const TopWrapper = styled.div`
   min-width: 800px;
@@ -178,12 +178,6 @@ export default function WarningModal({
       <BottomWrapper>
         <MessageTitle>{header}</MessageTitle>
         <MessageText>{text}</MessageText>
-        {/* <LinkWrapper>
-          <ReturnLink to="/" onClick={handleModalClose}>
-            <ReturnIcon src={returnImg} alt="return icon" />
-          </ReturnLink>
-        </LinkWrapper>
-      </WarningModaldWrapper> */}
         <ContinueWrapper>
           <ContinueButton onClick={continueAction}>Continue</ContinueButton>
         </ContinueWrapper>

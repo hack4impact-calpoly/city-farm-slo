@@ -94,8 +94,8 @@ export default function ManageEventsPage() {
   const events = useSelector(selectAllEvents);
   const [eventClicked, setClicked] = useState(false);
 
-  const onEdit = () => {
-    console.log("AAAAAAAAAAARG");
+  const popUp = () => {
+    // handles changing the route to the warning modal
     history.push("/admin/manage-events/warning");
     handleModalOpen();
   };
@@ -115,24 +115,9 @@ export default function ManageEventsPage() {
               <img src={returnImg} alt="return" />
             </ReturnContainer>
             <Button>Add event</Button>
-            <Button enabled onClick={onEdit}>
-              Edit and remove events
-            </Button>
+            <Button>Edit and remove events</Button>
           </RightContainer>
         </FullPage>
-        <ManageEventsModal open={open} handleClose={handleModalClose}>
-          <Switch>
-            <Route path="/admin/manage-events/warning">
-              <WarningModal
-                handleModalClose={handleModalClose}
-                header="Warning"
-                text="Too Many Registered"
-                type="Suggestion"
-                continueAction={onEdit}
-              />
-            </Route>
-          </Switch>
-        </ManageEventsModal>
       </div>
     );
   }
@@ -154,6 +139,19 @@ export default function ManageEventsPage() {
             <Button>Edit and remove events</Button>
           </RightContainer>
         </FullPage>
+        <ManageEventsModal open={open} handleClose={handleModalClose}>
+          <Switch>
+            <Route path="/admin/manage-events/warning">
+              <WarningModal
+                handleModalClose={handleModalClose}
+                header="Warning"
+                text="Scheduled for past date"
+                type="Suggestion"
+                continueAction={popUp} // onEdit is just a placeholder for now
+              />
+            </Route>
+          </Switch>
+        </ManageEventsModal>
       </div>
     </div>
   );
