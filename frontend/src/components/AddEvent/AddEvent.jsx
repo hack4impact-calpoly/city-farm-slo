@@ -299,7 +299,7 @@ export default function AddEvent() {
                 <Controller
                   key="slots"
                   name="slots"
-                  defaultValue={0}
+                  defaultValue={50}
                   control={control}
                   render={({
                     field: { onChange, value },
