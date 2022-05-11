@@ -28,8 +28,10 @@ const addEvent = (event) => async (dispatch) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(event),
-  }).catch((err) => console.log(err));
-  dispatch(addEventReducer(event));
+  })
+    .then((res) => res.json())
+    .then((data) => dispatch(addEventReducer(data)))
+    .catch((err) => console.log(err));
 };
 
 const editEvent = (event) => async (dispatch) => {
@@ -39,8 +41,10 @@ const editEvent = (event) => async (dispatch) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(event),
-  }).catch((err) => console.log(err));
-  dispatch(editEventReducer(event));
+  })
+    .then((res) => res.json())
+    .then((data) => dispatch(editEventReducer(data)))
+    .catch((err) => console.log(err));
 };
 
 const deleteEvent = (event) => async (dispatch) => {
@@ -50,8 +54,10 @@ const deleteEvent = (event) => async (dispatch) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(event),
-  }).catch((err) => console.log(err));
-  dispatch(deleteEventReducer(event));
+  })
+    .then((res) => res.json())
+    .then((data) => dispatch(deleteEventReducer(data)))
+    .catch((err) => console.log(err));
 };
 
 export { fetchEvents, addEvent, editEvent, deleteEvent };
