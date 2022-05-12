@@ -1,11 +1,8 @@
 import { React, useState } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Calendar from "../UserSignUp/Calendar";
 import returnImg from "./return.png";
-import ManageEventsModal from "./ManageEventsModal";
-import WarningModal from "./WarningModal";
 
 import { selectAllEvents } from "../../redux/selectors/event";
 
@@ -80,25 +77,8 @@ const Button = styled.button`
 `;
 
 export default function ManageEventsPage() {
-  // routing
-  const history = useHistory();
-
-  // modal state
-  const [open, setOpen] = useState(false);
-  const handleModalOpen = () => setOpen(true);
-  const handleModalClose = () => {
-    setOpen(false);
-    history.push("/admin/manage-events");
-  };
-
   const events = useSelector(selectAllEvents);
   const [eventClicked, setClicked] = useState(false);
-
-  const popUp = () => {
-    // handles changing the route to the warning modal
-    history.push("/admin/manage-events/warning");
-    handleModalOpen();
-  };
 
   if (eventClicked === false) {
     return (
@@ -139,19 +119,6 @@ export default function ManageEventsPage() {
             <Button>Edit and remove events</Button>
           </RightContainer>
         </FullPage>
-        <ManageEventsModal open={open} handleClose={handleModalClose}>
-          <Switch>
-            <Route path="/admin/manage-events/warning">
-              <WarningModal
-                handleModalClose={handleModalClose}
-                header="Warning"
-                text="Scheduled for past date"
-                type="Suggestion"
-                continueAction={popUp} // onEdit is just a placeholder for now
-              />
-            </Route>
-          </Switch>
-        </ManageEventsModal>
       </div>
     </div>
   );

@@ -22,6 +22,17 @@ export default function ManageEventsModal({ children, open, handleClose }) {
   );
 }
 
+// Example
+/* <ManageEventsModal open={open} handleClose={() => {}}}>
+  <WarningModal
+    handleModalClose={() => setOpen(false)}
+    header="Warning"
+    text="Scheduled for past date"
+    type="Suggestion"
+    continueAction={() => setOpen(false)}
+  />
+</ManageEventsModal> */
+
 ManageEventsModal.propTypes = {
   children: PropTypes.element.isRequired,
   open: PropTypes.bool.isRequired,
