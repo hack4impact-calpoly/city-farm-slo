@@ -10,7 +10,10 @@ const InnerWaiver = styled.div`
   border: 10px;
   overflow-x: scroll;
   overflow-y: scroll;
-  transform: scale(0.4);
+  transform: scale(0.85);
+  @media (max-width: 1300px) {
+    padding: unset;
+  }
 `;
 
 export default function Waiver() {

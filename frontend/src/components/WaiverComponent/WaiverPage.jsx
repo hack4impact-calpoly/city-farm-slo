@@ -29,6 +29,9 @@ const Title1 = styled.h1`
   padding-bottom: 0px;
   margin-top: 50px;
   margin-bottom: 0px;
+  @media (max-width: 1300px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const CenterWrap = styled.div`
@@ -49,24 +52,59 @@ const WaiverPageWrapper = styled.div`
 const BackGround = styled.div`
   background: #003c45;
   border-radius: 80px;
-  max-width: 100%;
-  max-height: 100%;
+  padding: 20px;
+  border: center;
+  @media (max-width: 1300px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const WaiverFormWrapper = styled.div`
-  row-gap: 0px;
-  margin-top: -3%;
-  width: fit-content;
-  height: 100%;
   display: flex;
   flex-direction: row;
-  padding: 5px;
+  width: fit-content;
+  height: 100%;
+  @media (max-width: 1300px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 600px;
+  }
 `;
 
 const WaiverFormLeftWrapper = styled.div`
   margin-top: -17%;
   width: fit-content;
   height: 100%;
+  @media (max-width: 1300px) {
+    background: grey;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+      width: 15px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px #00282e;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background: #00262b;
+      -webkit-box-shadow: inset 0 0 6px rgb(43, 43, 43);
+    }
+  }
 `;
 
 const WaiverFormRightWrapper = styled.div`
@@ -75,8 +113,35 @@ const WaiverFormRightWrapper = styled.div`
   flex-direction: column;
   width: fit-content;
   height: 100%;
-  margin-left: -10%;
-  margin-top: -2%;
+  @media (max-width: 1300px) {
+    margin: unset;
+    padding: unset;
+    overflow-y: scroll;
+    transform: scale(0.85);
+    margin-bottom: 40px;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+      width: 15px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px #00282e;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      background: #00262b;
+      -webkit-box-shadow: inset 0 0 6px rgb(43, 43, 43);
+    }
+  }
 `;
 
 const AgreementSection = styled.div`
@@ -84,6 +149,9 @@ const AgreementSection = styled.div`
   height: 20%;
   display: flex;
   flex-direction: column;
+  @media (max-width: 1300px) {
+    margin-bottom: 250px;
+  }
 `;
 
 const AgreementText = styled.p`
@@ -189,46 +257,46 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
                 variant="filled"
                 className={classes.root}
               />
+              {/* Conditional rendering for whether Volunteer isAdult or not */}
+              {
+                // <>
+                //   <AgreementText>
+                //     Click here to indicate that you are signing this waiver for
+                //     individuals that you have registered for
+                //   </AgreementText>
+                //   {/* Checkbox for City Farm SLO Volunteer Agreement */}
+                //   <Radio
+                //     sx={{
+                //       "&:hover": {
+                //         backgroundColor: "transparent",
+                //       },
+                //       paddingRight: "485px",
+                //       color: "white",
+                //       "&.Mui-checked": {
+                //         color: "white",
+                //       },
+                //     }}
+                //     checked={checked2 === true}
+                //     onClick={handleChange2}
+                //     name="radio-buttons"
+                //   />
+                // </>
+              }
+              {!isAdult && (
+                <>
+                  <AgreementText>Print parental name</AgreementText>
+                  <TextField
+                    id="filled-basic"
+                    variant="filled"
+                    className={classes.root}
+                    value={parent}
+                    onChange={(e) => {
+                      setParent(e.target.value);
+                    }}
+                  />
+                </>
+              )}
             </AgreementSection>
-            {/* Conditional rendering for whether Volunteer isAdult or not */}
-            {
-              // <>
-              //   <AgreementText>
-              //     Click here to indicate that you are signing this waiver for
-              //     individuals that you have registered for
-              //   </AgreementText>
-              //   {/* Checkbox for City Farm SLO Volunteer Agreement */}
-              //   <Radio
-              //     sx={{
-              //       "&:hover": {
-              //         backgroundColor: "transparent",
-              //       },
-              //       paddingRight: "485px",
-              //       color: "white",
-              //       "&.Mui-checked": {
-              //         color: "white",
-              //       },
-              //     }}
-              //     checked={checked2 === true}
-              //     onClick={handleChange2}
-              //     name="radio-buttons"
-              //   />
-              // </>
-            }
-            {!isAdult && (
-              <>
-                <AgreementText>Print parental name</AgreementText>
-                <TextField
-                  id="filled-basic"
-                  variant="filled"
-                  className={classes.root}
-                  value={parent}
-                  onChange={(e) => {
-                    setParent(e.target.value);
-                  }}
-                />
-              </>
-            )}
             <RegistrationLink to="/registration-complete">
               <RegisterButton onClick={signWaiver}>Register</RegisterButton>
             </RegistrationLink>
