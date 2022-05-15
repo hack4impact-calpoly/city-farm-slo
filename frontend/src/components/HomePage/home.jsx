@@ -1,6 +1,6 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { Switch, Route, Link, useHistory } from "react-router-dom";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import flower from "./flower-bg.png";
 import Calendar from "../UserSignUp/Calendar";
@@ -10,6 +10,8 @@ import SignUpForm from "../UserSignUp/SignUpForm";
 import AgeSelect from "../UserSignUp/AgeSelect";
 import RegistrationComplete from "../RegistrationComplete/RegistrationComplete";
 import WaiverPage from "../WaiverComponent/WaiverPage";
+import { selectAllEvents, selectEvent } from "../../redux/selectors/event";
+import { setSelected } from "../../redux/slices/event";
 
 // styled components
 const Title1 = styled.div`
@@ -113,7 +115,8 @@ const Register = styled.div`
   width: 350px;
   max-height: 173px;
   color: #ffffff;
-  background: #003c45;
+  background: ${(props) => (props.enabled ? "#003c45" : "#c4c4c4")};
+  cursor: ${(props) => (props.enabled ? "pointer" : "auto")};
   border-radius: 30px;
   font-size: 42px;
   font-weight: 900;
@@ -121,12 +124,18 @@ const Register = styled.div`
   margin-top: 6%;
 `;
 
-const linkStyle = {
-  textDecoration: "none",
-  color: "inherit",
-};
+const AdminLoginButton = styled(Link)`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #003c45;
+  font-weight: 900;
+  font-size: 36px;
+  text-decoration: none;
+  padding: 15px;
+`;
 
-export default function Home({ selectedEvent, setEvent }) {
+export default function Home() {
   // routing
   const history = useHistory();
 
@@ -148,22 +157,10 @@ export default function Home({ selectedEvent, setEvent }) {
   };
 
   // events state
-  const [events, setEvents] = useState([]);
+  const events = useSelector(selectAllEvents);
+  const selected = useSelector(selectEvent);
+  const dispatch = useDispatch();
   const [eventClicked, setClicked] = useState(false);
-  useEffect(() => {
-    fetch("/events")
-      .then((res) => res.json())
-      .then((dataNoDates) =>
-        dataNoDates.map((anEvent) => ({
-          ...anEvent,
-          start: new Date(anEvent.start),
-          end: new Date(anEvent.end),
-        }))
-      )
-      .then((data) => setEvents(data))
-      // eslint-disable-next-line no-console
-      .catch((err) => console.log(err));
-  }, []);
 
   // email handler for successful sign up
   const sendEmail = (data) => {
@@ -175,7 +172,7 @@ export default function Home({ selectedEvent, setEvent }) {
       },
       body: JSON.stringify({
         user: data,
-        event: selectedEvent.title,
+        event: selected.title,
       }),
     })
       .then((res) => res.json())
@@ -186,6 +183,11 @@ export default function Home({ selectedEvent, setEvent }) {
   // current user state
   const [user, setUser] = useState({});
 
+  const onRegister = () => {
+    history.push("/age-selection");
+    handleModalOpen();
+  };
+
   if (eventClicked === false) {
     return (
       <div>
@@ -194,18 +196,13 @@ export default function Home({ selectedEvent, setEvent }) {
           <CenterWrap>
             <Title2>Select an Event to Register</Title2>
             <CalendarWrapper>
-              <Calendar
-                events={events}
-                selectedEvent={selectedEvent}
-                setEvent={setEvent}
-                eventClicked={eventClicked}
-                setClicked={setClicked}
-              />
+              <Calendar events={events} setClicked={setClicked} />
             </CalendarWrapper>
           </CenterWrap>
           <PlantContainer>
             <img src={flower} alt="Flower" />
           </PlantContainer>
+          <AdminLoginButton to="/admin/login">Login as Admin</AdminLoginButton>
         </FullPage>
       </div>
     );
@@ -214,10 +211,14 @@ export default function Home({ selectedEvent, setEvent }) {
     <div>
       <FullPage2>
         <LeftContainer>
-          <EventCard event={selectedEvent} />
-          <Link to="/age-selection" style={linkStyle} onClick={handleModalOpen}>
-            <Register>Register</Register>
-          </Link>
+          <EventCard event={selected} />
+          {selected.slots > selected.volunteers.length ? (
+            <Register enabled onClick={onRegister}>
+              Register
+            </Register>
+          ) : (
+            <Register>Event Full</Register>
+          )}
           <PlantContainer>
             <img src={flower} alt="Flower" />
           </PlantContainer>
@@ -225,7 +226,12 @@ export default function Home({ selectedEvent, setEvent }) {
         <DividerContainer>
           <Divider />
         </DividerContainer>
-        <RightContainer>
+        <RightContainer
+          onClick={() => {
+            setClicked(false);
+            dispatch(setSelected(undefined));
+          }}
+        >
           <Title1>City Farm SLO</Title1>
           <CenterWrap>
             <Header>
@@ -234,8 +240,7 @@ export default function Home({ selectedEvent, setEvent }) {
             <CalendarWrapper>
               <Calendar
                 events={events}
-                selectedEvent={selectedEvent}
-                setEvent={setEvent}
+                selectedEvent={selected}
                 eventClicked={eventClicked}
                 setClicked={setClicked}
               />
@@ -247,7 +252,7 @@ export default function Home({ selectedEvent, setEvent }) {
         <Switch>
           <Route path="/registration">
             <SignUpForm
-              selectedEvent={selectedEvent}
+              selectedEvent={selected}
               handleModalClose={handleModalClose}
               user={user}
               setUser={setUser}
@@ -260,13 +265,13 @@ export default function Home({ selectedEvent, setEvent }) {
           </Route>
           <Route path="/registration-complete">
             <RegistrationComplete
-              selectedEvent={selectedEvent}
+              selectedEvent={selected}
               handleModalClose={handleModalClose}
             />
           </Route>
           <Route path="/age-selection">
             <AgeSelect
-              selectedEvent={selectedEvent}
+              selectedEvent={selected}
               handleModalClose={handleModalClose}
               handleisAdult={handleisAdult}
               handlenotAdult={handlenotAdult}
@@ -277,8 +282,3 @@ export default function Home({ selectedEvent, setEvent }) {
     </div>
   );
 }
-
-Home.propTypes = {
-  selectedEvent: PropTypes.instanceOf({}).isRequired,
-  setEvent: PropTypes.func.isRequired,
-};

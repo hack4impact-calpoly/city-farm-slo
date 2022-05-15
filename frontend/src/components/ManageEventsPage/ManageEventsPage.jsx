@@ -1,8 +1,16 @@
-import { React, useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import { React, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import Calendar from "../UserSignUp/Calendar";
 import returnImg from "./return.png";
+
+import { selectAllEvents } from "../../redux/selectors/event";
+
+const linkStyle = {
+  textDecoration: "none",
+  color: "inherit",
+};
 
 const Title = styled.div`
   color: white;
@@ -24,7 +32,7 @@ const CalendarWrapper = styled.div`
   justify-content: flex-end;
   background-color: #ffffff;
   height: 75vh;
-  width: 900px;
+  width: 100;
   border-radius: 12px;
 `;
 
@@ -52,16 +60,16 @@ const RightContainer = styled.div`
   flex-direction: column;
   background-color: #c9e8eb;
   margin: 50px;
-  margin-left: unset;
+  margin-left: 1%;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 30px;
   position: relative;
 `;
 
 const Button = styled.button`
-  width: 100%;
+  width: 50vh;
   margin-bottom: 30px;
   cursor: pointer;
   font-family: Urbanist;
@@ -74,24 +82,9 @@ const Button = styled.button`
   color: white;
 `;
 
-export default function ManageEventsPage({ selectedEvent, setEvent }) {
-  // events state
-  const [events, setEvents] = useState([]);
+export default function ManageEventsPage() {
+  const events = useSelector(selectAllEvents);
   const [eventClicked, setClicked] = useState(false);
-  useEffect(() => {
-    fetch("/events")
-      .then((res) => res.json())
-      .then((dataNoDates) =>
-        dataNoDates.map((anEvent) => ({
-          ...anEvent,
-          start: new Date(anEvent.start),
-          end: new Date(anEvent.end),
-        }))
-      )
-      .then((data) => setEvents(data))
-      // eslint-disable-next-line no-console
-      .catch((err) => console.log(err));
-  }, []);
 
   if (eventClicked === false) {
     return (
@@ -100,20 +93,16 @@ export default function ManageEventsPage({ selectedEvent, setEvent }) {
           <LeftContainer>
             <Title> Manage Events </Title>
             <CalendarWrapper>
-              <Calendar
-                events={events}
-                selectedEvent={selectedEvent}
-                setEvent={setEvent}
-                eventClicked={eventClicked}
-                setClicked={setClicked}
-              />
+              <Calendar events={events} setClicked={setClicked} />
             </CalendarWrapper>
           </LeftContainer>
           <RightContainer>
             <ReturnContainer>
               <img src={returnImg} alt="return" />
             </ReturnContainer>
-            <Button>Add event</Button>
+            <Link to="/admin/add-event">
+              <Button> Add Event </Button>
+            </Link>
             <Button>Edit and remove events</Button>
           </RightContainer>
         </FullPage>
@@ -127,20 +116,16 @@ export default function ManageEventsPage({ selectedEvent, setEvent }) {
           <LeftContainer>
             <Title> Manage Events </Title>
             <CalendarWrapper>
-              <Calendar
-                events={events}
-                selectedEvent={selectedEvent}
-                setEvent={setEvent}
-                eventClicked={eventClicked}
-                setClicked={setClicked}
-              />
+              <Calendar events={events} setClicked={setClicked} />
             </CalendarWrapper>
           </LeftContainer>
           <RightContainer>
             <ReturnContainer>
               <img src={returnImg} alt="return" />
             </ReturnContainer>
-            <Button>Add event</Button>
+            <Link to="/admin/add-event" style={linkStyle}>
+              <Button> Add Event </Button>
+            </Link>
             <Button>Edit and remove events</Button>
           </RightContainer>
         </FullPage>
@@ -148,8 +133,3 @@ export default function ManageEventsPage({ selectedEvent, setEvent }) {
     </div>
   );
 }
-
-ManageEventsPage.propTypes = {
-  selectedEvent: PropTypes.instanceOf({}).isRequired,
-  setEvent: PropTypes.func.isRequired,
-};

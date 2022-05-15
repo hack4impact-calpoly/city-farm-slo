@@ -8,7 +8,9 @@ import * as Yup from "yup";
 import styled from "styled-components";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
 import EventCard from "./EventCard";
+import { registerReducer } from "../../redux/slices/event";
 
 // override MUI styles for TextField component
 const useStyles = makeStyles(() => ({
@@ -274,6 +276,9 @@ export default function SignUpForm({
   // routing
   const history = useHistory();
 
+  // redux
+  const dispatch = useDispatch();
+
   // log values when data is submitted
   const onSubmit = (values) => {
     const cleanValues = values;
@@ -304,6 +309,7 @@ export default function SignUpForm({
       // eslint-disable-next-line no-console
       .catch((error) => console.log(error));
 
+    dispatch(registerReducer());
     reset();
   };
 
