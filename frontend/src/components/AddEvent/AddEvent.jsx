@@ -10,6 +10,8 @@ import {
   DatePicker,
   TimePicker,
 } from "@mui/x-date-pickers";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 import Calendar from "../UserSignUp/Calendar";
 import EventCard from "../UserSignUp/EventCard";
 import returnImg from "../ManageEventsPage/return.png";
@@ -178,6 +180,31 @@ const StyledButton = styled(Button)`
 `;
 
 export default function AddEvent() {
+  // validation
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required("Event name is required"),
+    date: Yup.date()
+      .required("Event date is required")
+      .defined()
+      .typeError("Invalid date"),
+    startTime: Yup.date()
+      .required("Event start time is required")
+      .typeError("Invalid time"),
+    endTime: Yup.date()
+      .required("Event end time is required")
+      .typeError("Invalid time")
+      .test(
+        "is-greater",
+        "End time must be after start time",
+        function (value) {
+          // eslint-disable-next-line react/no-this-in-sfc
+          const { startTime } = this.parent;
+          return new Date(value) > new Date(startTime);
+        }
+      ),
+    location: Yup.string().required("Event location is required"),
+  });
+
   const history = useHistory();
 
   const events = useSelector(selectAllEvents);
@@ -186,6 +213,7 @@ export default function AddEvent() {
   const { handleSubmit, control, reset, formState, watch } = useForm({
     mode: "onChange",
     // yup validation here
+    resolver: yupResolver(validationSchema),
   });
 
   const [newEvent, setNewEvent] = useState({
@@ -254,6 +282,7 @@ export default function AddEvent() {
                 fieldState: { error },
               }) => (
                 <Text1
+                  required
                   variant="filled"
                   value={value}
                   onChange={onChange}
@@ -265,7 +294,7 @@ export default function AddEvent() {
           </ColStack>
           <Row>
             <ColStack>
-              <Row> Date </Row>
+              <Row>Date</Row>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <Controller
                   key="date"
@@ -277,10 +306,12 @@ export default function AddEvent() {
                     fieldState: { error },
                   }) => (
                     <DatePicker
+                      required
                       value={value}
                       onChange={onChange}
                       renderInput={(params) => (
                         <Text2
+                          required
                           variant="filled"
                           helperText={error ? error.message : null}
                           error={!!error}
@@ -325,7 +356,7 @@ export default function AddEvent() {
                 <Controller
                   key="startTime"
                   name="startTime"
-                  defaultValue={new Date()}
+                  defaultValue={new Date(new Date() - 1)}
                   control={control}
                   render={({
                     field: { onChange, value },
@@ -336,6 +367,7 @@ export default function AddEvent() {
                       onChange={onChange}
                       renderInput={(params) => (
                         <Text2
+                          required
                           variant="filled"
                           helperText={error ? error.message : null}
                           error={!!error}
@@ -366,6 +398,7 @@ export default function AddEvent() {
                         onChange={onChange}
                         renderInput={(params) => (
                           <Text2
+                            required
                             variant="filled"
                             helperText={error ? error.message : null}
                             error={!!error}
@@ -393,6 +426,7 @@ export default function AddEvent() {
                 fieldState: { error },
               }) => (
                 <Text1
+                  required
                   variant="filled"
                   value={value}
                   onChange={onChange}
