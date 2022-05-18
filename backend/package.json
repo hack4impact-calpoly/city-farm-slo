@@ -12,7 +12,7 @@
     "nodemailer": "^6.7.2"
   },
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "nodemon server.js dev",
     "lint": "eslint \"{,!(node_modules)/**/}*.js\" && prettier . --check",
     "lint-fix": "eslint \"{,!(node_modules)/**/}*.js\" --fix && prettier . --write"
   },
