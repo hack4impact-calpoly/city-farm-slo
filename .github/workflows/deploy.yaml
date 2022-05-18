@@ -24,7 +24,7 @@ jobs:
           s3-bucket: "city-farm-slo-api"
           stack-name: "city-farm-slo-api-stack"
         env:
-          CONNECTION_URL: ${{ secrets.DATABASE_URL }}
+          CONNECTION_URL: ${{ secrets.CONNECTION_URL }}
           EMAIL_SERVICE: ${{ secrets.EMAIL_SERVICE }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
