@@ -164,7 +164,7 @@ export default function Home() {
 
   // email handler for successful sign up
   const sendEmail = (data) => {
-    fetch("mail/register", {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/mail/register`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -172,7 +172,7 @@ export default function Home() {
       },
       body: JSON.stringify({
         user: data,
-        event: selected.title,
+        event: selected,
       }),
     })
       .then((res) => res.json())

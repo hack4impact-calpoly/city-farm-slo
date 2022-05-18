@@ -6,7 +6,7 @@ import {
 } from "../slices/event";
 
 const fetchEvents = () => async (dispatch) => {
-  fetch("/events")
+  fetch(`${process.env.REACT_APP_SERVER_URL}/events`)
     .then((res) => res.json())
     .then((dataNoDates) =>
       dataNoDates.map((anEvent) => ({
@@ -22,7 +22,7 @@ const fetchEvents = () => async (dispatch) => {
 };
 
 const addEvent = (event) => async (dispatch) => {
-  fetch("/events/add", {
+  fetch(`${process.env.REACT_APP_SERVER_URL}/events/add`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const addEvent = (event) => async (dispatch) => {
 };
 
 const editEvent = (event) => async (dispatch) => {
-  fetch("/events/edit", {
+  fetch(`${process.env.REACT_APP_SERVER_URL}/events/edit`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -48,7 +48,7 @@ const editEvent = (event) => async (dispatch) => {
 };
 
 const deleteEvent = (event) => async (dispatch) => {
-  fetch("/events/delete", {
+  fetch(`${process.env.REACT_APP_SERVER_URL}/events/delete`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
