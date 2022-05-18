@@ -9,6 +9,7 @@ const VolunteerSchema = new mongoose.Schema({
   signedWaiver: { type: Boolean, default: false },
   dateSigned: { type: Date },
   parentName: { type: String },
+  hours: { type: Number, default: 0 },
 });
 
 const Volunteer = mongoose.model("Volunteer", VolunteerSchema);
