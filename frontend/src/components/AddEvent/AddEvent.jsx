@@ -183,6 +183,9 @@ export default function AddEvent() {
   const events = useSelector(selectAllEvents);
   const dispatch = useDispatch();
 
+  // toast component state
+  const [open, setOpen] = useState(false);
+
   const { handleSubmit, control, reset, formState, watch } = useForm({
     mode: "onChange",
     // yup validation here
@@ -224,7 +227,11 @@ export default function AddEvent() {
     const event = await updateNewEvent(values);
     dispatch(addEvent(event));
     reset();
-    history.push("admin/manage-events");
+    setOpen(true);
+    history.push({
+      pathname: "/admin/manage-events",
+      state: { open: { open } },
+    });
   };
 
   return (

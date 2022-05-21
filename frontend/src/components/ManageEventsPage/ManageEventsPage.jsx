@@ -1,7 +1,10 @@
 import { React, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import Snackbar from "@mui/material/Snackbar";
+// import IconButton from "@mui/material/IconButton";
+// import CloseIcon from "@mui/icons-material/Close";
 import Calendar from "../UserSignUp/Calendar";
 import returnImg from "./return.png";
 
@@ -82,13 +85,33 @@ const Button = styled.button`
   color: white;
 `;
 
+const Toast = styled(Snackbar)`
+  .MuiPaper-root {
+    font-family: Urbanist;
+    font-weight: bold;
+    color: #003c45;
+    background-color: #c9e8eb;
+  }
+`;
+
 export default function ManageEventsPage() {
+  const location = useLocation();
+  const open = location.state?.open;
+
   const events = useSelector(selectAllEvents);
   const [eventClicked, setClicked] = useState(false);
 
   if (eventClicked === false) {
     return (
       <div>
+        {open ? (
+          <Toast
+            open={open}
+            autoHideDuration={6000}
+            message="Action Completed!"
+            // onClose={setOpen(false)}
+          />
+        ) : null}
         <FullPage>
           <LeftContainer>
             <Title> Manage Events </Title>
@@ -98,7 +121,9 @@ export default function ManageEventsPage() {
           </LeftContainer>
           <RightContainer>
             <ReturnContainer>
-              <img src={returnImg} alt="return" />
+              <Link to="/admin">
+                <img src={returnImg} alt="return" />
+              </Link>
             </ReturnContainer>
             <Link to="/admin/add-event">
               <Button> Add Event </Button>
