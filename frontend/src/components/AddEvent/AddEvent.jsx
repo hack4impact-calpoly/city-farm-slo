@@ -224,7 +224,10 @@ export default function AddEvent() {
     const event = await updateNewEvent(values);
     dispatch(addEvent(event));
     reset();
-    history.push("admin/manage-events");
+    history.push({
+      pathname: "/admin/manage-events",
+      state: { open: true },
+    });
   };
 
   return (
