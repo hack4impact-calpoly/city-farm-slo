@@ -9,9 +9,15 @@ const router = express.Router();
 // #1 - get all volunteers
 router.get("/:id", async (req, res) => {
   try {
-    const volunteer =
-      (await Volunteer.findById(req.params.id)) ?? "Volunteer not found";
-    res.send(volunteer);
+    // get all volunteers and their hours
+    if (req.params.id === "hours") {
+      const volunteers = await Volunteer.find();
+      res.send(volunteers);
+    } else {
+      const volunteer =
+        (await Volunteer.findById(req.params.id)) ?? "Volunteer not found";
+      res.send(volunteer);
+    }
   } catch (error) {
     res.status(500).send(error.message);
     console.log(`error is ${error.message}`);
@@ -105,6 +111,13 @@ router.post(
         //   message: "Volunteer array already contains user for this event",
         // };
       }
+
+      // update volunteer hours
+      const hours =
+        Math.round((Math.abs(event.end - event.start) / 36e5) * 10) / 10;
+      await volunteer.updateOne({
+        $inc: { hours },
+      });
       res.json(volunteer);
     } catch (error) {
       res.status(500).send(error.message);
