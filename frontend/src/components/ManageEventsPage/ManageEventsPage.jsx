@@ -96,7 +96,7 @@ const Toast = styled(Snackbar)`
 
 export default function ManageEventsPage() {
   const location = useLocation();
-  const open = location.state?.open;
+  const [open, setOpen] = useState(location.state?.open ?? false);
 
   const events = useSelector(selectAllEvents);
   const [eventClicked, setClicked] = useState(false);
@@ -104,14 +104,12 @@ export default function ManageEventsPage() {
   if (eventClicked === false) {
     return (
       <div>
-        {open ? (
-          <Toast
-            open={open}
-            autoHideDuration={6000}
-            message="Action Completed!"
-            // onClose={setOpen(false)}
-          />
-        ) : null}
+        <Toast
+          open={open}
+          autoHideDuration={6000}
+          message="Action Completed!"
+          onClose={() => setOpen(false)}
+        />
         <FullPage>
           <LeftContainer>
             <Title> Manage Events </Title>
