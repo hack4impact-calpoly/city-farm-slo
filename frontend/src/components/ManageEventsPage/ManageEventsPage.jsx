@@ -3,8 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Snackbar from "@mui/material/Snackbar";
-// import IconButton from "@mui/material/IconButton";
-// import CloseIcon from "@mui/icons-material/Close";
 import Calendar from "../UserSignUp/Calendar";
 import returnImg from "./return.png";
 

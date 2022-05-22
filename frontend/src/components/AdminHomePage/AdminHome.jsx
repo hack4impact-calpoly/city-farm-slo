@@ -148,8 +148,6 @@ const MenuButton = styled.div`
 
 export default function AdminHome() {
   const events = useSelector(selectAllEvents);
-  // lifted state for toast component
-  // const [open, setOpen] = useState(false);
 
   return (
     <div>
