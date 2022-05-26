@@ -502,7 +502,7 @@ export default function EditEvent() {
               variant="contained"
               disabled={!formState.isValid}
             >
-              Add
+              Confirm Edits
             </StyledButton>
           </Row>
         </RightContainer>
