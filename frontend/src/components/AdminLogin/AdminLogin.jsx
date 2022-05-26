@@ -152,7 +152,7 @@ export default function AdminLogin() {
 
   const onSubmit = (values) => {
     const { password } = values;
-    fetch("/admin/login", {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -190,9 +190,12 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
 
   const signWaiver = () => {
     const parentName = isAdult ? "" : `?parentName=${parent}`;
-    fetch(`/volunteer/${user._id}/signWaiver${parentName}`, {
-      method: "PUT",
-    });
+    fetch(
+      `${process.env.REACT_APP_SERVER_URL}/volunteer/${user._id}/signWaiver${parentName}`,
+      {
+        method: "PUT",
+      }
+    );
     sendEmail(user);
   };
 

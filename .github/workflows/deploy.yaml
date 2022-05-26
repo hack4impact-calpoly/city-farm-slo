@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - main
+      - deployment
 
 jobs:
   deploy:
@@ -18,12 +19,12 @@ jobs:
           aws-region: us-west-1
 
       - id: backend-deployment
-        uses: Zimboboys/express-deployment-aws@v0.1.0
+        uses: hack4impact-calpoly/express-deployment-aws@v0.1.0
         with:
-          s3-bucket: "example-api-deployment"
-          stack-name: "example-api-deployment-stack"
+          s3-bucket: "city-farm-slo-api"
+          stack-name: "city-farm-slo-api-stack"
         env:
-          CONNECTION_URL: ${{ secrets.DATABASE_URL }}
+          CONNECTION_URL: ${{ secrets.CONNECTION_URL }}
           EMAIL_SERVICE: ${{ secrets.EMAIL_SERVICE }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
