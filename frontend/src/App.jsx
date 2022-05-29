@@ -23,13 +23,13 @@ function App() {
       <Router>
         <div>
           <Switch>
-            <ProtectedRoute path="/admin/add-event">
+            <ProtectedRoute path="/admin/add-event" isAuthenticated={false}>
               <AddEvent />
             </ProtectedRoute>
-            <ProtectedRoute path="/admin/manage-events">
+            <ProtectedRoute path="/admin/manage-events" isAuthenticated={false}>
               <ManageEventsPage />
             </ProtectedRoute>
-            <ProtectedRoute path="/admin">
+            <ProtectedRoute path="/admin" isAuthenticated={false}>
               <AdminHome />
             </ProtectedRoute>
             <Route path="/admin/login">

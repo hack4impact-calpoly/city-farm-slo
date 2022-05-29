@@ -2,9 +2,8 @@ import React from "react";
 import { BrowserRouter as Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
-export default function ProtectedRoute({ children, ...rest }) {
+export default function ProtectedRoute({ isAuthenticated, children, ...rest }) {
   // const auth = useAuth();
-  const isAuthenticated = false;
   return (
     <Route
       // eslint-disable-next-line react/jsx-props-no-spreading
@@ -26,5 +25,6 @@ export default function ProtectedRoute({ children, ...rest }) {
 }
 
 ProtectedRoute.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
   children: PropTypes.element.isRequired,
 };
