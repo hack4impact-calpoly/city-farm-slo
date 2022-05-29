@@ -166,10 +166,7 @@ const StyledButton = styled(Button)`
   z-index: 10;
   text-transform: capitalize;
   box-shadow: none;
-  &:disabled {
-    background-color: #b8b4b4;
-  }
-  &:hover {
+  &:enabled:hover {
     background-color: #0a8a52;
     box-shadow: none;
   }
@@ -210,7 +207,7 @@ export default function AddEvent() {
   const events = useSelector(selectAllEvents);
   const dispatch = useDispatch();
 
-  const { handleSubmit, control, reset, formState, watch } = useForm({
+  const { handleSubmit, control, reset, watch } = useForm({
     mode: "onChange",
     // yup validation here
     resolver: yupResolver(validationSchema),
@@ -306,7 +303,6 @@ export default function AddEvent() {
                     fieldState: { error },
                   }) => (
                     <DatePicker
-                      required
                       value={value}
                       onChange={onChange}
                       renderInput={(params) => (
@@ -448,7 +444,7 @@ export default function AddEvent() {
                 <Text3
                   variant="filled"
                   multiline
-                  rows="4"
+                  maxRows="4"
                   value={value}
                   onChange={onChange}
                   helperText={error ? error.message : null}
@@ -458,11 +454,7 @@ export default function AddEvent() {
             />
           </ColStack>
           <Row>
-            <StyledButton
-              type="submit"
-              variant="contained"
-              disabled={!formState.isValid}
-            >
+            <StyledButton type="submit" variant="contained" color="primary">
               Add
             </StyledButton>
             {/* Temporary div for event card */}
