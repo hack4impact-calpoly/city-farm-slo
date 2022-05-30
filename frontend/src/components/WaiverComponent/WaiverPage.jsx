@@ -50,6 +50,7 @@ const WaiverPageWrapper = styled.div`
 `;
 
 const BackGround = styled.div`
+  // height: 92vh;
   background: #003c45;
   border-radius: 80px;
   padding: 20px;
@@ -77,7 +78,7 @@ const WaiverFormWrapper = styled.div`
 const WaiverFormLeftWrapper = styled.div`
   margin-top: -17%;
   width: fit-content;
-  height: 100%;
+  height: 80%;
   @media (max-width: 1300px) {
     background: grey;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
@@ -169,7 +170,7 @@ const RegisterButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 350px;
+  width: 315px;
   max-height: 173px;
   color: #ffffff;
   background: #c4c4c4;
@@ -183,6 +184,11 @@ const RegisterButton = styled.div`
 const WaiverExplanation = styled.p`
   color: white;
   margin-right: 10%;
+`;
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 export default function WaiverPage({ user, isAdult, sendEmail }) {
@@ -229,30 +235,32 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
           </WaiverFormLeftWrapper>
           <WaiverFormRightWrapper>
             <AgreementSection>
-              <AgreementText>
-                Click here to indicate that you have read and <br /> agree to
-                the terms of the City Farm SLO <br /> Volunteer Agreement
-              </AgreementText>
-              {/* Checkbox for City Farm SLO Volunteer Agreement */}
-              <Radio
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "transparent",
-                    "@media (hover: none)": {
+              <Row>
+                <AgreementText>
+                  Click here to indicate that you have read and <br /> agree to
+                  the terms of the City Farm SLO <br /> Volunteer Agreement
+                </AgreementText>
+                {/* Checkbox for City Farm SLO Volunteer Agreement */}
+                <Radio
+                  sx={{
+                    "&:hover": {
                       backgroundColor: "transparent",
+                      "@media (hover: none)": {
+                        backgroundColor: "transparent",
+                      },
                     },
-                  },
-                  paddingRight: "485px",
-                  color: "white",
-                  "&.Mui-checked": {
+                    paddingRight: "35px",
                     color: "white",
-                    transitionDuration: "0s !important",
-                  },
-                }}
-                checked={checked === true}
-                onClick={handleChange1}
-                name="radio-buttons"
-              />
+                    "&.Mui-checked": {
+                      color: "white",
+                      transitionDuration: "0s !important",
+                    },
+                  }}
+                  checked={checked === true}
+                  onClick={handleChange1}
+                  name="radio-buttons"
+                />
+              </Row>
               <AgreementText>Print your name</AgreementText>
               {/* Added text field here */}
               <TextField
@@ -305,7 +313,7 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
             </RegistrationLink>
             <WaiverExplanation>
               Waiver signage is required for first time volunteers. <br /> This
-              will not have to be done nextime.{" "}
+              will not have to be done nex time.{" "}
             </WaiverExplanation>
           </WaiverFormRightWrapper>
         </WaiverFormWrapper>

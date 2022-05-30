@@ -133,6 +133,7 @@ const AdminLoginButton = styled(Link)`
   font-size: 36px;
   text-decoration: none;
   padding: 15px;
+  z-index: 1;
 `;
 
 export default function Home() {
