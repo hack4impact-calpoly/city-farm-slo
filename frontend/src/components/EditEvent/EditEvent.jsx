@@ -14,7 +14,7 @@ import Calendar from "../UserSignUp/Calendar";
 // import EventCard from "../UserSignUp/EventCard";
 import returnImg from "../ManageEventsPage/return.png";
 
-// import { addEvent } from "../../redux/reducers/event";
+import { editEvent, deleteEvent } from "../../redux/reducers/event";
 import { selectAllEvents, selectEvent } from "../../redux/selectors/event";
 import { setSelected } from "../../redux/slices/event";
 
@@ -217,6 +217,36 @@ export default function EditEvent() {
     // yup validation here
   });
 
+  // updated new event state with combined date and start/end times to match backend schema
+  const updateNewEvent = async (values) =>
+    // async function to reduce input lag
+    new Promise((resolve) => {
+      const event = {
+        ...values,
+        start: new Date(
+          `${values.date.toDateString()} ${values.startTime.toTimeString()}`
+        ),
+        end: new Date(
+          `${values.date.toDateString()} ${values.endTime.toTimeString()}`
+        ),
+        volunteers: [],
+      };
+      resolve(event);
+    });
+
+  const onEdit = async (values) => {
+    const event = await updateNewEvent(values);
+    console.log(event);
+    dispatch(editEvent(event));
+    reset();
+    history.push("admin/manage-events");
+  };
+
+  const onDelete = (values) => {
+    dispatch(deleteEvent(values));
+    history.push("admin/manage-events");
+  };
+
   useEffect(() => {
     // add fields to match event to form fields
     reset({
@@ -226,46 +256,6 @@ export default function EditEvent() {
       endTime: selected ? selected.end : null,
     });
   }, [selected]);
-
-  //   const [newEvent, setNewEvent] = useState({
-  //     title: "",
-  //     location: "",
-  //     start: new Date(),
-  //     end: new Date(),
-  //     slots: 0,
-  //     notes: "",
-  //     volunteers: [],
-  //   });
-
-  // updated new event state with combined date and start/end times to match backend schema
-  //   const updateNewEvent = async (values) =>
-  //     // async function to reduce input lag
-  //     new Promise((resolve) => {
-  //       const event = {
-  //         ...values,
-  //         start: new Date(
-  //           `${values.date.toDateString()} ${values.startTime.toTimeString()}`
-  //         ),
-  //         end: new Date(
-  //           `${values.date.toDateString()} ${values.endTime.toTimeString()}`
-  //         ),
-  //         volunteers: [],
-  //       };
-  //       setNewEvent(event);
-  //       resolve(event);
-  //     });
-
-  //   useEffect(() => {
-  //     updateNewEvent(watch());
-  //   }, [JSON.stringify(watch())]);
-
-  const onSubmit = async () => {
-    // const onSubmit = async (values) => {
-    // const event = await updateNewEvent(values);
-    // dispatch(addEvent(event));
-    reset();
-    history.push("admin/manage-events");
-  };
 
   if (eventClicked === false) {
     return (
@@ -306,7 +296,7 @@ export default function EditEvent() {
             />
           </CalendarWrapper>
         </LeftContainer>
-        <RightContainer onSubmit={handleSubmit(onSubmit)}>
+        <RightContainer>
           <ReturnContainer>
             <Link to="/admin/manage-events">
               <img src={returnImg} alt="return" />
@@ -495,18 +485,18 @@ export default function EditEvent() {
           </ColStack>
           <Row>
             <StyledButton2
-              type="submit"
               variant="contained"
               disabled={!formState.isValid}
+              onClick={handleSubmit(onDelete)}
             >
               Remove Event
             </StyledButton2>
             {/* Temporary div for event card */}
             {/* <EventCard event={newEvent} /> */}
             <StyledButton
-              type="submit"
               variant="contained"
               disabled={!formState.isValid}
+              onClick={handleSubmit(onEdit)}
             >
               Confirm Edits
             </StyledButton>

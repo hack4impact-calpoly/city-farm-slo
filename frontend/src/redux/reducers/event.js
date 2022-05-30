@@ -35,8 +35,8 @@ const addEvent = (event) => async (dispatch) => {
 };
 
 const editEvent = (event) => async (dispatch) => {
-  fetch(`${process.env.REACT_APP_SERVER_URL}/events/edit`, {
-    method: "PUT",
+  fetch(`${process.env.REACT_APP_SERVER_URL}/events/edit/${event._id}`, {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
