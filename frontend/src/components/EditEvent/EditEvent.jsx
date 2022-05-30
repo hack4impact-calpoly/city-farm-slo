@@ -218,7 +218,13 @@ export default function EditEvent() {
   });
 
   useEffect(() => {
-    reset(selected);
+    // add fields to match event to form fields
+    reset({
+      ...selected,
+      date: selected ? selected.start : null,
+      startTime: selected ? selected.start : null,
+      endTime: selected ? selected.end : null,
+    });
   }, [selected]);
 
   //   const [newEvent, setNewEvent] = useState({
