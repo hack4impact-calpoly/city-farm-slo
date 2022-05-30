@@ -1,30 +1,25 @@
 import React from "react";
 import { BrowserRouter as Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
+// eslint-disable-next-line no-unused-vars
+import ManageEventsPage from "../ManageEventsPage/ManageEventsPage";
 
-export default function ProtectedRoute({ isAuthenticated, children, ...rest }) {
-  // const auth = useAuth();
+// eslint-disable-next-line no-unused-vars
+export default function ProtectedRoute({ isAuthenticated, component, path }) {
+  if (!isAuthenticated) {
+    return <Redirect to="/admin/login" />;
+  }
+
   return (
-    <Route
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...rest}
-      render={({ location }) =>
-        isAuthenticated ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/admin/login",
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
+    <Route path={path}>
+      {console.log({ component })}
+      {/* <ManageEventsPage /> */}
+    </Route>
   );
 }
 
 ProtectedRoute.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  children: PropTypes.element.isRequired,
+  component: PropTypes.func.isRequired,
+  path: PropTypes.string.isRequired,
 };

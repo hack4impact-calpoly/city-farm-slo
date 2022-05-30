@@ -23,18 +23,26 @@ function App() {
       <Router>
         <div>
           <Switch>
-            <ProtectedRoute path="/admin/add-event" isAuthenticated={false}>
+            <ProtectedRoute
+              component={AddEvent}
+              path="/admin/add-event"
+              isAuthenticated
+            >
               <AddEvent />
             </ProtectedRoute>
-            <ProtectedRoute path="/admin/manage-events" isAuthenticated={false}>
+            <ProtectedRoute
+              component={ManageEventsPage}
+              path="/admin/manage-events"
+              isAuthenticated={false}
+            >
               <ManageEventsPage />
-            </ProtectedRoute>
-            <ProtectedRoute path="/admin" isAuthenticated={false}>
-              <AdminHome />
             </ProtectedRoute>
             <Route path="/admin/login">
               <AdminLogin />
             </Route>
+            <ProtectedRoute component={AdminHome} path="/admin" isAuthenticated>
+              <AdminHome />
+            </ProtectedRoute>
             <Route path="/">
               <Home />
             </Route>
