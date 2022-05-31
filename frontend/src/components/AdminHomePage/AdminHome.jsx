@@ -159,7 +159,9 @@ export default function AdminHome() {
             <MenuButton1>Manage Events</MenuButton1>
           </Link>
           <MenuButton>Send Emails</MenuButton>
-          <MenuButton>Volunteer Database</MenuButton>
+          <Link to="/admin/volunteer-db" style={linkStyle}>
+            <MenuButton>Volunteer Database</MenuButton>
+          </Link>
           <PlantContainer>
             <Flower src={flower} alt="Flower" />
           </PlantContainer>

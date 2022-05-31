@@ -8,6 +8,7 @@ import ManageEventsPage from "./components/ManageEventsPage/ManageEventsPage";
 import AddEvent from "./components/AddEvent/AddEvent";
 import { fetchEvents } from "./redux/reducers/event";
 import AdminLogin from "./components/AdminLogin/AdminLogin";
+import VolunteerDatabase from "./components/VolunteerDatabase/VolunteerDatabase";
 
 function App() {
   // call fetchEvents
@@ -26,6 +27,9 @@ function App() {
             </Route>
             <Route path="/admin/manage-events">
               <ManageEventsPage />
+            </Route>
+            <Route path="/admin/volunteer-db">
+              <VolunteerDatabase />
             </Route>
             <Route path="/admin/login">
               <AdminLogin />
