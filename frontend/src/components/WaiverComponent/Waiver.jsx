@@ -8,11 +8,16 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pd
 const InnerWaiver = styled.div`
   padding-bottom: 10px;
   border: 10px;
+  height: 80vh;
+  margin-top: 150px;
   overflow-x: scroll;
   overflow-y: scroll;
-  transform: scale(0.85);
+  transform: scale(0.75);
   @media (max-width: 1300px) {
     padding: unset;
+  }
+  .react-pdf__Page__canvas {
+    height: 90% !important;
   }
 `;
 

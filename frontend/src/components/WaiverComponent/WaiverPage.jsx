@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Radio } from "@mui/material";
-import { TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 import Waiver from "./Waiver";
 
 // override MUI styles for TextField component
@@ -50,6 +53,7 @@ const WaiverPageWrapper = styled.div`
 `;
 
 const BackGround = styled.div`
+  // height: 92vh;
   background: #003c45;
   border-radius: 80px;
   padding: 20px;
@@ -77,7 +81,7 @@ const WaiverFormWrapper = styled.div`
 const WaiverFormLeftWrapper = styled.div`
   margin-top: -17%;
   width: fit-content;
-  height: 100%;
+  height: 80%;
   @media (max-width: 1300px) {
     background: grey;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
@@ -107,7 +111,7 @@ const WaiverFormLeftWrapper = styled.div`
   }
 `;
 
-const WaiverFormRightWrapper = styled.div`
+const WaiverFormRightWrapper = styled.form`
   padding-top: 60px;
   display: flex;
   flex-direction: column;
@@ -161,23 +165,34 @@ const AgreementText = styled.p`
   font-size: 15px;
 `;
 
-const RegistrationLink = styled(Link)`
-  text-decoration: none;
-`;
-
-const RegisterButton = styled.div`
+const RegisterButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 350px;
+  width: 315px;
   max-height: 173px;
-  color: #ffffff;
-  background: #c4c4c4;
+  background-color: #0ba360;
   border-radius: 30px;
+  font-family: "Urbanist", sans-serif;
   font-size: 42px;
-  font-weight: bold;
+  font-weight: 800;
+  text-transform: capitalize;
   padding: 10px;
   margin-top: 6%;
+  box-shadow: none;
+  &:disabled {
+    color: #ffffff;
+    background-color: #b8b4b4;
+    cursor: default;
+  }
+  &:enabled:hover {
+    background-color: #0a8a52;
+    box-shadow: none;
+  }
+  &:focus {
+    background-color: #0cb069;
+    box-shadow: none;
+  }
 `;
 
 const WaiverExplanation = styled.p`
@@ -185,7 +200,32 @@ const WaiverExplanation = styled.p`
   margin-right: 10%;
 `;
 
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 export default function WaiverPage({ user, isAdult, sendEmail }) {
+  const history = useHistory();
+
+  const validationSchemaAdult = Yup.object().shape({
+    checkbox: Yup.boolean().required("Required field"),
+    name: Yup.string().required("Required field"),
+  });
+
+  const validationSchemaChild = Yup.object().shape({
+    checkbox: Yup.boolean().required("Required field"),
+    name: Yup.string().required("Required field"),
+    parent: Yup.string().required("Required field"),
+  });
+
+  const { handleSubmit, control, reset, formState } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(
+      isAdult ? validationSchemaAdult : validationSchemaChild
+    ),
+  });
+
   const [parent, setParent] = useState("");
 
   const signWaiver = () => {
@@ -196,7 +236,9 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
         method: "PUT",
       }
     );
+    history.push("/registration-complete");
     sendEmail(user);
+    reset();
   };
 
   const classes = useStyles();
@@ -227,38 +269,72 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
             {/* waiver component goes here */}
             <Waiver />
           </WaiverFormLeftWrapper>
-          <WaiverFormRightWrapper>
+          <WaiverFormRightWrapper onSubmit={handleSubmit(signWaiver)}>
             <AgreementSection>
-              <AgreementText>
-                Click here to indicate that you have read and <br /> agree to
-                the terms of the City Farm SLO <br /> Volunteer Agreement
-              </AgreementText>
-              {/* Checkbox for City Farm SLO Volunteer Agreement */}
-              <Radio
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "transparent",
-                    "@media (hover: none)": {
-                      backgroundColor: "transparent",
-                    },
-                  },
-                  paddingRight: "485px",
-                  color: "white",
-                  "&.Mui-checked": {
-                    color: "white",
-                    transitionDuration: "0s !important",
-                  },
-                }}
-                checked={checked === true}
-                onClick={handleChange1}
-                name="radio-buttons"
-              />
+              <Row>
+                <AgreementText>
+                  Click here to indicate that you have read and <br /> agree to
+                  the terms of the City Farm SLO <br /> Volunteer Agreement
+                </AgreementText>
+                {/* Checkbox for City Farm SLO Volunteer Agreement */}
+                <Controller
+                  key="checkbox"
+                  name="checkbox"
+                  defaultValue="false"
+                  control={control}
+                  render={({
+                    field: { onChange, value },
+                    fieldState: { error },
+                  }) => (
+                    <Radio
+                      required
+                      sx={{
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                          "@media (hover: none)": {
+                            backgroundColor: "transparent",
+                          },
+                        },
+                        paddingRight: "35px",
+                        color: "white",
+                        "&.Mui-checked": {
+                          color: "white",
+                          transitionDuration: "0s !important",
+                        },
+                      }}
+                      checked={checked === true}
+                      onClick={handleChange1}
+                      name="radio-buttons"
+                      value={value}
+                      onChange={onChange}
+                      helperText={error ? error.message : null}
+                      error={!!error}
+                    />
+                  )}
+                />
+              </Row>
               <AgreementText>Print your name</AgreementText>
               {/* Added text field here */}
-              <TextField
-                id="filled-basic"
-                variant="filled"
-                className={classes.root}
+              <Controller
+                key="name"
+                name="name"
+                defaultValue=""
+                control={control}
+                render={({
+                  field: { onChange, value },
+                  fieldState: { error },
+                }) => (
+                  <TextField
+                    required
+                    id="filled-basic"
+                    variant="filled"
+                    className={classes.root}
+                    value={value}
+                    onChange={onChange}
+                    helperText={error ? error.message : null}
+                    error={!!error}
+                  />
+                )}
               />
               {/* Conditional rendering for whether Volunteer isAdult or not */}
               {
@@ -288,24 +364,43 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
               {!isAdult && (
                 <>
                   <AgreementText>Print parental name</AgreementText>
-                  <TextField
-                    id="filled-basic"
-                    variant="filled"
-                    className={classes.root}
-                    value={parent}
-                    onChange={(e) => {
-                      setParent(e.target.value);
-                    }}
+                  <Controller
+                    key="parent"
+                    name="parent"
+                    defaultValue=""
+                    control={control}
+                    render={({
+                      field: { onChange },
+                      fieldState: { error },
+                    }) => (
+                      <TextField
+                        required
+                        id="filled-basic"
+                        variant="filled"
+                        className={classes.root}
+                        value={parent}
+                        onChange={(e) => {
+                          setParent(e.target.value);
+                          onChange(e);
+                        }}
+                        error={!!error}
+                      />
+                    )}
                   />
                 </>
               )}
             </AgreementSection>
-            <RegistrationLink to="/registration-complete">
-              <RegisterButton onClick={signWaiver}>Register</RegisterButton>
-            </RegistrationLink>
+            <RegisterButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={!formState.isValid}
+            >
+              Register
+            </RegisterButton>
             <WaiverExplanation>
               Waiver signage is required for first time volunteers. <br /> This
-              will not have to be done nextime.{" "}
+              will not have to be done nex time.{" "}
             </WaiverExplanation>
           </WaiverFormRightWrapper>
         </WaiverFormWrapper>
