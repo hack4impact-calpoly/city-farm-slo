@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { StylesProvider } from "@material-ui/core/styles";
@@ -8,6 +9,7 @@ import ManageEventsPage from "./components/ManageEventsPage/ManageEventsPage";
 import AddEvent from "./components/AddEvent/AddEvent";
 import { fetchEvents } from "./redux/reducers/event";
 import AdminLogin from "./components/AdminLogin/AdminLogin";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
   // call fetchEvents
@@ -21,18 +23,26 @@ function App() {
       <Router>
         <div>
           <Switch>
-            <Route path="/admin/add-event">
+            <ProtectedRoute
+              component={AddEvent}
+              path="/admin/add-event"
+              isAuthenticated
+            >
               <AddEvent />
-            </Route>
-            <Route path="/admin/manage-events">
+            </ProtectedRoute>
+            <ProtectedRoute
+              component={ManageEventsPage}
+              path="/admin/manage-events"
+              isAuthenticated={false}
+            >
               <ManageEventsPage />
-            </Route>
+            </ProtectedRoute>
             <Route path="/admin/login">
               <AdminLogin />
             </Route>
-            <Route path="/admin">
+            <ProtectedRoute component={AdminHome} path="/admin" isAuthenticated>
               <AdminHome />
-            </Route>
+            </ProtectedRoute>
             <Route path="/">
               <Home />
             </Route>
