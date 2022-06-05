@@ -16,7 +16,7 @@ const EventCardWrapper = styled.div`
   margin-right: auto;
 `;
 
-const Header = styled.h1`
+const Header = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
