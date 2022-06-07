@@ -351,7 +351,7 @@ export default function SignUpForm({
               {rEntries.map((row) => (
                 <Row>
                   {row.map((entry) => (
-                    <FieldWrapper>
+                    <FieldWrapper key={entry.name}>
                       <Controller
                         className={classes.box}
                         key={entry.name}
