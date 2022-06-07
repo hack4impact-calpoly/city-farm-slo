@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import PropTypes from "prop-types";
 import farm from "./farm-bg.png";
 import logo from "./logo.svg";
 import flower from "./flower-2-bg.png";
@@ -139,7 +140,7 @@ const Flower = styled.img`
   z-index: 0;
 `;
 
-export default function AdminLogin() {
+export default function AdminLogin({ setAuthenticated }) {
   const history = useHistory();
 
   const validationSchema = Yup.object().shape({
@@ -162,8 +163,10 @@ export default function AdminLogin() {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          setAuthenticated(true);
           history.push("/admin");
         } else {
+          setAuthenticated(false);
           setError("password", {
             message: "Wrong password. Contact administrator for help.",
           });
@@ -230,3 +233,7 @@ export default function AdminLogin() {
     </div>
   );
 }
+
+AdminLogin.propTypes = {
+  setAuthenticated: PropTypes.func.isRequired,
+};

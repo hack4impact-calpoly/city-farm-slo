@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { StylesProvider } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
@@ -12,6 +12,8 @@ import AdminLogin from "./components/AdminLogin/AdminLogin";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
+  const [isAuthenticated, setAuthenticated] = useState(false);
+
   // call fetchEvents
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,29 +25,30 @@ function App() {
       <Router>
         <div>
           <Switch>
+            {/* protected routes */}
             <ProtectedRoute
-              component={AddEvent}
+              exact
               path="/admin/add-event"
-              isAuthenticated
-            >
-              <AddEvent />
-            </ProtectedRoute>
+              component={AddEvent}
+              isAuthenticated={isAuthenticated}
+            />
             <ProtectedRoute
-              component={ManageEventsPage}
+              exact
               path="/admin/manage-events"
-              isAuthenticated={false}
-            >
-              <ManageEventsPage />
-            </ProtectedRoute>
-            <Route path="/admin/login">
-              <AdminLogin />
+              component={ManageEventsPage}
+              isAuthenticated={isAuthenticated}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin"
+              component={AdminHome}
+              isAuthenticated={isAuthenticated}
+            />
+            {/* public routes */}
+            <Route exact path="/admin/login">
+              <AdminLogin setAuthenticated={setAuthenticated} />
             </Route>
-            <ProtectedRoute component={AdminHome} path="/admin" isAuthenticated>
-              <AdminHome />
-            </ProtectedRoute>
-            <Route path="/">
-              <Home />
-            </Route>
+            <Route exact path="/" component={Home} />
           </Switch>
         </div>
       </Router>
