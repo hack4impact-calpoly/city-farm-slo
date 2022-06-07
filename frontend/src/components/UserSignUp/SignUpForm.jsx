@@ -9,6 +9,7 @@ import styled from "styled-components";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
+import isEmailValidator from "validator/lib/isEmail";
 import EventCard from "./EventCard";
 import { registerReducer } from "../../redux/slices/event";
 
@@ -261,12 +262,27 @@ export default function SignUpForm({
   // --- End unimplimented code ---
 
   // validation
-  const phoneRegExp = /^$|^\d{10}$/;
+  const phoneRegex = /^$|^\d{10}$/;
+  const emailRegex =
+    // eslint-disable-next-line no-useless-escape
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("Required field"),
     lastName: Yup.string().required("Required field"),
-    email: Yup.string().required("Required field").email("Invalid format"),
-    phone: Yup.string().matches(phoneRegExp, "Use 10 digits only"),
+    email: Yup.string()
+      .email("Invalid format")
+      .required("Required field")
+      .matches(emailRegex, "Invalid format")
+      .test(
+        "is-valid",
+        (message) => `${message.path} is invalid`,
+        (value) =>
+          value
+            ? isEmailValidator(value)
+            : new Yup.ValidationError("Invalid format")
+      ),
+    phone: Yup.string().matches(phoneRegex, "Use 10 digits only"),
   });
   const { handleSubmit, control, reset } = useForm({
     mode: "onChange",
