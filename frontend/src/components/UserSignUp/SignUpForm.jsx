@@ -364,13 +364,14 @@ export default function SignUpForm({
           <PopupTitle>Sign Up</PopupTitle>
           <form onSubmit={handleSubmit(onSubmit)}>
             <RowWrapper>
-              {rEntries.map((row) => (
-                <Row>
+              {rEntries.map((row, i) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <Row key={`row-${i}`}>
                   {row.map((entry) => (
                     <FieldWrapper key={entry.name}>
                       <Controller
+                        key={`${entry.name}-controller`}
                         className={classes.box}
-                        key={entry.name}
                         name={entry.name}
                         defaultValue=""
                         control={control}
@@ -378,8 +379,9 @@ export default function SignUpForm({
                           field: { onChange, value },
                           fieldState: { error },
                         }) => (
-                          <Box m={2}>
+                          <Box key={`${entry.name}-box`} m={2}>
                             <TextField
+                              key={`${entry.name}-textfield`}
                               required={entry.required}
                               fullWidth
                               InputProps={{
