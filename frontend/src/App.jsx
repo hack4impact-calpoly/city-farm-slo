@@ -6,6 +6,7 @@ import Home from "./components/HomePage/home";
 import AdminHome from "./components/AdminHomePage/AdminHome";
 import ManageEventsPage from "./components/ManageEventsPage/ManageEventsPage";
 import AddEvent from "./components/AddEvent/AddEvent";
+import EditEvent from "./components/EditEvent/EditEvent";
 import { fetchEvents } from "./redux/reducers/event";
 import AdminLogin from "./components/AdminLogin/AdminLogin";
 import VolunteerDatabase from "./components/VolunteerDatabase/VolunteerDatabase";
@@ -24,6 +25,9 @@ function App() {
           <Switch>
             <Route path="/admin/add-event">
               <AddEvent />
+            </Route>
+            <Route path="/admin/edit-event">
+              <EditEvent />
             </Route>
             <Route path="/admin/manage-events">
               <ManageEventsPage />

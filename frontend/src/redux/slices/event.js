@@ -23,11 +23,11 @@ export const eventsSlice = createSlice({
       state.events = newArray;
     },
     editEventReducer: (state, action) => {
-      const idx = state.events.findIndex((e) => e.id === action.payload.id);
+      const idx = state.events.findIndex((e) => e._id === action.payload._id);
       state.events[idx] = action.payload;
     },
     deleteEventReducer: (state, action) => {
-      const newArray = state.events.filter((e) => e.id !== action.payload.id);
+      const newArray = state.events.filter((e) => e._id !== action.payload._id);
       state.events = newArray;
     },
     registerReducer: (state) => {

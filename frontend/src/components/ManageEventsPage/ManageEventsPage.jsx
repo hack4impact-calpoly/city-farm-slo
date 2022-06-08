@@ -124,7 +124,9 @@ export default function ManageEventsPage() {
             <Link to="/admin/add-event">
               <Button> Add Event </Button>
             </Link>
-            <Button>Edit and remove events</Button>
+            <Link to="/admin/edit-event" style={linkStyle}>
+              <Button>Edit and remove events</Button>
+            </Link>
           </RightContainer>
         </FullPage>
       </div>
@@ -147,7 +149,9 @@ export default function ManageEventsPage() {
             <Link to="/admin/add-event" style={linkStyle}>
               <Button> Add Event </Button>
             </Link>
-            <Button>Edit and remove events</Button>
+            <Link to="/admin/edit-event" style={linkStyle}>
+              <Button>Edit and remove events</Button>
+            </Link>
           </RightContainer>
         </FullPage>
       </div>
