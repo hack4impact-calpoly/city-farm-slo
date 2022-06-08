@@ -149,7 +149,7 @@ export default function VolunteerDatabase() {
               headers={csvHeaders}
               filename={`Volunteers_${
                 selected ? selected.title.replace(/ /g, "_") : "All"
-              }`}
+              }.csv`}
             >
               <Button variant="contained">Export</Button>
             </CSVLink>
