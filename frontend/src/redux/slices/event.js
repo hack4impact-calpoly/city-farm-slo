@@ -36,7 +36,7 @@ export const eventsSlice = createSlice({
         "NEW_USER",
       ];
       const selectedIdx = state.events.findIndex(
-        (e) => e.id === state.selectedEvent.id
+        (e) => e._id === state.selectedEvent._id
       );
       state.events[selectedIdx] = state.selectedEvent;
     },
