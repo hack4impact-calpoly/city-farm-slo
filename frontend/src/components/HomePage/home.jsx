@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { React, useState } from "react";
 import { Switch, Route, Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +20,7 @@ const Title1 = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  padding: 15px 15px;
+  padding: 15px 15px 0px 0px;
   font-weight: 900;
   font-size: 36px;
 `;
@@ -28,7 +29,7 @@ const Title2 = styled.div`
   color: #003c45;
   font-weight: 900;
   font-size: 42px;
-  padding-bottom: 30px;
+  padding-bottom: 15px;
 `;
 
 const Header = styled.div`
@@ -42,9 +43,9 @@ const FullPage = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  min-width: 1500px;
-  overflow-x: scroll;
-  overflow-y: scroll;
+  min-width: 1440px;
+  padding: 0;
+  margin: 0;
 `;
 
 const FullPage2 = styled.div`
@@ -53,8 +54,6 @@ const FullPage2 = styled.div`
   flex-direction: row;
   height: 100vh;
   min-width: 1500px;
-  overflow-x: scroll;
-  overflow-y: scroll;
 `;
 
 const CalendarWrapper = styled.div`
@@ -132,7 +131,7 @@ const AdminLoginButton = styled(Link)`
   font-weight: 900;
   font-size: 36px;
   text-decoration: none;
-  padding: 15px;
+  padding: 10px 20px;
   z-index: 1;
 `;
 
@@ -213,10 +212,13 @@ export default function Home() {
       <FullPage2>
         <LeftContainer>
           <EventCard event={selected} />
-          {selected.slots > selected.volunteers.length ? (
+          {selected.slots > selected.volunteers.length &&
+          selected.start > new Date() ? (
             <Register enabled onClick={onRegister}>
               Register
             </Register>
+          ) : selected.start < new Date() ? (
+            <Register>Event Passed</Register>
           ) : (
             <Register>Event Full</Register>
           )}

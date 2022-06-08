@@ -49,7 +49,7 @@ export default function Calendar({ events, setClicked }) {
 }
 
 Calendar.propTypes = {
-  events: PropTypes.arrayOf({}).isRequired,
+  events: PropTypes.instanceOf(Array).isRequired,
   setClicked: PropTypes.func,
 };
 
