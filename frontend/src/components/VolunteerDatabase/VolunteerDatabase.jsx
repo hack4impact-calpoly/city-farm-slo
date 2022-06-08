@@ -12,6 +12,7 @@ import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { CSVLink } from "react-csv";
 import { selectAllEvents, selectEvent } from "../../redux/selectors/event";
 import { setSelected } from "../../redux/slices/event";
 import Calendar from "../UserSignUp/Calendar";
@@ -71,6 +72,14 @@ const EmailText = styled.a`
   color: inherit;
   text-decoration: none;
 `;
+
+const csvHeaders = [
+  { label: "First Name", key: "firstName" },
+  { label: "Last Name", key: "lastName" },
+  { label: "Email", key: "email" },
+  { label: "Phone Number", key: "phone" },
+  { label: "Hours", key: "hours" },
+];
 
 export default function VolunteerDatabase() {
   const events = useSelector(selectAllEvents);
@@ -135,7 +144,15 @@ export default function VolunteerDatabase() {
             >
               View All Volunteers
             </Button>
-            <Button variant="contained">Export</Button>
+            <CSVLink
+              data={volunteers.filter(eventFilter)}
+              headers={csvHeaders}
+              filename={`Volunteers_${
+                selected ? selected.title.replace(/ /g, "_") : "All"
+              }.csv`}
+            >
+              <Button variant="contained">Export</Button>
+            </CSVLink>
           </Stack>
         </RightContainer>
       </FullPage>
