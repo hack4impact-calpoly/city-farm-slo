@@ -273,8 +273,8 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
             <AgreementSection>
               <Row>
                 <AgreementText>
-                  Click here to indicate that you have read and <br /> agree to
-                  the terms of the City Farm SLO <br /> Volunteer Agreement
+                  Click here to indicate that you have read and agree to the
+                  terms of the City Farm SLO Volunteer Agreement
                 </AgreementText>
                 {/* Checkbox for City Farm SLO Volunteer Agreement */}
                 <Controller
@@ -394,7 +394,7 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
               type="submit"
               variant="contained"
               color="primary"
-              disabled={!formState.isValid}
+              disabled={!formState.isValid || !checked}
             >
               Register
             </RegisterButton>
