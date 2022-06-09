@@ -1,7 +1,6 @@
 import React from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import styled from "styled-components";
-import releaseWaiver from "./WAIVER FORM 2021.docx.pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -24,7 +23,7 @@ const InnerWaiver = styled.div`
 export default function Waiver() {
   return (
     <InnerWaiver>
-      <Document file={releaseWaiver}>
+      <Document file={`${process.env.PUBLIC_URL}/WAIVER FORM 2021.docx.pdf`}>
         <Page pageNumber={1} />
       </Document>
     </InnerWaiver>
