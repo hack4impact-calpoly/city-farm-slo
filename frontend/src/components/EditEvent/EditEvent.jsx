@@ -235,7 +235,6 @@ export default function EditEvent() {
 
   const onEdit = async (values) => {
     const event = await updateNewEvent(values);
-    console.log(event);
     dispatch(editEvent(event));
     reset();
     history.push("admin/manage-events");

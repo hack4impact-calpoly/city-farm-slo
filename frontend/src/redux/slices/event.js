@@ -1,6 +1,12 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
 
+const getEventWithDate = (event) => ({
+  ...event,
+  start: new Date(event.start),
+  end: new Date(event.end),
+});
+
 // initial state for event slice
 const initialState = {
   events: [],
@@ -19,12 +25,12 @@ export const eventsSlice = createSlice({
       state.selectedEvent = action.payload;
     },
     addEventReducer: (state, action) => {
-      const newArray = [...state.events, action.payload];
+      const newArray = [...state.events, getEventWithDate(action.payload)];
       state.events = newArray;
     },
     editEventReducer: (state, action) => {
       const idx = state.events.findIndex((e) => e._id === action.payload._id);
-      state.events[idx] = action.payload;
+      state.events[idx] = getEventWithDate(action.payload);
     },
     deleteEventReducer: (state, action) => {
       const newArray = state.events.filter((e) => e._id !== action.payload._id);
