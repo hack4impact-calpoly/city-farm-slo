@@ -158,7 +158,6 @@ export default function AdminHome() {
           <Link to="/admin/manage-events" style={linkStyle}>
             <MenuButton1>Manage Events</MenuButton1>
           </Link>
-          <MenuButton>Send Emails</MenuButton>
           <Link to="/admin/volunteer-db" style={linkStyle}>
             <MenuButton>Volunteer Database</MenuButton>
           </Link>
