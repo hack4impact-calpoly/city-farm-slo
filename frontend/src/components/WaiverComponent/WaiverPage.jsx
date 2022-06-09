@@ -400,7 +400,7 @@ export default function WaiverPage({ user, isAdult, sendEmail }) {
             </RegisterButton>
             <WaiverExplanation>
               Waiver signage is required for first time volunteers. <br /> This
-              will not have to be done nex time.{" "}
+              will not have to be done next time.{" "}
             </WaiverExplanation>
           </WaiverFormRightWrapper>
         </WaiverFormWrapper>
