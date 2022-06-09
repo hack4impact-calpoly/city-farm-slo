@@ -40,7 +40,6 @@ const CalendarWrapper = styled.div`
   justify-content: flex-end;
   background-color: #ffffff;
   height: 75vh;
-  width: 100%;
   border-radius: 12px;
 `;
 

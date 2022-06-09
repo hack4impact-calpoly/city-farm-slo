@@ -39,7 +39,6 @@ const CalendarWrapper = styled.div`
   justify-content: flex-end;
   background-color: #ffffff;
   height: 75vh;
-  width: 100%;
   border-radius: 12px;
 `;
 
@@ -236,7 +235,6 @@ export default function EditEvent() {
 
   const onEdit = async (values) => {
     const event = await updateNewEvent(values);
-    console.log(event);
     dispatch(editEvent(event));
     reset();
     history.push("admin/manage-events");
