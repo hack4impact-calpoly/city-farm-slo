@@ -112,23 +112,6 @@ const MenuHeader2 = styled.h1`
   color: #ffffff;
 `;
 
-const MenuButton1 = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 350px;
-  max-height: 173px;
-  color: #ffffff;
-
-  background: #0ba360;
-  border-radius: 5px;
-  font-size: 36px;
-  font-weight: 400;
-  line-height: 43.2px;
-  padding: 10px;
-  margin-top: 20%;
-`;
-
 const MenuButton = styled.div`
   display: flex;
   justify-content: center;
@@ -143,7 +126,7 @@ const MenuButton = styled.div`
   font-weight: 400;
   line-height: 43.2px;
   padding: 10px;
-  margin-top: 2%;
+  margin-top: ${(props) => (props.isFirst ? "110px" : "7px")};
 `;
 
 export default function AdminHome() {
@@ -156,10 +139,13 @@ export default function AdminHome() {
           <MenuHeader1>City Farm SLO</MenuHeader1>
           <MenuHeader2>Admin Page</MenuHeader2>
           <Link to="/admin/manage-events" style={linkStyle}>
-            <MenuButton1>Manage Events</MenuButton1>
+            <MenuButton isFirst>Manage Events</MenuButton>
           </Link>
           <Link to="/admin/volunteer-db" style={linkStyle}>
             <MenuButton>Volunteer Database</MenuButton>
+          </Link>
+          <Link to="/" style={linkStyle}>
+            <MenuButton>Exit</MenuButton>
           </Link>
           <PlantContainer>
             <Flower src={flower} alt="Flower" />

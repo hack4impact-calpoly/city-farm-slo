@@ -143,7 +143,9 @@ export default function ManageEventsPage() {
           </LeftContainer>
           <RightContainer>
             <ReturnContainer>
-              <img src={returnImg} alt="return" />
+              <Link to="/admin">
+                <img src={returnImg} alt="return" />
+              </Link>
             </ReturnContainer>
             <Link to="/admin/add-event" style={linkStyle}>
               <Button> Add Event </Button>
